@@ -1,14 +1,15 @@
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  name: string;
 }
-export default function ModalHeader({ setOpen }: Props) {
+export default function ModalHeader({ setOpen, name }: Props) {
   return (
     <div className="overflow-hidden rounded-lg bg-white transition-all w-full max-w-lg">
       <div className="bg-[#38B82D] px-4 pt-5 pb-7">
         <div className="flex justify-between">
           <div></div>
           <div className="font-pretendard font-extrabold text-[22px] leading-[26px] text-white">
-            Supply
+            {name}
           </div>
           <button
             data-modal-hide="default-modal"

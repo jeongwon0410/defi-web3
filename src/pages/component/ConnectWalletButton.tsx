@@ -1,9 +1,14 @@
 import Link from "next/link";
 
 import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
+import { useEffect } from "react";
 
 export const ConnectWalletButton = () => {
   const { sdk, connected, connecting, account } = useSDK();
+
+  useEffect(() => {
+    localStorage.setItem("account", account ?? "");
+  }, [account]);
 
   const connect = async () => {
     try {

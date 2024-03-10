@@ -5,6 +5,7 @@ interface Props {
   borrow: boolean;
   setSupply: React.Dispatch<React.SetStateAction<boolean>>;
   setBorrow: React.Dispatch<React.SetStateAction<boolean>>;
+  setAllMarket: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Switch({
@@ -12,15 +13,18 @@ export default function Switch({
   borrow,
   setSupply,
   setBorrow,
+  setAllMarket,
 }: Props) {
   const clickSupply = () => {
     setSupply(true);
     setBorrow(false);
+    setAllMarket(false);
   };
 
   const clickBorrow = () => {
     setSupply(false);
     setBorrow(true);
+    setAllMarket(false);
   };
 
   return (

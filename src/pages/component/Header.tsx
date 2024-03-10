@@ -1,6 +1,6 @@
 import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
 import { ConnectWalletButton } from "./ConnectWalletButton";
-import { contract, daiAmountinWei } from "../api/common";
+
 export default function Header() {
   const host =
     typeof window !== "undefined" ? window.location.host : "defaultHost";
@@ -14,16 +14,6 @@ export default function Header() {
     },
   };
 
-  const handleClick = async () => {
-    // await contract.methods
-    //   .deposit("0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", daiAmountinWei, 0)
-    //   .send({ from: "0x3eac6cEd02C4610135376EC4627A8D5433B41a04" })
-    //   .catch((e: any) => {
-    //     throw Error(
-    //       `Error depositing to the LendingPool contract: ${e.message}`
-    //     );
-    //   });
-  };
   return (
     <header className="body-font">
       <div className=" flex flex-wrap p-5 flex-col md:flex-row items-center">
