@@ -57,7 +57,7 @@ export default function Modal({
             <div className="mt-5">
               <ModalMiddle setAmount={setAmount} amount={amount} max={max} />
             </div>
-            {item.name === "Supply" ? (
+            {item && item.name === "Supply" ? (
               <div className="mt-5">
                 <ModalSupplyButton
                   amount={amount}
@@ -65,7 +65,7 @@ export default function Modal({
                   cryptoName={cryptoName}
                 />
               </div>
-            ) : item.name === "Withdraw" ? (
+            ) : item && item.name === "Withdraw" ? (
               <div className="mt-5">
                 <ModalWithdrawButton
                   amount={amount}
@@ -73,7 +73,7 @@ export default function Modal({
                   cryptoName={cryptoName}
                 />
               </div>
-            ) : item.name === "Borrow" ? (
+            ) : item && item.name === "Borrow" ? (
               <div className="mt-5">
                 <ModalBorrowButton
                   amount={amount}
