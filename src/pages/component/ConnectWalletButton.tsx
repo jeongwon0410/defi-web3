@@ -7,8 +7,10 @@ export const ConnectWalletButton = () => {
   const { sdk, connected, connecting, account } = useSDK();
 
   useEffect(() => {
-    localStorage.setItem("account", account ?? "");
-  }, [account]);
+    if (connected) {
+      localStorage.setItem("account", account ?? "");
+    }
+  }, [account, connected]);
 
   const connect = async () => {
     try {

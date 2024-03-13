@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 interface Props {
   tableCol: string[][];
   setOpenSupply: React.Dispatch<React.SetStateAction<boolean>>;

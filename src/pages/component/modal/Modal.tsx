@@ -2,11 +2,15 @@ import ModalMiddle from "./ModalMiddle";
 import ModalHeader from "./ModalHeader";
 import ModalMain from "./ModalMain";
 import ModalTop from "./ModalTop";
-import ModalBottom from "./ModalBottom";
+import ModalSupplyButton from "./ModalSupplyButton";
 import { useState } from "react";
+import ModalBorrowButton from "./ModalBorrowButton";
+import ModalWithdrawButton from "./ModalWithdrawButton";
+import ModalRepayButton from "./ModalRepayButton";
+
 interface item {
   name: string;
-  ratio: string;
+  ratio: number;
 }
 
 interface Content {
@@ -18,10 +22,18 @@ interface Props {
   item: Content;
   cryptoImg: string;
   cryptoName: string;
+  max: number;
 }
 
-export default function Modal({ setOpen, item, cryptoImg, cryptoName }: Props) {
+export default function Modal({
+  setOpen,
+  item,
+  cryptoImg,
+  cryptoName,
+  max,
+}: Props) {
   const [amount, setAmount] = useState("");
+
   return (
     <div
       className="relative z-10"
@@ -43,12 +55,41 @@ export default function Modal({ setOpen, item, cryptoImg, cryptoName }: Props) {
               />
             </div>
             <div className="mt-5">
-              <ModalMiddle setAmount={setAmount} amount={amount} />
+              <ModalMiddle setAmount={setAmount} amount={amount} max={max} />
             </div>
-            <div className="mt-5">
-              <ModalBottom name={item.name} amount={amount} setOpen={setOpen} />
-              {/* <ModalBottom /> */}
-            </div>
+            {item.name === "Supply" ? (
+              <div className="mt-5">
+                <ModalSupplyButton
+                  amount={amount}
+                  setOpen={setOpen}
+                  cryptoName={cryptoName}
+                />
+              </div>
+            ) : item.name === "Withdraw" ? (
+              <div className="mt-5">
+                <ModalWithdrawButton
+                  amount={amount}
+                  setOpen={setOpen}
+                  cryptoName={cryptoName}
+                />
+              </div>
+            ) : item.name === "Borrow" ? (
+              <div className="mt-5">
+                <ModalBorrowButton
+                  amount={amount}
+                  setOpen={setOpen}
+                  cryptoName={cryptoName}
+                />
+              </div>
+            ) : (
+              <div className="mt-5">
+                <ModalRepayButton
+                  amount={amount}
+                  setOpen={setOpen}
+                  cryptoName={cryptoName}
+                />
+              </div>
+            )}
           </ModalMain>
         </div>
       </div>

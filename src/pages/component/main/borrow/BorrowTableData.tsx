@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 interface Props {
   tableCol: string[][];
   setOpenBorrow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,6 +26,7 @@ export default function BorrowTableData({
     setCryptoImg(tableCol[index][0]);
     setOpenRepay(true);
   };
+
   return (
     <>
       {tableCol.map((col: string[], index: number) =>
