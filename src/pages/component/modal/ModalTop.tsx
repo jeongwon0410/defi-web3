@@ -22,12 +22,13 @@ export default function ModalTop({ content, cryptoImg, cryptoName }: Props) {
       </div>
 
       <div className="flex flex-col text-white">
-        {content.map((item, index) => (
-          <div key={index} className="flex justify-between mb-3">
-            <div>{item.name}</div>
-            <div>{item.ratio}</div>
-          </div>
-        ))}
+        {content &&
+          content.map((item, index) => (
+            <div key={index} className="flex justify-between mb-3">
+              <div>{item.name}</div>
+              <div>{item.ratio}</div>
+            </div>
+          ))}
       </div>
     </div>
   );
