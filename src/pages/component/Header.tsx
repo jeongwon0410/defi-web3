@@ -1,5 +1,5 @@
 import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
-import { ConnectWalletButton } from "./main/ConnectWalletButton";
+import ConnectWalletButton from "./ConnectWalletButton";
 
 export default function Header() {
   const host =
