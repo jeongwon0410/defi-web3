@@ -45,11 +45,11 @@ export default function Modal({
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex flex-col h-full w-full justify-center items-center ">
-          <ModalHeader setOpen={setOpen} name={item.name} />
+          <ModalHeader setOpen={setOpen} name={item && item.name} />
           <ModalMain>
             <div>
               <ModalTop
-                content={item.content}
+                content={item && item.content}
                 cryptoImg={cryptoImg}
                 cryptoName={cryptoName}
               />
