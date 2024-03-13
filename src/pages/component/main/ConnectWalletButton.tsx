@@ -1,32 +1,32 @@
-// import { useSDK } from "@metamask/sdk-react";
-// import { useEffect } from "react";
+import { useSDK } from "@metamask/sdk-react";
+import { useEffect } from "react";
 
 export const ConnectWalletButton = () => {
-  // const { sdk, connected, connecting, account } = useSDK();
+  const { sdk, connected, connecting, account } = useSDK();
 
-  // useEffect(() => {
-  //   if (connected) {
-  //     localStorage.setItem("account", account ?? "");
-  //   }
-  // }, [account, connected]);
+  useEffect(() => {
+    if (connected) {
+      localStorage.setItem("account", account ?? "");
+    }
+  }, [account, connected]);
 
-  // const connect = async () => {
-  //   try {
-  //     await sdk?.connect();
-  //   } catch (err) {
-  //     console.warn(`No accounts found`, err);
-  //   }
-  // };
+  const connect = async () => {
+    try {
+      await sdk?.connect();
+    } catch (err) {
+      console.warn(`No accounts found`, err);
+    }
+  };
 
-  // const disconnect = () => {
-  //   if (sdk) {
-  //     sdk.terminate();
-  //   }
-  // };
+  const disconnect = () => {
+    if (sdk) {
+      sdk.terminate();
+    }
+  };
 
   return (
     <div className="relative">
-      {/* {connected ? (
+      {connected ? (
         <button
           className="items-center py-2 px-5 rounded-full bg-[#252a39] mr-4"
           onClick={disconnect}
@@ -47,7 +47,7 @@ export const ConnectWalletButton = () => {
             connect wallet
           </div>
         </button>
-      )} */}
+      )}
     </div>
   );
 };
