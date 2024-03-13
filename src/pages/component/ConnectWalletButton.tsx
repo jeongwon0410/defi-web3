@@ -1,6 +1,4 @@
-import Link from "next/link";
-
-import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
+import { useSDK } from "@metamask/sdk-react";
 import { useEffect } from "react";
 
 export const ConnectWalletButton = () => {
