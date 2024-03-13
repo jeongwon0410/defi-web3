@@ -1,7 +1,7 @@
 import { useSDK } from "@metamask/sdk-react";
 import { useEffect } from "react";
 
-export const ConnectWalletButton = () => {
+export default function ConnectWalletButton() {
   const { sdk, connected, connecting, account } = useSDK();
 
   useEffect(() => {
@@ -50,4 +50,4 @@ export const ConnectWalletButton = () => {
       )}
     </div>
   );
-};
+}
