@@ -10,7 +10,6 @@ import {
 } from "@/pages/api/approve";
 import {
   dai_address,
-  lendingpool_contract,
   name,
   pool_contract,
   usdc_address,
