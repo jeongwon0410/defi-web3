@@ -2,15 +2,15 @@ import ModalMiddle from "./ModalMiddle";
 import ModalHeader from "./ModalHeader";
 import ModalMain from "./ModalMain";
 import ModalTop from "./ModalTop";
-import ModalSupplyButton from "./ModalSupplyButton";
+import ModalSupplyButton from "./button/ModalSupplyButton";
 import { useState } from "react";
-import ModalBorrowButton from "./ModalBorrowButton";
-import ModalWithdrawButton from "./ModalWithdrawButton";
-import ModalRepayButton from "./ModalRepayButton";
+import ModalBorrowButton from "./button/ModalBorrowButton";
+import ModalWithdrawButton from "./button/ModalWithdrawButton";
+import ModalRepayButton from "./button/ModalRepayButton";
 
 interface item {
   name: string;
-  ratio: number;
+  ratio: string;
 }
 
 interface Content {
@@ -22,7 +22,7 @@ interface Props {
   item: Content;
   cryptoImg: string;
   cryptoName: string;
-  max: number;
+  max: string;
 }
 
 export default function Modal({
@@ -63,6 +63,7 @@ export default function Modal({
                   amount={amount}
                   setOpen={setOpen}
                   cryptoName={cryptoName}
+                  max={max}
                 />
               </div>
             ) : item && item.name === "Withdraw" ? (
@@ -71,6 +72,7 @@ export default function Modal({
                   amount={amount}
                   setOpen={setOpen}
                   cryptoName={cryptoName}
+                  max={max}
                 />
               </div>
             ) : item && item.name === "Borrow" ? (
@@ -79,6 +81,7 @@ export default function Modal({
                   amount={amount}
                   setOpen={setOpen}
                   cryptoName={cryptoName}
+                  max={max}
                 />
               </div>
             ) : (
@@ -87,6 +90,7 @@ export default function Modal({
                   amount={amount}
                   setOpen={setOpen}
                   cryptoName={cryptoName}
+                  max={max}
                 />
               </div>
             )}

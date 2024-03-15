@@ -1,3 +1,24 @@
+import { name } from "@/pages/api/common";
+import {
+  AAVEBalance,
+  DAIBalance,
+  EURSBalance,
+  LINKBalance,
+  USDCBalance,
+  USDTBalance,
+  WBTCBalance,
+  WETHBalance,
+} from "@/pages/api/balance";
+import {
+  AAVEMySupplyBalance,
+  DAIMySupplyBalance,
+  EURSMySupplyBalance,
+  LINKMySupplyBalance,
+  USDCMySupplyBalance,
+  USDTMySupplyBalance,
+  WBTCMySupplyBalance,
+  WETHMySupplyBalance,
+} from "@/pages/api/MySupplyBalance";
 interface Props {
   tableCol: string[][];
   setOpenSupply: React.Dispatch<React.SetStateAction<boolean>>;
@@ -5,6 +26,8 @@ interface Props {
   allMarket: boolean;
   setCryptoImg: React.Dispatch<React.SetStateAction<string>>;
   setCryptoName: React.Dispatch<React.SetStateAction<string>>;
+  setMySupply: React.Dispatch<React.SetStateAction<string>>;
+  setBalance: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function SupplyTableData({
@@ -14,22 +37,67 @@ export default function SupplyTableData({
   allMarket,
   setCryptoImg,
   setCryptoName,
+  setMySupply,
+  setBalance,
 }: Props) {
   const handleSupplyClick = (index: number) => {
     setCryptoName(tableCol[index][1]);
     setCryptoImg(tableCol[index][0]);
     setOpenSupply(true);
+    checkSupply(tableCol[index][1]);
+    checkBalance(tableCol[index][1]);
   };
 
   const handleWithdrawClick = (index: number) => {
     setCryptoName(tableCol[index][1]);
     setCryptoImg(tableCol[index][0]);
     setOpenWithdraw(true);
+    checkSupply(tableCol[index][1]);
+  };
+
+  const checkSupply = async (cryptoName: string) => {
+    if (cryptoName === name[0]) {
+      DAIMySupplyBalance().then((item) => setMySupply(item ?? "0"));
+    } else if (cryptoName === name[1]) {
+      USDTMySupplyBalance().then((item) => setMySupply(item ?? "0"));
+    } else if (cryptoName === name[2]) {
+      USDCMySupplyBalance().then((item) => setMySupply(item ?? "0"));
+    } else if (cryptoName === name[3]) {
+      WBTCMySupplyBalance().then((item) => setMySupply(item ?? "0"));
+    } else if (cryptoName === name[4]) {
+      LINKMySupplyBalance().then((item) => setMySupply(item ?? "0"));
+    } else if (cryptoName === name[5]) {
+      AAVEMySupplyBalance().then((item) => setMySupply(item ?? "0"));
+    } else if (cryptoName === name[6]) {
+      EURSMySupplyBalance().then((item) => setMySupply(item ?? "0"));
+    } else {
+      WETHMySupplyBalance().then((item) => setMySupply(item ?? "0"));
+    }
+  };
+
+  const checkBalance = async (cryptoName: string) => {
+    if (cryptoName === name[0]) {
+      DAIBalance().then((item) => setBalance(item ?? "0"));
+    } else if (cryptoName === name[1]) {
+      USDTBalance().then((item) => setBalance(item ?? "0"));
+    } else if (cryptoName === name[2]) {
+      USDCBalance().then((item) => setBalance(item ?? "0"));
+    } else if (cryptoName === name[3]) {
+      WBTCBalance().then((item) => setBalance(item ?? "0"));
+    } else if (cryptoName === name[4]) {
+      LINKBalance().then((item) => setBalance(item ?? "0"));
+    } else if (cryptoName === name[5]) {
+      AAVEBalance().then((item) => setBalance(item ?? "0"));
+    } else if (cryptoName === name[6]) {
+      EURSBalance().then((item) => setBalance(item ?? "0"));
+    } else {
+      WETHBalance().then((item) => setBalance(item ?? "0"));
+    }
   };
   return (
     <>
       {tableCol &&
-        tableCol.map((col, index) =>
+        tableCol.map((col: string[], index: number) =>
           !allMarket && index > 3 ? null : (
             <tr key={index} className="h-[74px] column">
               <td>
@@ -71,7 +139,7 @@ export default function SupplyTableData({
               </td>
 
               <td className="font-pretendard font-normal text-[14px] leading-[24px] text-[#B0B0B0] ">
-                {col[4]}
+                {col[5]}
               </td>
             </tr>
           )

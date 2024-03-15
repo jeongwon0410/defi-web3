@@ -3,9 +3,16 @@ import { useEffect, useRef, useState } from "react";
 interface Props {
   setAmount: React.Dispatch<React.SetStateAction<string>>;
   amount: string;
-  max: number;
+  max: string;
 }
 export default function ModalMiddle({ setAmount, amount, max }: Props) {
+  const handleAmount = (e: any) => {
+    if (parseInt(amount) > parseInt(max)) {
+      setAmount(max);
+    } else {
+      setAmount(e.target.value);
+    }
+  };
   return (
     <div className="w-full flex">
       <div className="p-3 rounded-[20px]  bg-[#151615] flex flex-col w-[158px] h-[120px]">
@@ -55,13 +62,13 @@ export default function ModalMiddle({ setAmount, amount, max }: Props) {
               className="text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder-current w-[210px] caret-white outline outline-0 bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] inline-block text-transparent bg-clip-text font-pretendard font-bold text-[18px] leading-[25px]"
               required
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => handleAmount(e)}
             />
 
             <div className="text-right bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] inline-block text-transparent bg-clip-text font-pretendard  text-[11px] leading-[15px] ">
               $0.00
             </div>
-            <button onClick={() => setAmount(max.toString())}>
+            <button onClick={() => setAmount(max)}>
               <div className="text-right text-white font-pretendard  text-[11px] leading-[15px] ">
                 MAX : Available Balance
               </div>

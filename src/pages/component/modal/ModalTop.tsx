@@ -1,6 +1,6 @@
 interface item {
   name: string;
-  ratio: number;
+  ratio: string;
 }
 
 interface Props {

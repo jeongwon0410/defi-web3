@@ -14,80 +14,93 @@ import {
   usdt_contract,
   wbtc_address,
   wbtc_contract,
-  web3,
   weth_address,
   weth_contract,
 } from "./common";
 
-export async function DAISupplyBalance(): Promise<number | undefined> {
+export async function DAIMySupplyBalance(): Promise<string | undefined> {
   const decimals = await dai_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(dai_address, localStorage.getItem("account"))
     .call();
 
-  const result = parseInt(data[0]) / 10 ** parseInt(decimals);
-  return Number(result);
+  const result =
+    parseInt(data["currentATokenBalance"]) / 10 ** parseInt(decimals);
+
+  if (result === 0) {
+    return result.toString();
+  } else {
+    return result.toFixed(18);
+  }
 }
-export async function USDTSupplyBalance(): Promise<number | undefined> {
+export async function USDTMySupplyBalance(): Promise<string | undefined> {
   const decimals = await usdt_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(usdt_address, localStorage.getItem("account"))
     .call();
 
-  const result = parseInt(data[0]) / 10 ** parseInt(decimals);
-  return result;
+  const result =
+    parseInt(data["currentATokenBalance"]) / 10 ** parseInt(decimals);
+  return result.toString();
 }
-export async function USDCSupplyBalance(): Promise<number | undefined> {
+export async function USDCMySupplyBalance(): Promise<string | undefined> {
   const decimals = await usdc_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(usdc_address, localStorage.getItem("account"))
     .call();
-  const result = parseInt(data[0]) / 10 ** parseInt(decimals);
-  return result;
+  const result =
+    parseInt(data["currentATokenBalance"]) / 10 ** parseInt(decimals);
+
+  return result.toString();
 }
-export async function WBTCSupplyBalance(): Promise<number | undefined> {
+export async function WBTCMySupplyBalance(): Promise<string | undefined> {
   const decimals = await wbtc_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(wbtc_address, localStorage.getItem("account"))
     .call();
 
-  const result = parseInt(data[0]) / 10 ** parseInt(decimals);
-  return result;
+  const result =
+    parseInt(data["currentATokenBalance"]) / 10 ** parseInt(decimals);
+  return result.toString();
 }
-export async function LINKSupplyBalance(): Promise<number | undefined> {
+export async function LINKMySupplyBalance(): Promise<string | undefined> {
   const decimals = await link_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(link_address, localStorage.getItem("account"))
     .call();
 
-  const result = parseInt(data[0]) / 10 ** parseInt(decimals);
-  return result;
+  const result =
+    parseInt(data["currentATokenBalance"]) / 10 ** parseInt(decimals);
+  return result.toString();
 }
-export async function AAVESupplyBalance(): Promise<number | undefined> {
+export async function AAVEMySupplyBalance(): Promise<string | undefined> {
   const decimals = await aave_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(aave_address, localStorage.getItem("account"))
     .call();
 
-  const result = parseInt(data[0]) / 10 ** parseInt(decimals);
-  return result;
+  const result =
+    parseInt(data["currentATokenBalance"]) / 10 ** parseInt(decimals);
+  return result.toString();
 }
-export async function EURSSupplyBalance(): Promise<number | undefined> {
+export async function EURSMySupplyBalance(): Promise<string | undefined> {
   const decimals = await eurs_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(eurs_address, localStorage.getItem("account"))
     .call();
 
-  const result = parseInt(data[0]) / 10 ** parseInt(decimals);
-  return result;
+  const result =
+    parseInt(data["currentATokenBalance"]) / 10 ** parseInt(decimals);
+  return result.toString();
 }
 
-export async function WETHSupplyBalance(): Promise<number | undefined> {
+export async function WETHMySupplyBalance(): Promise<string | undefined> {
   const decimals = await weth_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(weth_address, localStorage.getItem("account"))
     .call();
 
-  const result = parseInt(data[0]) / 10 ** parseInt(decimals);
-  return result;
+  const result =
+    parseInt(data["currentATokenBalance"]) / 10 ** parseInt(decimals);
+  return result.toString();
 }

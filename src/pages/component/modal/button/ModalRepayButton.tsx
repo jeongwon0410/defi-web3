@@ -8,43 +8,39 @@ import {
   WBTCAprove,
   WETHAprove,
 } from "@/pages/api/approve";
-import { pool_contract, usdc_address } from "@/pages/api/common";
 import {
-  AAVESupply,
-  DAISupply,
-  EURSSupply,
-  LINKSupply,
-  USDCSupply,
-  USDTSupply,
-  WBTCSupply,
-  WETHSupply,
-} from "@/pages/api/supply";
+  pool_contract,
+  pool_address,
+  usdc_address,
+  usdc_contract,
+  name,
+} from "@/pages/api/common";
+import {
+  AAVERepay,
+  DAIRepay,
+  EURSRepay,
+  LINKRepay,
+  USDCRepay,
+  USDTRepay,
+  WBTCRepay,
+  WETHRepay,
+} from "@/pages/api/repay";
 import { useEffect, useState } from "react";
 
 interface Props {
-  amount: string;
   cryptoName: string;
+  amount: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  max: string;
 }
-const name = [
-  "DAI",
-  "USDT",
-  "USDC",
-  // "ETH",
-  "WBTC",
-  "LINK",
-  "AAVE",
-  "EURS",
-  "WETH",
-];
-export default function ModalSupplyButton({
+export default function ModalRepayButton({
+  cryptoName,
   amount,
   setOpen,
-  cryptoName,
+  max,
 }: Props) {
   const [disable, setDisable] = useState(true);
   const [approveDisable, setApproveDisable] = useState(false);
-  const [click, setClick] = useState(false);
   useEffect(() => {
     if (amount === "" || amount === "0") {
       setApproveDisable(true);
@@ -53,8 +49,9 @@ export default function ModalSupplyButton({
     }
   }, [amount]);
 
-  const approve = async (tokenSupply: number, cryptoName: string) => {
+  const approve = async (tokenSupply: string, cryptoName: string) => {
     // Token approval
+
     if (cryptoName === name[0]) {
       DAIAprove(tokenSupply).then(() => {
         setDisable(false);
@@ -98,38 +95,37 @@ export default function ModalSupplyButton({
     }
   };
 
-  const supply = async (tokenSupply: number, cryptoName: string) => {
-    // Supply
+  const repay = async (tokenSupply: string) => {
     if (cryptoName === name[0]) {
-      DAISupply(tokenSupply).then(() => {
+      DAIRepay(tokenSupply).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[1]) {
-      USDTSupply(tokenSupply).then(() => {
+      USDTRepay(tokenSupply).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[2]) {
-      USDCSupply(tokenSupply).then(() => {
+      USDCRepay(tokenSupply).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[3]) {
-      WBTCSupply(tokenSupply).then(() => {
+      WBTCRepay(tokenSupply).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[4]) {
-      LINKSupply(tokenSupply).then(() => {
+      LINKRepay(tokenSupply).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[5]) {
-      AAVESupply(tokenSupply).then(() => {
+      AAVERepay(tokenSupply).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[6]) {
-      EURSSupply(tokenSupply).then(() => {
+      EURSRepay(tokenSupply).then(() => {
         setOpen(false);
       });
     } else {
-      WETHSupply(tokenSupply).then(() => {
+      WETHRepay(tokenSupply).then(() => {
         setOpen(false);
       });
     }
@@ -137,17 +133,15 @@ export default function ModalSupplyButton({
 
   return (
     <div className="w-full flex flex-col">
-      <div className="flex w-full ">
-        <img src="local_gas_station.png" className="h-[20px] w-[20px]" />
-        <div className="font-pretendard font-nomal text-[16px] leading-[20px] text-[#535353]">
-          $00.00
-        </div>
+      <div className="p-3 rounded-[20px]  bg-[#151615] flex  justify-between h-[50px]">
+        <div className="flex text-[#B0B0B0]">Health factor</div>
+        <div className="flex text-[#B0B0B0]">{"00 -> 00"}</div>
       </div>
 
       <button
         className="disabled:bg-gray-300 mt-5 py-4 rounded-lg bg-[#52A44B] font-pretendard font-bold text-[20px] leading-[25px] text-white"
         disabled={approveDisable}
-        onClick={() => approve(parseInt(amount), cryptoName)}
+        onClick={() => approve(amount, cryptoName)}
       >
         Approve
       </button>
@@ -155,9 +149,9 @@ export default function ModalSupplyButton({
       <button
         className="disabled:bg-gray-300 mt-5 py-4 rounded-lg bg-[#52A44B] font-pretendard font-bold text-[20px] leading-[25px] text-white "
         disabled={disable}
-        onClick={() => supply(parseInt(amount), cryptoName)}
+        onClick={() => repay(amount)}
       >
-        Confirm Supply
+        Confirm Repay
       </button>
     </div>
   );

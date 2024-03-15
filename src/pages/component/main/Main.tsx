@@ -4,47 +4,6 @@ import SupplyTable from "./supply/SupplyTable";
 import Switch from "./Switch";
 import BorrowTable from "./borrow/BorrowTable";
 
-const tableSupplyRow = [
-  "Asset",
-  "Total Supplied",
-  "APY/LTV",
-  "Available",
-  "",
-  "Supply&Withdraw",
-  "Supplied",
-];
-const tableSupplyCol = [
-  ["ETH.png", "DAI", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "USDT", "0.000", "0.00%", "0.00%", "00.00"],
-  ["usdc.png", "USDC", "0.000", "0.00%", "0.00%", "00.00"],
-  // ["eth.png", "ETH", "0.000", "0.00%", "0.00%", "00.00"],
-  ["wbtc.png", "WBTC", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "LINK", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "AAVE", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "EURS", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "WETH", "0.000", "0.00%", "0.00%", "00.00"],
-];
-
-const tableBorrowRow = [
-  "Asset",
-  "Total Borrow",
-  "Borrow APY",
-  "",
-  "Borrow&Repay",
-  "My Status/LTV",
-];
-const tableBorrowCol = [
-  ["ETH.png", "DAI", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "USDT", "0.000", "0.00%", "0.00%", "00.00"],
-  ["usdc.png", "USDC", "0.000", "0.00%", "0.00%", "00.00"],
-  // ["eth.png", "ETH", "0.000", "0.00%", "0.00%", "00.00"],
-  ["wbtc.png", "WBTC", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "LINK", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "AAVE", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "EURS", "0.000", "0.00%", "0.00%", "00.00"],
-  ["ETH.png", "WETH", "0.000", "0.00%", "0.00%", "00.00"],
-];
-
 export default function Main() {
   const [supply, setSupply] = useState(true);
   const [borrow, setBorrow] = useState(false);
@@ -61,17 +20,9 @@ export default function Main() {
       />
       <div className="flex mt-10">
         {supply === true ? (
-          <SupplyTable
-            tableRow={tableSupplyRow}
-            tableCol={tableSupplyCol}
-            allMarket={allMarket}
-          />
+          <SupplyTable allMarket={allMarket} />
         ) : (
-          <BorrowTable
-            tableRow={tableBorrowRow}
-            tableCol={tableBorrowCol}
-            allMarket={allMarket}
-          />
+          <BorrowTable allMarket={allMarket} />
         )}
       </div>
       <button

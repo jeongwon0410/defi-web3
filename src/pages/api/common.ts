@@ -9,7 +9,7 @@ import WETH_ERC20 from "../abi/WETH_ERC20.json";
 import EURS_ERC20 from "../abi/EURS_ERC20.json";
 import AAVE_ERC20 from "../abi/AAVE_ERC20.json";
 import PoolDataProvider from "../abi/PoolDataProvider.json";
-
+import AaveOracle from "../abi/AaveOracle.json";
 export let usdc_contract: any;
 export let pool_contract: any;
 export let dai_contract: any;
@@ -21,6 +21,9 @@ export let wbtc_contract: any;
 export let weth_contract: any;
 export let pool_data_provider_contract: any;
 
+export let aave_oracle_address: string;
+export let aave_oracle_contract: any;
+
 export let usdc_address: string;
 export let pool_address: string;
 export let dai_address: string;
@@ -31,11 +34,23 @@ export let usdt_address: string;
 export let wbtc_address: string;
 export let weth_address: string;
 export let pool_data_provider_address: string;
-export let web3: Web3;
+
+export const name = [
+  "DAI",
+  "USDT",
+  "USDC",
+  // "ETH",
+  "WBTC",
+  "LINK",
+  "AAVE",
+  "EURS",
+  "WETH",
+];
+
 if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
   // we are in the browser and metamask is running
   window.ethereum.request({ method: "eth_requestAccounts" });
-  web3 = new Web3(window.ethereum);
+  const web3 = new Web3(window.ethereum);
 
   usdc_address = "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8";
   usdc_contract = new web3.eth.Contract(USDC_ERC20, usdc_address);
@@ -60,4 +75,7 @@ if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
     PoolDataProvider,
     pool_data_provider_address
   );
+
+  aave_oracle_address = "0x2da88497588bf89281816106C7259e31AF45a663";
+  aave_oracle_contract = new web3.eth.Contract(AaveOracle, aave_oracle_address);
 }

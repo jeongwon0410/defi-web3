@@ -19,86 +19,82 @@ import {
   weth_contract,
 } from "./common";
 
-export async function DAISupplyTotal(): Promise<string | undefined> {
+export async function DAIBorrowTotal(): Promise<string | undefined> {
   const decimals = await dai_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
-    .getReserveData(dai_address)
+    .getTotalDebt(dai_address)
     .call();
-
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result = parseInt(data) / 10 ** parseInt(decimals);
 
   return result.toString();
 }
 
-export async function USDTSupplyTotal(): Promise<string | undefined> {
+export async function USDTBorrowTotal(): Promise<string | undefined> {
   const decimals = await usdt_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
-    .getReserveData(usdt_address)
+    .getTotalDebt(usdt_address)
     .call();
-
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result = parseInt(data) / 10 ** parseInt(decimals);
 
   return result.toString();
 }
 
-export async function USDCSupplyTotal(): Promise<string | undefined> {
+export async function USDCBorrowTotal(): Promise<string | undefined> {
   const decimals = await usdc_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
-    .getReserveData(usdc_address)
+    .getTotalDebt(usdc_address)
     .call();
-
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result = parseInt(data) / 10 ** parseInt(decimals);
 
   return result.toString();
 }
 
-export async function WBTCSupplyTotal(): Promise<string | undefined> {
+export async function WBTCBorrowTotal(): Promise<string | undefined> {
   const decimals = await wbtc_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
-    .getReserveData(wbtc_address)
+    .getTotalDebt(wbtc_address)
     .call();
-
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result = parseInt(data) / 10 ** parseInt(decimals);
 
   return result.toString();
 }
 
-export async function LINKSupplyTotal(): Promise<string | undefined> {
+export async function LINKBorrowTotal(): Promise<string | undefined> {
   const decimals = await link_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
-    .getReserveData(link_address)
+    .getTotalDebt(link_address)
     .call();
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result = parseInt(data) / 10 ** parseInt(decimals);
 
   return result.toString();
 }
 
-export async function AAVESupplyTotal(): Promise<string | undefined> {
+export async function AAVEBorrowTotal(): Promise<string | undefined> {
   const decimals = await aave_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
-    .getReserveData(aave_address)
+    .getTotalDebt(aave_address)
     .call();
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result = parseInt(data) / 10 ** parseInt(decimals);
 
   return result.toString();
 }
 
-export async function EURSSupplyTotal(): Promise<string | undefined> {
+export async function EURSBorrowTotal(): Promise<string | undefined> {
   const decimals = await eurs_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
-    .getReserveData(eurs_address)
+    .getTotalDebt(eurs_address)
     .call();
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result = parseInt(data) / 10 ** parseInt(decimals);
 
   return result.toString();
 }
 
-export async function WETHSupplyTotal(): Promise<string | undefined> {
+export async function WETHBorrowTotal(): Promise<string | undefined> {
   const decimals = await weth_contract.methods.decimals().call();
   const data = await pool_data_provider_contract.methods
-    .getReserveData(weth_address)
+    .getTotalDebt(weth_address)
     .call();
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result = parseInt(data) / 10 ** parseInt(decimals);
 
   return result.toString();
 }

@@ -12,9 +12,11 @@ import {
 } from "./common";
 import { useState } from "react";
 
-export async function DAIAprove(tokenSupply: number) {
+export async function DAIAprove(tokenSupply: string) {
+  const decimals = await dai_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await dai_contract.methods
-    .approve(pool_address, tokenSupply)
+    .approve(pool_address, result)
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
@@ -31,9 +33,11 @@ export async function DAIAprove(tokenSupply: number) {
     });
 }
 
-export async function USDTAprove(tokenSupply: number) {
+export async function USDTAprove(tokenSupply: string) {
+  const decimals = await usdt_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await usdt_contract.methods
-    .approve(pool_address, tokenSupply)
+    .approve(pool_address, result)
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
@@ -50,9 +54,11 @@ export async function USDTAprove(tokenSupply: number) {
     });
 }
 
-export async function USDCAprove(tokenSupply: number) {
+export async function USDCAprove(tokenSupply: string) {
+  const decimals = await usdc_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await usdc_contract.methods
-    .approve(pool_address, tokenSupply)
+    .approve(pool_address, result)
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
@@ -69,9 +75,11 @@ export async function USDCAprove(tokenSupply: number) {
     });
 }
 
-export async function WBTCAprove(tokenSupply: number) {
+export async function WBTCAprove(tokenSupply: string) {
+  const decimals = await wbtc_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await wbtc_contract.methods
-    .approve(pool_address, tokenSupply)
+    .approve(pool_address, result)
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
@@ -88,9 +96,11 @@ export async function WBTCAprove(tokenSupply: number) {
     });
 }
 
-export async function AAVEAprove(tokenSupply: number) {
+export async function AAVEAprove(tokenSupply: string) {
+  const decimals = await aave_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await aave_contract.methods
-    .approve(pool_address, tokenSupply)
+    .approve(pool_address, result)
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
@@ -107,9 +117,11 @@ export async function AAVEAprove(tokenSupply: number) {
     });
 }
 
-export async function LINKAprove(tokenSupply: number) {
+export async function LINKAprove(tokenSupply: string) {
+  const decimals = await link_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await link_contract.methods
-    .approve(pool_address, tokenSupply)
+    .approve(pool_address, result)
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
@@ -126,9 +138,11 @@ export async function LINKAprove(tokenSupply: number) {
     });
 }
 
-export async function EURSAprove(tokenSupply: number) {
+export async function EURSAprove(tokenSupply: string) {
+  const decimals = await eurs_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await eurs_contract.methods
-    .approve(pool_address, tokenSupply)
+    .approve(pool_address, result)
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
@@ -145,9 +159,11 @@ export async function EURSAprove(tokenSupply: number) {
     });
 }
 
-export async function WETHAprove(tokenSupply: number) {
+export async function WETHAprove(tokenSupply: string) {
+  const decimals = await weth_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await weth_contract.methods
-    .approve(pool_address, tokenSupply)
+    .approve(pool_address, result)
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);

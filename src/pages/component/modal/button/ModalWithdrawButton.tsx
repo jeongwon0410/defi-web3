@@ -8,7 +8,7 @@ import {
   WBTCAprove,
   WETHAprove,
 } from "@/pages/api/approve";
-import { pool_contract, usdc_address } from "@/pages/api/common";
+import { name, pool_contract, usdc_address } from "@/pages/api/common";
 import {
   AAVESupply,
   DAISupply,
@@ -35,22 +35,14 @@ interface Props {
   amount: string;
   cryptoName: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  max: string;
 }
-const name = [
-  "DAI",
-  "USDT",
-  "USDC",
-  // "ETH",
-  "WBTC",
-  "LINK",
-  "AAVE",
-  "EURS",
-  "WETH",
-];
+
 export default function ModalWithdrawButton({
   amount,
   setOpen,
   cryptoName,
+  max,
 }: Props) {
   const [disable, setDisable] = useState(true);
   const [approveDisable, setApproveDisable] = useState(false);
@@ -63,7 +55,7 @@ export default function ModalWithdrawButton({
     }
   }, [amount]);
 
-  const withdraw = async (tokenSupply: number, cryptoName: string) => {
+  const withdraw = async (tokenSupply: string, cryptoName: string) => {
     if (cryptoName === name[0]) {
       await DAIWithdraw(tokenSupply).then(() => setOpen(false));
     } else if (cryptoName === name[1]) {
@@ -94,7 +86,7 @@ export default function ModalWithdrawButton({
       <button
         className="disabled:bg-gray-300 mt-5 py-4 rounded-lg bg-[#52A44B] font-pretendard font-bold text-[20px] leading-[25px] text-white "
         disabled={disable}
-        onClick={() => withdraw(parseInt(amount), cryptoName)}
+        onClick={() => withdraw(amount, cryptoName)}
       >
         Confirm Withdraw
       </button>

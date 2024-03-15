@@ -7,7 +7,7 @@ export default function SupplyTableField({ tableRow }: Props) {
     <>
       <tr>
         {tableRow &&
-          tableRow.map((item, index) => (
+          tableRow.map((item: string, index: number) => (
             <th
               key={index}
               className={

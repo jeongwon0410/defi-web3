@@ -18,15 +18,11 @@ import {
   weth_contract,
 } from "./common";
 
-export async function DAIWithdraw(tokenSupply: string) {
+export async function DAIRepay(tokenSupply: string) {
   const decimals = await dai_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .withdraw(
-      dai_address,
-      parseInt(result.toString()),
-      localStorage.getItem("account")
-    )
+    .repay(dai_address, result, "2", localStorage.getItem("account"))
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -41,15 +37,30 @@ export async function DAIWithdraw(tokenSupply: string) {
     });
 }
 
-export async function USDTWithdraw(tokenSupply: string) {
+export async function USDCRepay(tokenSupply: string) {
+  const decimals = await usdc_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
+  await pool_contract.methods
+    .repay(usdc_address, result, "2", localStorage.getItem("account"))
+    .send({ from: localStorage.getItem("account") })
+    .on("transactionHash", (hash: any) => {
+      console.log("TX Hash Supply", hash);
+    })
+    .on("error", (error: any) => {
+      console.log("Supply Error", error);
+    })
+    .on("receipt", (receipt: any) => {
+      if (receipt.status == "0x1" || receipt.status == 1) {
+        console.log("Transaction Success");
+      } else console.log("Transaction Failed");
+    });
+}
+
+export async function USDTRepay(tokenSupply: string) {
   const decimals = await usdt_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .withdraw(
-      usdt_address,
-      parseInt(result.toString()),
-      localStorage.getItem("account")
-    )
+    .repay(usdt_address, result, "2", localStorage.getItem("account"))
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -64,39 +75,11 @@ export async function USDTWithdraw(tokenSupply: string) {
     });
 }
 
-export async function USDCWithdraw(tokenSupply: string) {
-  const decimals = await usdc_contract.methods.decimals().call();
-  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
-
-  await pool_contract.methods
-    .withdraw(
-      usdc_address,
-      parseInt(result.toString()),
-      localStorage.getItem("account")
-    )
-    .send({ from: localStorage.getItem("account") })
-    .on("transactionHash", (hash: any) => {
-      console.log("TX Hash Supply", hash);
-    })
-    .on("error", (error: any) => {
-      console.log("Supply Error", error);
-    })
-    .on("receipt", (receipt: any) => {
-      if (receipt.status == "0x1" || receipt.status == 1) {
-        console.log("Transaction Success");
-      } else console.log("Transaction Failed");
-    });
-}
-
-export async function WBTCWithdraw(tokenSupply: string) {
+export async function WBTCRepay(tokenSupply: string) {
   const decimals = await wbtc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .withdraw(
-      wbtc_address,
-      parseInt(result.toString()),
-      localStorage.getItem("account")
-    )
+    .repay(wbtc_address, result, "2", localStorage.getItem("account"))
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -111,15 +94,11 @@ export async function WBTCWithdraw(tokenSupply: string) {
     });
 }
 
-export async function LINKWithdraw(tokenSupply: string) {
+export async function LINKRepay(tokenSupply: string) {
   const decimals = await link_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .withdraw(
-      link_address,
-      parseInt(result.toString()),
-      localStorage.getItem("account")
-    )
+    .repay(link_address, result, "2", localStorage.getItem("account"))
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -134,15 +113,11 @@ export async function LINKWithdraw(tokenSupply: string) {
     });
 }
 
-export async function AAVEWithdraw(tokenSupply: string) {
+export async function AAVERepay(tokenSupply: string) {
   const decimals = await aave_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .withdraw(
-      aave_address,
-      parseInt(result.toString()),
-      localStorage.getItem("account")
-    )
+    .repay(aave_address, result, "2", localStorage.getItem("account"))
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -157,15 +132,11 @@ export async function AAVEWithdraw(tokenSupply: string) {
     });
 }
 
-export async function EURSWithdraw(tokenSupply: string) {
+export async function EURSRepay(tokenSupply: string) {
   const decimals = await eurs_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .withdraw(
-      eurs_address,
-      parseInt(result.toString()),
-      localStorage.getItem("account")
-    )
+    .repay(eurs_address, result, "2", localStorage.getItem("account"))
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -180,15 +151,11 @@ export async function EURSWithdraw(tokenSupply: string) {
     });
 }
 
-export async function WETHWithdraw(tokenSupply: string) {
+export async function WETHRepay(tokenSupply: string) {
   const decimals = await weth_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .withdraw(
-      weth_address,
-      parseInt(result.toString()),
-      localStorage.getItem("account")
-    )
+    .repay(weth_address, result, "2", localStorage.getItem("account"))
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);

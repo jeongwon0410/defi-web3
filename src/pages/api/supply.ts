@@ -1,18 +1,29 @@
 import {
   aave_address,
+  aave_contract,
   dai_address,
+  dai_contract,
   eurs_address,
+  eurs_contract,
   link_address,
+  link_contract,
   pool_contract,
   usdc_address,
+  usdc_contract,
   usdt_address,
+  usdt_contract,
   wbtc_address,
+  wbtc_contract,
   weth_address,
+  weth_contract,
 } from "./common";
 
-export async function DAISupply(tokenSupply: number) {
+export async function DAISupply(tokenSupply: string) {
+  const decimals = await dai_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
+  console.log(result);
   await pool_contract.methods
-    .supply(dai_address, tokenSupply, localStorage.getItem("account"), "0")
+    .supply(dai_address, result, localStorage.getItem("account"), "0")
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -27,9 +38,11 @@ export async function DAISupply(tokenSupply: number) {
     });
 }
 
-export async function USDTSupply(tokenSupply: number) {
+export async function USDTSupply(tokenSupply: string) {
+  const decimals = await usdt_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .supply(usdt_address, tokenSupply, localStorage.getItem("account"), "0")
+    .supply(usdt_address, result, localStorage.getItem("account"), "0")
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -44,9 +57,11 @@ export async function USDTSupply(tokenSupply: number) {
     });
 }
 
-export async function USDCSupply(tokenSupply: number) {
+export async function USDCSupply(tokenSupply: string) {
+  const decimals = await usdc_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .supply(usdc_address, tokenSupply, localStorage.getItem("account"), "0")
+    .supply(usdc_address, result, localStorage.getItem("account"), "0")
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -61,9 +76,11 @@ export async function USDCSupply(tokenSupply: number) {
     });
 }
 
-export async function WBTCSupply(tokenSupply: number) {
+export async function WBTCSupply(tokenSupply: string) {
+  const decimals = await wbtc_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .supply(wbtc_address, tokenSupply, localStorage.getItem("account"), "0")
+    .supply(wbtc_address, result, localStorage.getItem("account"), "0")
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -78,9 +95,11 @@ export async function WBTCSupply(tokenSupply: number) {
     });
 }
 
-export async function LINKSupply(tokenSupply: number) {
+export async function LINKSupply(tokenSupply: string) {
+  const decimals = await link_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .supply(link_address, tokenSupply, localStorage.getItem("account"), "0")
+    .supply(link_address, result, localStorage.getItem("account"), "0")
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -95,9 +114,11 @@ export async function LINKSupply(tokenSupply: number) {
     });
 }
 
-export async function AAVESupply(tokenSupply: number) {
+export async function AAVESupply(tokenSupply: string) {
+  const decimals = await aave_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .supply(aave_address, tokenSupply, localStorage.getItem("account"), "0")
+    .supply(aave_address, result, localStorage.getItem("account"), "0")
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -112,9 +133,11 @@ export async function AAVESupply(tokenSupply: number) {
     });
 }
 
-export async function EURSSupply(tokenSupply: number) {
+export async function EURSSupply(tokenSupply: string) {
+  const decimals = await eurs_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .supply(eurs_address, tokenSupply, localStorage.getItem("account"), "0")
+    .supply(eurs_address, result, localStorage.getItem("account"), "0")
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
@@ -129,9 +152,11 @@ export async function EURSSupply(tokenSupply: number) {
     });
 }
 
-export async function WETHSupply(tokenSupply: number) {
+export async function WETHSupply(tokenSupply: string) {
+  const decimals = await weth_contract.methods.decimals().call();
+  const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
-    .supply(weth_address, tokenSupply, localStorage.getItem("account"), "0")
+    .supply(weth_address, result, localStorage.getItem("account"), "0")
     .send({ from: localStorage.getItem("account") })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
