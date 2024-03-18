@@ -23,19 +23,20 @@
   box-shadow: 0 0 0 1px #49824f;
 }
 
-/* .table tr {
-  border-radius: 20px;
-  border-color: white;
+.rewardColum {
+  background-color: #1b1c1b;
 }
 
-tr td:nth-child(n + 5),
+.table tr {
+  border-radius: 20px;
+}
+
+tr td:nth-child(n + 4),
 tr th:nth-child(n + 5) {
   border-radius: 0 0.625rem 0.625rem 0;
-  border-color: "#49824F";
 }
 
 tr td:nth-child(1),
 tr th:nth-child(1) {
   border-radius: 0.625rem 0 0 0.625rem;
-  border-color: "#49824F";
-} */
+}

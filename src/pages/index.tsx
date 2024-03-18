@@ -1,12 +1,14 @@
-import Background from "./component/Background";
-import Header from "./component/Header";
-import Main from "./component/main/Main";
+import Background from "../components/Background";
+import Header from "../components/Header";
+import Main from "../components/main/Main";
+import { useState } from "react";
 
 export default function Home() {
+  const [account, setAccount] = useState("");
   return (
     <Background>
-      <Header />
-      <Main />
+      <Header setAccount={setAccount} />
+      <Main account={account} />
     </Background>
   );
 }
