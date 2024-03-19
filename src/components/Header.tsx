@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import ConnectButton from "./ConnectButton";
 import { useMutation, useQuery } from "react-query";
-import getAddress from "@/apis/getAddress";
 import saveAddress from "@/apis/saveAddress";
 
 interface Props {

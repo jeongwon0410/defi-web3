@@ -1,4 +1,3 @@
-import getAddress from "@/apis/getAddress";
 import saveAddress from "@/apis/saveAddress";
 import { useSDK } from "@metamask/sdk-react";
 import { useEffect, useState } from "react";

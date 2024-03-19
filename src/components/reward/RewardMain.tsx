@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from "react-query";
 import Table from "./Table";
-import getAddress from "@/apis/getAddress";
 import saveAddress from "@/apis/saveAddress";
 import { useEffect } from "react";
 
