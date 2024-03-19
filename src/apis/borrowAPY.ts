@@ -12,7 +12,7 @@ import {
   weth_address,
 } from "./common";
 
-export async function DAIBorrowAPY(): Promise<string | undefined> {
+export async function DAIBorrowAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -30,7 +30,7 @@ export async function DAIBorrowAPY(): Promise<string | undefined> {
   return borrowAPY;
 }
 
-export async function USDTBorrowAPY(): Promise<string | undefined> {
+export async function USDTBorrowAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -48,7 +48,7 @@ export async function USDTBorrowAPY(): Promise<string | undefined> {
   return borrowAPY;
 }
 
-export async function USDCBorrowAPY(): Promise<string | undefined> {
+export async function USDCBorrowAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -66,7 +66,7 @@ export async function USDCBorrowAPY(): Promise<string | undefined> {
   return borrowAPY;
 }
 
-export async function WBTCBorrowAPY(): Promise<string | undefined> {
+export async function WBTCBorrowAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -84,7 +84,7 @@ export async function WBTCBorrowAPY(): Promise<string | undefined> {
   return borrowAPY;
 }
 
-export async function LINKBorrowAPY(): Promise<string | undefined> {
+export async function LINKBorrowAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -102,7 +102,7 @@ export async function LINKBorrowAPY(): Promise<string | undefined> {
   return borrowAPY;
 }
 
-export async function AAVEBorrowAPY(): Promise<string | undefined> {
+export async function AAVEBorrowAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -120,7 +120,7 @@ export async function AAVEBorrowAPY(): Promise<string | undefined> {
   return borrowAPY;
 }
 
-export async function EURSBorrowAPY(): Promise<string | undefined> {
+export async function EURSBorrowAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -138,7 +138,7 @@ export async function EURSBorrowAPY(): Promise<string | undefined> {
   return borrowAPY;
 }
 
-export async function WEHTBorrowAPY(): Promise<string | undefined> {
+export async function WEHTBorrowAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();

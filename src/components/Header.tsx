@@ -38,25 +38,43 @@ export default function Header({ setAccount }: Props) {
         </div>
         <div className="md:mr-auto md:ml-4 md:py-1 md:pl-4 flex flex-wrap items-center  justify-center">
           <button onClick={() => router.push("/")}>
-            <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-white">
-              Bank
-            </div>
+            {router.pathname === "/" ? (
+              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-white">
+                Bank
+              </div>
+            ) : (
+              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-[#F6F8FF]/[50%]">
+                Bank
+              </div>
+            )}
           </button>
           <button onClick={() => router.push("/account")}>
-            <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-white">
-              My Account
-            </div>
+            {router.pathname === "/account" ? (
+              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-white">
+                My Account
+              </div>
+            ) : (
+              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-[#F6F8FF]/[50%]">
+                My Account
+              </div>
+            )}
           </button>
           <button onClick={() => router.push("/reward")}>
-            <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-white">
-              Reward
-            </div>
+            {router.pathname === "/reward" ? (
+              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-white">
+                Reward
+              </div>
+            ) : (
+              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-[#F6F8FF]/[50%]">
+                Reward
+              </div>
+            )}
           </button>
         </div>
-
-        <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
+        <ConnectButton setAccount={setAccount} />
+        {/* <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
           <ConnectWalletButton setAccount={setAccount} />
-        </MetaMaskProvider>
+        </MetaMaskProvider> */}
       </div>
     </header>
   );

@@ -12,7 +12,7 @@ import {
   weth_address,
 } from "./common";
 
-export async function DAISupplyAPY(): Promise<string | undefined> {
+export async function DAISupplyAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -30,7 +30,7 @@ export async function DAISupplyAPY(): Promise<string | undefined> {
   return SupplyAPY;
 }
 
-export async function USDTSupplyAPY(): Promise<string | undefined> {
+export async function USDTSupplyAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -48,7 +48,7 @@ export async function USDTSupplyAPY(): Promise<string | undefined> {
   return SupplyAPY;
 }
 
-export async function USDCSupplyAPY(): Promise<string | undefined> {
+export async function USDCSupplyAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -66,7 +66,7 @@ export async function USDCSupplyAPY(): Promise<string | undefined> {
   return SupplyAPY;
 }
 
-export async function WBTCSupplyAPY(): Promise<string | undefined> {
+export async function WBTCSupplyAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -84,7 +84,7 @@ export async function WBTCSupplyAPY(): Promise<string | undefined> {
   return SupplyAPY;
 }
 
-export async function LINKSupplyAPY(): Promise<string | undefined> {
+export async function LINKSupplyAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -102,7 +102,7 @@ export async function LINKSupplyAPY(): Promise<string | undefined> {
   return SupplyAPY;
 }
 
-export async function AAVESupplyAPY(): Promise<string | undefined> {
+export async function AAVESupplyAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -120,7 +120,7 @@ export async function AAVESupplyAPY(): Promise<string | undefined> {
   return SupplyAPY;
 }
 
-export async function EURSSupplyAPY(): Promise<string | undefined> {
+export async function EURSSupplyAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();
@@ -138,7 +138,7 @@ export async function EURSSupplyAPY(): Promise<string | undefined> {
   return SupplyAPY;
 }
 
-export async function WEHTSupplyAPY(): Promise<string | undefined> {
+export async function WEHTSupplyAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();

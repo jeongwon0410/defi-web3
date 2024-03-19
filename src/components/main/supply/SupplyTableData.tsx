@@ -18,7 +18,7 @@ import {
   USDTMySupplyBalance,
   WBTCMySupplyBalance,
   WETHMySupplyBalance,
-} from "@/apis/MySupplyBalance";
+} from "@/apis/mySupplyBalance";
 import { useEffect, useState } from "react";
 interface Props {
   tableCol: string[][];

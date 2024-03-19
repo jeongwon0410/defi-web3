@@ -9,7 +9,7 @@ import {
   weth_contract,
 } from "@/apis/common";
 
-export async function DAIBalance(account: string): Promise<string | undefined> {
+export async function DAIBalance(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
 
   const balance = await dai_contract.methods.balanceOf(account).call();
@@ -18,9 +18,7 @@ export async function DAIBalance(account: string): Promise<string | undefined> {
 
   return result.toString();
 }
-export async function LINKBalance(
-  account: string
-): Promise<string | undefined> {
+export async function LINKBalance(account: string): Promise<string> {
   const decimals = await link_contract.methods.decimals().call();
 
   const balance = await link_contract.methods.balanceOf(account).call();
@@ -28,9 +26,7 @@ export async function LINKBalance(
 
   return result.toString();
 }
-export async function USDCBalance(
-  account: string
-): Promise<string | undefined> {
+export async function USDCBalance(account: string): Promise<string> {
   const decimals = await usdc_contract.methods.decimals().call();
 
   const balance = await usdc_contract.methods.balanceOf(account).call();
@@ -38,9 +34,7 @@ export async function USDCBalance(
 
   return result.toString();
 }
-export async function WBTCBalance(
-  account: string
-): Promise<string | undefined> {
+export async function WBTCBalance(account: string): Promise<string> {
   const decimals = await wbtc_contract.methods.decimals().call();
 
   const balance = await wbtc_contract.methods.balanceOf(account).call();
@@ -48,9 +42,7 @@ export async function WBTCBalance(
 
   return result.toString();
 }
-export async function WETHBalance(
-  account: string
-): Promise<string | undefined> {
+export async function WETHBalance(account: string): Promise<string> {
   const decimals = await weth_contract.methods.decimals().call();
 
   const balance = await weth_contract.methods.balanceOf(account).call();
@@ -58,9 +50,7 @@ export async function WETHBalance(
 
   return result.toString();
 }
-export async function USDTBalance(
-  account: string
-): Promise<string | undefined> {
+export async function USDTBalance(account: string): Promise<string> {
   const decimals = await usdt_contract.methods.decimals().call();
 
   const balance = await usdt_contract.methods.balanceOf(account).call();
@@ -68,9 +58,7 @@ export async function USDTBalance(
 
   return result.toString();
 }
-export async function AAVEBalance(
-  account: string
-): Promise<string | undefined> {
+export async function AAVEBalance(account: string): Promise<string> {
   const decimals = await aave_contract.methods.decimals().call();
 
   const balance = await aave_contract.methods.balanceOf(account).call();
@@ -78,9 +66,7 @@ export async function AAVEBalance(
 
   return result.toString();
 }
-export async function EURSBalance(
-  account: string
-): Promise<string | undefined> {
+export async function EURSBalance(account: string): Promise<string> {
   const decimals = await eurs_contract.methods.decimals().call();
 
   const balance = await eurs_contract.methods.balanceOf(account).call();

@@ -11,9 +11,7 @@ import {
   weth_address,
 } from "./common";
 
-export async function DAIMySupplyRatio(
-  account: string
-): Promise<string | undefined> {
+export async function DAIMySupplyRatio(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
   const user = await pool_data_provider_contract.methods
     .getUserReserveData(dai_address, account)
@@ -31,9 +29,7 @@ export async function DAIMySupplyRatio(
   return result;
 }
 
-export async function USDTMySupplyRatio(
-  account: string
-): Promise<string | undefined> {
+export async function USDTMySupplyRatio(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
   const user = await pool_data_provider_contract.methods
     .getUserReserveData(usdt_address, account)
@@ -49,9 +45,7 @@ export async function USDTMySupplyRatio(
   const result = parseFloat(percent.toString()).toFixed(2) + "%";
   return result;
 }
-export async function USDCMySupplyRatio(
-  account: string
-): Promise<string | undefined> {
+export async function USDCMySupplyRatio(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
   const user = await pool_data_provider_contract.methods
     .getUserReserveData(usdc_address, account)
@@ -68,9 +62,7 @@ export async function USDCMySupplyRatio(
   return result;
 }
 
-export async function WBTCMySupplyRatio(
-  account: string
-): Promise<string | undefined> {
+export async function WBTCMySupplyRatio(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
   const user = await pool_data_provider_contract.methods
     .getUserReserveData(wbtc_address, account)
@@ -87,9 +79,7 @@ export async function WBTCMySupplyRatio(
   return result;
 }
 
-export async function LINKMySupplyRatio(
-  account: string
-): Promise<string | undefined> {
+export async function LINKMySupplyRatio(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
   const user = await pool_data_provider_contract.methods
     .getUserReserveData(link_address, account)
@@ -106,9 +96,7 @@ export async function LINKMySupplyRatio(
   return result;
 }
 
-export async function AAVEMySupplyRatio(
-  account: string
-): Promise<string | undefined> {
+export async function AAVEMySupplyRatio(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
   const user = await pool_data_provider_contract.methods
     .getUserReserveData(aave_address, account)
@@ -125,9 +113,7 @@ export async function AAVEMySupplyRatio(
   return result;
 }
 
-export async function EURSMySupplyRatio(
-  account: string
-): Promise<string | undefined> {
+export async function EURSMySupplyRatio(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
   const user = await pool_data_provider_contract.methods
     .getUserReserveData(eurs_address, account)
@@ -144,9 +130,7 @@ export async function EURSMySupplyRatio(
   return result;
 }
 
-export async function WETHMySupplyRatio(
-  account: string
-): Promise<string | undefined> {
+export async function WETHMySupplyRatio(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
   const user = await pool_data_provider_contract.methods
     .getUserReserveData(weth_address, account)

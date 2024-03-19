@@ -20,9 +20,7 @@ import {
   weth_contract,
 } from "./common";
 
-export async function DAIBorrowableAmount(
-  account: string
-): Promise<string | undefined> {
+export async function DAIBorrowableAmount(account: string): Promise<string> {
   const decimals = await dai_contract.methods.decimals().call();
 
   const currency = await pool_contract.methods
@@ -39,9 +37,7 @@ export async function DAIBorrowableAmount(
   return maxUserAmountToBorrow.toFixed(10).toString();
 }
 
-export async function USDTBorrowableAmount(
-  account: string
-): Promise<string | undefined> {
+export async function USDTBorrowableAmount(account: string): Promise<string> {
   const decimals = await usdt_contract.methods.decimals().call();
 
   const currency = await pool_contract.methods
@@ -57,9 +53,7 @@ export async function USDTBorrowableAmount(
 
   return maxUserAmountToBorrow.toFixed(10).toString();
 }
-export async function USDCBorrowableAmount(
-  account: string
-): Promise<string | undefined> {
+export async function USDCBorrowableAmount(account: string): Promise<string> {
   const decimals = await usdc_contract.methods.decimals().call();
 
   const currency = await pool_contract.methods
@@ -75,9 +69,7 @@ export async function USDCBorrowableAmount(
   return maxUserAmountToBorrow.toFixed(10).toString();
 }
 
-export async function WBTCBorrowableAmount(
-  account: string
-): Promise<string | undefined> {
+export async function WBTCBorrowableAmount(account: string): Promise<string> {
   const decimals = await wbtc_contract.methods.decimals().call();
 
   const currency = await pool_contract.methods
@@ -94,9 +86,7 @@ export async function WBTCBorrowableAmount(
   return maxUserAmountToBorrow.toFixed(10).toString();
 }
 
-export async function LINKBorrowableAmount(
-  account: string
-): Promise<string | undefined> {
+export async function LINKBorrowableAmount(account: string): Promise<string> {
   const decimals = await link_contract.methods.decimals().call();
 
   const currency = await pool_contract.methods
@@ -113,9 +103,7 @@ export async function LINKBorrowableAmount(
   return maxUserAmountToBorrow.toFixed(10).toString();
 }
 
-export async function AAVEBorrowableAmount(
-  account: string
-): Promise<string | undefined> {
+export async function AAVEBorrowableAmount(account: string): Promise<string> {
   const decimals = await aave_contract.methods.decimals().call();
 
   const currency = await pool_contract.methods
@@ -132,9 +120,7 @@ export async function AAVEBorrowableAmount(
   return maxUserAmountToBorrow.toFixed(10).toString();
 }
 
-export async function EURSBorrowableAmount(
-  account: string
-): Promise<string | undefined> {
+export async function EURSBorrowableAmount(account: string): Promise<string> {
   const decimals = await eurs_contract.methods.decimals().call();
 
   const currency = await pool_contract.methods
@@ -150,9 +136,7 @@ export async function EURSBorrowableAmount(
   return maxUserAmountToBorrow.toFixed(10).toString();
 }
 
-export async function WETHBorrowableAmount(
-  account: string
-): Promise<string | undefined> {
+export async function WETHBorrowableAmount(account: string): Promise<string> {
   const decimals = await weth_contract.methods.decimals().call();
 
   const currency = await pool_contract.methods

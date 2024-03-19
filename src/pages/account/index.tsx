@@ -6,10 +6,11 @@ import { useState } from "react";
 
 export default function Account() {
   const [account, setAccount] = useState("");
+
   return (
     <Background>
       <Header setAccount={setAccount} />
-      <AccountMain />
+      <AccountMain account={account} />
     </Background>
   );
 }
