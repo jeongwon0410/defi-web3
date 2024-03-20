@@ -39,7 +39,7 @@ import {
   USDCBorrowAPY,
   USDTBorrowAPY,
   WBTCBorrowAPY,
-  WEHTBorrowAPY,
+  WETHBorrowAPY,
 } from "@/apis/borrowAPY";
 import { DAIMySupplyRatio } from "@/apis/supplyRatio";
 
@@ -110,7 +110,7 @@ export default function BorrowTable({ allMarket, account }: Props) {
     name: "Repay",
     content: [
       { name: "My debt(Borrowed Amount)", ratio: borrowAmount },
-      { name: "APY", ratio: "0" },
+      { name: "APY", ratio: apy },
     ],
   };
 
@@ -133,7 +133,14 @@ export default function BorrowTable({ allMarket, account }: Props) {
     LINKBorrowAPY().then((item) => setLinkBorrowAPY(item ?? "0%"));
     AAVEBorrowAPY().then((item) => setAaveBorrowAPY(item ?? "0%"));
     EURSBorrowAPY().then((item) => setEursBorrowAPY(item ?? "0%"));
-    WEHTBorrowAPY().then((item) => setWethBorrowAPY(item ?? "0%"));
+    WETHBorrowAPY().then((item) => setWethBorrowAPY(item ?? "0%"));
+  };
+
+  const checkLTV = async () => {
+    const decimals = await dai_contract.methods.decimals().call();
+    const data = await pool_contract.methods.getUserAccountData(account).call();
+
+    console.log(data);
   };
 
   const choiceBorrowAPY = (cryptoName: string) => {
@@ -160,6 +167,7 @@ export default function BorrowTable({ allMarket, account }: Props) {
     if (account) {
       checkTotalBorrow();
       checkBorrowAPY();
+      checkLTV();
     }
   }, [account]);
 
@@ -206,7 +214,7 @@ export default function BorrowTable({ allMarket, account }: Props) {
           item={repay}
           cryptoImg={cryptoImg}
           cryptoName={cryptoName}
-          max={"0"}
+          max={borrowAmount}
           account={account}
         />
       )}

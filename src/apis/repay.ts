@@ -18,7 +18,11 @@ import {
   weth_contract,
 } from "./common";
 
-export async function DAIRepay(tokenSupply: string, account: string) {
+export async function DAIRepay(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await dai_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
@@ -26,6 +30,7 @@ export async function DAIRepay(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -37,7 +42,11 @@ export async function DAIRepay(tokenSupply: string, account: string) {
     });
 }
 
-export async function USDCRepay(tokenSupply: string, account: string) {
+export async function USDCRepay(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await usdc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
@@ -45,6 +54,7 @@ export async function USDCRepay(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -56,7 +66,11 @@ export async function USDCRepay(tokenSupply: string, account: string) {
     });
 }
 
-export async function USDTRepay(tokenSupply: string, account: string) {
+export async function USDTRepay(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await usdt_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
@@ -64,6 +78,7 @@ export async function USDTRepay(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -75,7 +90,11 @@ export async function USDTRepay(tokenSupply: string, account: string) {
     });
 }
 
-export async function WBTCRepay(tokenSupply: string, account: string) {
+export async function WBTCRepay(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await wbtc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
@@ -83,6 +102,7 @@ export async function WBTCRepay(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -94,7 +114,11 @@ export async function WBTCRepay(tokenSupply: string, account: string) {
     });
 }
 
-export async function LINKRepay(tokenSupply: string, account: string) {
+export async function LINKRepay(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await link_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
@@ -102,6 +126,7 @@ export async function LINKRepay(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -113,7 +138,11 @@ export async function LINKRepay(tokenSupply: string, account: string) {
     });
 }
 
-export async function AAVERepay(tokenSupply: string, account: string) {
+export async function AAVERepay(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await aave_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
@@ -121,6 +150,7 @@ export async function AAVERepay(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -132,7 +162,11 @@ export async function AAVERepay(tokenSupply: string, account: string) {
     });
 }
 
-export async function EURSRepay(tokenSupply: string, account: string) {
+export async function EURSRepay(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await eurs_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
@@ -140,6 +174,7 @@ export async function EURSRepay(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -151,7 +186,11 @@ export async function EURSRepay(tokenSupply: string, account: string) {
     });
 }
 
-export async function WETHRepay(tokenSupply: string, account: string) {
+export async function WETHRepay(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await weth_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await pool_contract.methods
@@ -159,6 +198,7 @@ export async function WETHRepay(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);

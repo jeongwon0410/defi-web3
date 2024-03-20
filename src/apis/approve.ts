@@ -12,7 +12,11 @@ import {
 } from "./common";
 import { useState } from "react";
 
-export async function DAIAprove(tokenSupply: string, account: string) {
+export async function DAIAprove(
+  setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await dai_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await dai_contract.methods
@@ -20,6 +24,7 @@ export async function DAIAprove(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
+      setApproveDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
@@ -33,7 +38,11 @@ export async function DAIAprove(tokenSupply: string, account: string) {
     });
 }
 
-export async function USDTAprove(tokenSupply: string, account: string) {
+export async function USDTAprove(
+  setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await usdt_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await usdt_contract.methods
@@ -41,6 +50,7 @@ export async function USDTAprove(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
+      setApproveDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
@@ -54,7 +64,11 @@ export async function USDTAprove(tokenSupply: string, account: string) {
     });
 }
 
-export async function USDCAprove(tokenSupply: string, account: string) {
+export async function USDCAprove(
+  setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await usdc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await usdc_contract.methods
@@ -62,6 +76,7 @@ export async function USDCAprove(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
+      setApproveDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
@@ -75,7 +90,11 @@ export async function USDCAprove(tokenSupply: string, account: string) {
     });
 }
 
-export async function WBTCAprove(tokenSupply: string, account: string) {
+export async function WBTCAprove(
+  setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await wbtc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await wbtc_contract.methods
@@ -83,6 +102,7 @@ export async function WBTCAprove(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
+      setApproveDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
@@ -96,7 +116,11 @@ export async function WBTCAprove(tokenSupply: string, account: string) {
     });
 }
 
-export async function AAVEAprove(tokenSupply: string, account: string) {
+export async function AAVEAprove(
+  setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await aave_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await aave_contract.methods
@@ -104,6 +128,7 @@ export async function AAVEAprove(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
+      setApproveDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
@@ -117,7 +142,11 @@ export async function AAVEAprove(tokenSupply: string, account: string) {
     });
 }
 
-export async function LINKAprove(tokenSupply: string, account: string) {
+export async function LINKAprove(
+  setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await link_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await link_contract.methods
@@ -125,6 +154,7 @@ export async function LINKAprove(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
+      setApproveDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
@@ -138,7 +168,11 @@ export async function LINKAprove(tokenSupply: string, account: string) {
     });
 }
 
-export async function EURSAprove(tokenSupply: string, account: string) {
+export async function EURSAprove(
+  setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await eurs_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await eurs_contract.methods
@@ -146,6 +180,7 @@ export async function EURSAprove(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
+      setApproveDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
@@ -159,7 +194,11 @@ export async function EURSAprove(tokenSupply: string, account: string) {
     });
 }
 
-export async function WETHAprove(tokenSupply: string, account: string) {
+export async function WETHAprove(
+  setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await weth_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
   await weth_contract.methods
@@ -167,6 +206,7 @@ export async function WETHAprove(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
+      setApproveDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);

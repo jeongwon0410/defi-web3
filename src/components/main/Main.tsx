@@ -51,7 +51,7 @@ export default function Main({ account }: Props) {
       <div className="flex  flex-col justify-center items-center py-10">
         <img src="person.png" className="h-[50px] w-[500px] " />
         <div className="text-white">
-          나는 몇개 예치하고 1년에 약 00 이자를 받을 수 있다
+          {/* 나는 몇개 예치하고 1년에 약 00 이자를 받을 수 있다 */}
         </div>
       </div>
     </div>

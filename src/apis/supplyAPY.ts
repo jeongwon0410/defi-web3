@@ -138,7 +138,7 @@ export async function EURSSupplyAPY(): Promise<string> {
   return SupplyAPY;
 }
 
-export async function WEHTSupplyAPY(): Promise<string> {
+export async function WETHSupplyAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();

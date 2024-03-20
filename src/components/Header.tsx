@@ -1,10 +1,11 @@
-import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
 import ConnectWalletButton from "./ConnectWalletButton";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import ConnectButton from "./ConnectButton";
 import { useMutation, useQuery } from "react-query";
 import saveAddress from "@/apis/saveAddress";
+import Link from "next/link";
+import { MetaMaskProvider } from "@metamask/sdk-react";
 
 interface Props {
   setAccount: React.Dispatch<React.SetStateAction<string>>;
@@ -15,13 +16,13 @@ export default function Header({ setAccount }: Props) {
   const host =
     typeof window !== "undefined"
       ? window.location.host
-      : "http://localhost:3000";
+      : "http://10.41.169.226:3001";
 
   const sdkOptions = {
     logging: { developerMode: false },
     checkInstallationImmediately: false,
     dappMetadata: {
-      name: "Next-Metamask-Boilerplate",
+      name: "EventSea",
       url: host, // using the host constant defined above
     },
   };

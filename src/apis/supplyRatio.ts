@@ -26,6 +26,7 @@ export async function DAIMySupplyRatio(account: string): Promise<string> {
     100;
 
   const result = parseFloat(percent.toString()).toFixed(2) + "%";
+
   return result;
 }
 

@@ -138,7 +138,7 @@ export async function EURSBorrowAPY(): Promise<string> {
   return borrowAPY;
 }
 
-export async function WEHTBorrowAPY(): Promise<string> {
+export async function WETHBorrowAPY(): Promise<string> {
   const RAY = 10 ** 27; // 10 to the power 27
   const RAY_DECIMALS = 27;
   const SECONDS_PER_YEAR = secondsToYear();

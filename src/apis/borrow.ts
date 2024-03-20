@@ -18,7 +18,11 @@ import {
   weth_contract,
 } from "./common";
 
-export async function DAIBorrow(tokenSupply: string, account: string) {
+export async function DAIBorrow(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await dai_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
 
@@ -27,6 +31,7 @@ export async function DAIBorrow(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -39,7 +44,11 @@ export async function DAIBorrow(tokenSupply: string, account: string) {
     });
 }
 
-export async function USDTBorrow(tokenSupply: string, account: string) {
+export async function USDTBorrow(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await usdt_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
 
@@ -48,6 +57,7 @@ export async function USDTBorrow(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -60,7 +70,11 @@ export async function USDTBorrow(tokenSupply: string, account: string) {
     });
 }
 
-export async function USDCBorrow(tokenSupply: string, account: string) {
+export async function USDCBorrow(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await usdc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
 
@@ -69,6 +83,7 @@ export async function USDCBorrow(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -81,7 +96,11 @@ export async function USDCBorrow(tokenSupply: string, account: string) {
     });
 }
 
-export async function WBTCBorrow(tokenSupply: string, account: string) {
+export async function WBTCBorrow(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await wbtc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
 
@@ -90,6 +109,7 @@ export async function WBTCBorrow(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -102,7 +122,11 @@ export async function WBTCBorrow(tokenSupply: string, account: string) {
     });
 }
 
-export async function LINKBorrow(tokenSupply: string, account: string) {
+export async function LINKBorrow(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await link_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
 
@@ -111,6 +135,7 @@ export async function LINKBorrow(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -123,7 +148,11 @@ export async function LINKBorrow(tokenSupply: string, account: string) {
     });
 }
 
-export async function AAVEBorrow(tokenSupply: string, account: string) {
+export async function AAVEBorrow(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await aave_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
 
@@ -132,6 +161,7 @@ export async function AAVEBorrow(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -144,7 +174,11 @@ export async function AAVEBorrow(tokenSupply: string, account: string) {
     });
 }
 
-export async function EURSBorrow(tokenSupply: string, account: string) {
+export async function EURSBorrow(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await eurs_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
 
@@ -153,9 +187,11 @@ export async function EURSBorrow(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
+      setDisable(true);
     })
     .on("receipt", (receipt: any) => {
       console.log("Mined", receipt);
@@ -165,7 +201,11 @@ export async function EURSBorrow(tokenSupply: string, account: string) {
     });
 }
 
-export async function WETHBorrow(tokenSupply: string, account: string) {
+export async function WETHBorrow(
+  setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  tokenSupply: string,
+  account: string
+) {
   const decimals = await weth_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
 
@@ -174,6 +214,7 @@ export async function WETHBorrow(tokenSupply: string, account: string) {
     .send({ from: account })
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
+      setDisable(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);

@@ -27,11 +27,7 @@
   background-color: #1b1c1b;
 }
 
-.table tr {
-  border-radius: 20px;
-}
-
-tr td:nth-child(n + 4),
+/* tr td:nth-child(n + 5),
 tr th:nth-child(n + 5) {
   border-radius: 0 0.625rem 0.625rem 0;
 }
@@ -39,4 +35,13 @@ tr th:nth-child(n + 5) {
 tr td:nth-child(1),
 tr th:nth-child(1) {
   border-radius: 0.625rem 0 0 0.625rem;
+}
+ */
+
+tr td:first-child {
+  border-radius: 0.625rem 0 0 0.625rem;
+}
+
+tr td:last-child {
+  border-radius: 0 0.625rem 0.625rem 0;
 }

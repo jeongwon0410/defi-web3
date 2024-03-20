@@ -46,35 +46,35 @@ export default function ModalBorrowButton({
 
   const borrow = async (tokenSupply: string, cryptoName: string) => {
     if (cryptoName === name[0]) {
-      DAIBorrow(tokenSupply, account).then(() => {
+      DAIBorrow(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[1]) {
-      USDTBorrow(tokenSupply, account).then(() => {
+      USDTBorrow(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[2]) {
-      USDCBorrow(tokenSupply, account).then(() => {
+      USDCBorrow(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[3]) {
-      WBTCBorrow(tokenSupply, account).then(() => {
+      WBTCBorrow(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[4]) {
-      LINKBorrow(tokenSupply, account).then(() => {
+      LINKBorrow(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[5]) {
-      AAVEBorrow(tokenSupply, account).then(() => {
+      AAVEBorrow(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[6]) {
-      EURSBorrow(tokenSupply, account).then(() => {
+      EURSBorrow(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else {
-      WETHBorrow(tokenSupply, account).then(() => {
+      WETHBorrow(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     }

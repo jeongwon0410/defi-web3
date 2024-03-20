@@ -57,42 +57,42 @@ export default function ModalRepayButton({
     // Token approval
 
     if (cryptoName === name[0]) {
-      DAIAprove(tokenSupply, account).then(() => {
+      DAIAprove(setApproveDisable, tokenSupply, account).then(() => {
         setDisable(false);
         setApproveDisable(true);
       });
     } else if (cryptoName === name[1]) {
-      USDTAprove(tokenSupply, account).then(() => {
+      USDTAprove(setApproveDisable, tokenSupply, account).then(() => {
         setDisable(false);
         setApproveDisable(true);
       });
     } else if (cryptoName === name[2]) {
-      USDCAprove(tokenSupply, account).then(() => {
+      USDCAprove(setApproveDisable, tokenSupply, account).then(() => {
         setDisable(false);
         setApproveDisable(true);
       });
     } else if (cryptoName === name[3]) {
-      WBTCAprove(tokenSupply, account).then(() => {
+      WBTCAprove(setApproveDisable, tokenSupply, account).then(() => {
         setDisable(false);
         setApproveDisable(true);
       });
     } else if (cryptoName === name[4]) {
-      LINKAprove(tokenSupply, account).then(() => {
+      LINKAprove(setApproveDisable, tokenSupply, account).then(() => {
         setDisable(false);
         setApproveDisable(true);
       });
     } else if (cryptoName === name[5]) {
-      AAVEAprove(tokenSupply, account).then(() => {
+      AAVEAprove(setApproveDisable, tokenSupply, account).then(() => {
         setDisable(false);
         setApproveDisable(true);
       });
     } else if (cryptoName === name[6]) {
-      EURSAprove(tokenSupply, account).then(() => {
+      EURSAprove(setApproveDisable, tokenSupply, account).then(() => {
         setDisable(false);
         setApproveDisable(true);
       });
     } else {
-      WETHAprove(tokenSupply, account).then(() => {
+      WETHAprove(setApproveDisable, tokenSupply, account).then(() => {
         setDisable(false);
         setApproveDisable(true);
       });
@@ -101,35 +101,35 @@ export default function ModalRepayButton({
 
   const repay = async (tokenSupply: string) => {
     if (cryptoName === name[0]) {
-      DAIRepay(tokenSupply, account).then(() => {
+      DAIRepay(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[1]) {
-      USDTRepay(tokenSupply, account).then(() => {
+      USDTRepay(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[2]) {
-      USDCRepay(tokenSupply, account).then(() => {
+      USDCRepay(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[3]) {
-      WBTCRepay(tokenSupply, account).then(() => {
+      WBTCRepay(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[4]) {
-      LINKRepay(tokenSupply, account).then(() => {
+      LINKRepay(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[5]) {
-      AAVERepay(tokenSupply, account).then(() => {
+      AAVERepay(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else if (cryptoName === name[6]) {
-      EURSRepay(tokenSupply, account).then(() => {
+      EURSRepay(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     } else {
-      WETHRepay(tokenSupply, account).then(() => {
+      WETHRepay(setDisable, tokenSupply, account).then(() => {
         setOpen(false);
       });
     }

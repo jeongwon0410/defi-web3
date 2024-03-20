@@ -11,25 +11,41 @@ import {
   WBTCMySupplyBalance,
   WETHMySupplyBalance,
 } from "@/apis/mySupplyBalance";
-import { DAISupplyAPY } from "@/apis/supplyAPY";
+import {
+  AAVESupplyAPY,
+  DAISupplyAPY,
+  EURSSupplyAPY,
+  LINKSupplyAPY,
+  USDCSupplyAPY,
+  USDTSupplyAPY,
+  WBTCSupplyAPY,
+  WETHSupplyAPY,
+} from "@/apis/supplyAPY";
+import {
+  AAVESupplyMaxLTV,
+  DAISupplyMaxLTV,
+  EURSSupplyMaxLTV,
+  LINKSupplyMaxLTV,
+  USDCSupplyMaxLTV,
+  USDTSupplyMaxLTV,
+  WBTCSupplyMaxLTV,
+  WETHSupplyMaxLTV,
+} from "@/apis/supplyMaxLTV";
 
 interface Props {
   account: string;
 }
+
+const tableRow = ["Asset", "Supplied", "APY", "MAXLTV"];
 export default function Supply({ account }: Props) {
   const [balance, setBalance] = useState(0);
+  const [tableCol, setTableCol] = useState<any>([]);
 
-  const tableCol = [
-    ["ETH.png", "DAI", 0, 0, 0],
-    ["ETH.png", "USDT", 0, 0, 0],
-    ["usdc.png", "USDC", 0, 0, 0],
-    // ["eth.png", "ETH", "0.000", "0.00%", "0.00%", "00.00"],
-  ];
   useEffect(() => {
     if (account) {
       checkMySupply(account);
     }
-  }, []);
+  }, [account]);
 
   const checkMySupply = async (account: string) => {
     const dai = await DAIMySupplyBalance(account);
@@ -52,6 +68,87 @@ export default function Supply({ account }: Props) {
       parseFloat(weth);
 
     setBalance(result);
+
+    const table = {
+      dai: dai,
+      usdc: usdc,
+      usdt: usdt,
+      wbtc: wbtc,
+      link: link,
+      aave: aave,
+      eurs: eurs,
+      weth: weth,
+    };
+
+    setTale(table);
+  };
+
+  const setTale = async (table: any) => {
+    const dai = table.dai;
+    const usdc = table.usdc;
+    const usdt = table.usdt;
+    const wbtc = table.wbtc;
+    const link = table.link;
+    const aave = table.aave;
+    const eurs = table.eurs;
+    const weth = table.weth;
+
+    const list = [];
+
+    if (parseFloat(dai) > 0) {
+      const apy = await DAISupplyAPY();
+      const ltv = await DAISupplyMaxLTV();
+      const item = ["ETH.png", "DAI", dai, apy, ltv];
+      list.push(item);
+    }
+    if (parseFloat(usdt) > 0) {
+      const apy = await USDTSupplyAPY();
+      const ltv = await USDTSupplyMaxLTV();
+      const item = ["ETH.png", "USDT", usdt, apy, ltv];
+      list.push(item);
+    }
+    if (parseFloat(usdc) > 0) {
+      const apy = await USDCSupplyAPY();
+      const ltv = await USDCSupplyMaxLTV();
+      const item = ["usdc.png", "USDC", usdc, apy, ltv];
+      list.push(item);
+    }
+    if (parseFloat(wbtc) > 0) {
+      const apy = await WBTCSupplyAPY();
+      const ltv = await WBTCSupplyMaxLTV();
+      const item = ["wbtc.png", "WBTC", wbtc, apy, ltv];
+      list.push(item);
+    }
+
+    if (parseFloat(link) > 0) {
+      const apy = await LINKSupplyAPY();
+      const ltv = await LINKSupplyMaxLTV();
+      const item = ["ETH.png", "LINK", link, apy, ltv];
+      list.push(item);
+    }
+
+    if (parseFloat(aave) > 0) {
+      const apy = await AAVESupplyAPY();
+      const ltv = await AAVESupplyMaxLTV();
+      const item = ["ETH.png", "AAVE", aave, apy, ltv];
+      list.push(item);
+    }
+
+    if (parseFloat(eurs) > 0) {
+      const apy = await EURSSupplyAPY();
+      const ltv = await EURSSupplyMaxLTV();
+      const item = ["ETH.png", "EURS", eurs, apy, ltv];
+      list.push(item);
+    }
+
+    if (parseFloat(weth) > 0) {
+      const apy = await WETHSupplyAPY();
+      const ltv = await WETHSupplyMaxLTV();
+      const item = ["ETH.png", "WETH", weth, apy, ltv];
+      list.push(item);
+    }
+
+    setTableCol(list);
   };
   return (
     <div className="overflow-hidden rounded-lg w-full max-w-lg">
@@ -66,7 +163,7 @@ export default function Supply({ account }: Props) {
         </div>
       </div>
       <Account>
-        <Table tableCol={tableCol} />
+        <Table tableRow={tableRow} tableCol={tableCol} flag={false} />
       </Account>
     </div>
   );

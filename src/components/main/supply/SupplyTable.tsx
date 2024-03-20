@@ -51,7 +51,7 @@ import {
   USDCSupplyAPY,
   USDTSupplyAPY,
   WBTCSupplyAPY,
-  WEHTSupplyAPY,
+  WETHSupplyAPY,
 } from "@/apis/supplyAPY";
 
 interface Props {
@@ -242,7 +242,7 @@ export default function SupplyTable({ allMarket, account }: Props) {
     LINKSupplyAPY().then((item) => setLinkSupplyAPY(item ?? "0%"));
     AAVESupplyAPY().then((item) => setAaveSupplyAPY(item ?? "0%"));
     EURSSupplyAPY().then((item) => setEursSupplyAPY(item ?? "0%"));
-    WEHTSupplyAPY().then((item) => setWethSupplyAPY(item ?? "0%"));
+    WETHSupplyAPY().then((item) => setWethSupplyAPY(item ?? "0%"));
   };
 
   const choiceMaxLTV = (cryptoName: string) => {

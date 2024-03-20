@@ -9,11 +9,6 @@ interface Props {
 export default function ConnectWalletButton({ setAccount }: Props) {
   const { sdk, connected, connecting, account } = useSDK();
 
-  // const data = useQuery({
-  //   queryKey: ["getAddress"],
-  //   queryFn: () => getAddress(localStorage.getItem("account") || ""),
-  // });
-
   const save = useMutation({
     mutationFn: saveAddress,
   });

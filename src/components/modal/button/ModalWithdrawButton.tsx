@@ -61,21 +61,21 @@ export default function ModalWithdrawButton({
 
   const withdraw = async (tokenSupply: string, cryptoName: string) => {
     if (cryptoName === name[0]) {
-      await DAIWithdraw(tokenSupply, account).then(() => setOpen(false));
+      DAIWithdraw(setDisable, tokenSupply, account).then(() => setOpen(false));
     } else if (cryptoName === name[1]) {
-      await USDTWithdraw(tokenSupply, account).then(() => setOpen(false));
+      USDTWithdraw(setDisable, tokenSupply, account).then(() => setOpen(false));
     } else if (cryptoName === name[2]) {
-      await USDCWithdraw(tokenSupply, account).then(() => setOpen(false));
+      USDCWithdraw(setDisable, tokenSupply, account).then(() => setOpen(false));
     } else if (cryptoName === name[3]) {
-      await WBTCWithdraw(tokenSupply, account).then(() => setOpen(false));
+      WBTCWithdraw(setDisable, tokenSupply, account).then(() => setOpen(false));
     } else if (cryptoName === name[4]) {
-      await LINKWithdraw(tokenSupply, account).then(() => setOpen(false));
+      LINKWithdraw(setDisable, tokenSupply, account).then(() => setOpen(false));
     } else if (cryptoName === name[5]) {
-      await AAVEWithdraw(tokenSupply, account).then(() => setOpen(false));
+      AAVEWithdraw(setDisable, tokenSupply, account).then(() => setOpen(false));
     } else if (cryptoName === name[6]) {
-      await EURSWithdraw(tokenSupply, account).then(() => setOpen(false));
+      EURSWithdraw(setDisable, tokenSupply, account).then(() => setOpen(false));
     } else {
-      await WETHWithdraw(tokenSupply, account).then(() => setOpen(false));
+      WETHWithdraw(setDisable, tokenSupply, account).then(() => setOpen(false));
     }
   };
   return (

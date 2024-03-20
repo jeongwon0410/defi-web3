@@ -28,7 +28,11 @@ export async function DAIBorrowAmount(account: string): Promise<string> {
   const result =
     parseInt(data["currentVariableDebt"]) / 10 ** parseInt(decimals);
 
-  return result.toString();
+  if (result === 0) {
+    return result.toString();
+  } else {
+    return result.toFixed(18);
+  }
 }
 export async function USDCBorrowAmount(account: string): Promise<string> {
   const decimals = await usdc_contract.methods.decimals().call();
