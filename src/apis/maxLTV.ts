@@ -10,7 +10,7 @@ import {
   weth_address,
 } from "./common";
 
-export async function DAISupplyMaxLTV(): Promise<string> {
+export async function DAIMaxLTV(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveConfigurationData(dai_address)
     .call();
@@ -21,7 +21,7 @@ export async function DAISupplyMaxLTV(): Promise<string> {
   return result;
 }
 
-export async function USDTSupplyMaxLTV(): Promise<string> {
+export async function USDTMaxLTV(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveConfigurationData(usdt_address)
     .call();
@@ -31,7 +31,7 @@ export async function USDTSupplyMaxLTV(): Promise<string> {
   return result;
 }
 
-export async function USDCSupplyMaxLTV(): Promise<string> {
+export async function USDCMaxLTV(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveConfigurationData(usdc_address)
     .call();
@@ -41,7 +41,7 @@ export async function USDCSupplyMaxLTV(): Promise<string> {
   return result;
 }
 
-export async function WBTCSupplyMaxLTV(): Promise<string> {
+export async function WBTCMaxLTV(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveConfigurationData(wbtc_address)
     .call();
@@ -51,7 +51,7 @@ export async function WBTCSupplyMaxLTV(): Promise<string> {
   return result;
 }
 
-export async function LINKSupplyMaxLTV(): Promise<string> {
+export async function LINKMaxLTV(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveConfigurationData(link_address)
     .call();
@@ -61,7 +61,7 @@ export async function LINKSupplyMaxLTV(): Promise<string> {
   return result;
 }
 
-export async function AAVESupplyMaxLTV(): Promise<string> {
+export async function AAVEMaxLTV(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveConfigurationData(aave_address)
     .call();
@@ -71,7 +71,7 @@ export async function AAVESupplyMaxLTV(): Promise<string> {
   return result;
 }
 
-export async function EURSSupplyMaxLTV(): Promise<string> {
+export async function EURSMaxLTV(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveConfigurationData(eurs_address)
     .call();
@@ -81,7 +81,7 @@ export async function EURSSupplyMaxLTV(): Promise<string> {
   return result;
 }
 
-export async function WETHSupplyMaxLTV(): Promise<string> {
+export async function WETHMaxLTV(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveConfigurationData(weth_address)
     .call();

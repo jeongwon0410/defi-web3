@@ -22,15 +22,15 @@ import {
   WETHSupplyAPY,
 } from "@/apis/supplyAPY";
 import {
-  AAVESupplyMaxLTV,
-  DAISupplyMaxLTV,
-  EURSSupplyMaxLTV,
-  LINKSupplyMaxLTV,
-  USDCSupplyMaxLTV,
-  USDTSupplyMaxLTV,
-  WBTCSupplyMaxLTV,
-  WETHSupplyMaxLTV,
-} from "@/apis/supplyMaxLTV";
+  AAVEMaxLTV,
+  DAIMaxLTV,
+  EURSMaxLTV,
+  LINKMaxLTV,
+  USDCMaxLTV,
+  USDTMaxLTV,
+  WBTCMaxLTV,
+  WETHMaxLTV,
+} from "@/apis/maxLTV";
 
 interface Props {
   account: string;
@@ -97,53 +97,53 @@ export default function Supply({ account }: Props) {
 
     if (parseFloat(dai) > 0) {
       const apy = await DAISupplyAPY();
-      const ltv = await DAISupplyMaxLTV();
+      const ltv = await DAIMaxLTV();
       const item = ["ETH.png", "DAI", dai, apy, ltv];
       list.push(item);
     }
     if (parseFloat(usdt) > 0) {
       const apy = await USDTSupplyAPY();
-      const ltv = await USDTSupplyMaxLTV();
+      const ltv = await USDTMaxLTV();
       const item = ["ETH.png", "USDT", usdt, apy, ltv];
       list.push(item);
     }
     if (parseFloat(usdc) > 0) {
       const apy = await USDCSupplyAPY();
-      const ltv = await USDCSupplyMaxLTV();
+      const ltv = await USDCMaxLTV();
       const item = ["usdc.png", "USDC", usdc, apy, ltv];
       list.push(item);
     }
     if (parseFloat(wbtc) > 0) {
       const apy = await WBTCSupplyAPY();
-      const ltv = await WBTCSupplyMaxLTV();
+      const ltv = await WBTCMaxLTV();
       const item = ["wbtc.png", "WBTC", wbtc, apy, ltv];
       list.push(item);
     }
 
     if (parseFloat(link) > 0) {
       const apy = await LINKSupplyAPY();
-      const ltv = await LINKSupplyMaxLTV();
+      const ltv = await LINKMaxLTV();
       const item = ["ETH.png", "LINK", link, apy, ltv];
       list.push(item);
     }
 
     if (parseFloat(aave) > 0) {
       const apy = await AAVESupplyAPY();
-      const ltv = await AAVESupplyMaxLTV();
+      const ltv = await AAVEMaxLTV();
       const item = ["ETH.png", "AAVE", aave, apy, ltv];
       list.push(item);
     }
 
     if (parseFloat(eurs) > 0) {
       const apy = await EURSSupplyAPY();
-      const ltv = await EURSSupplyMaxLTV();
+      const ltv = await EURSMaxLTV();
       const item = ["ETH.png", "EURS", eurs, apy, ltv];
       list.push(item);
     }
 
     if (parseFloat(weth) > 0) {
       const apy = await WETHSupplyAPY();
-      const ltv = await WETHSupplyMaxLTV();
+      const ltv = await WETHMaxLTV();
       const item = ["ETH.png", "WETH", weth, apy, ltv];
       list.push(item);
     }

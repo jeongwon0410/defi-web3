@@ -24,9 +24,14 @@ export async function DAIBorrowTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getTotalDebt(dai_address)
     .call();
-  const result = parseInt(data) / 10 ** parseInt(decimals);
-
-  return result.toString();
+  const total = parseInt(data) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return result;
 }
 
 export async function USDTBorrowTotal(): Promise<string> {
@@ -34,9 +39,14 @@ export async function USDTBorrowTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getTotalDebt(usdt_address)
     .call();
-  const result = parseInt(data) / 10 ** parseInt(decimals);
-
-  return result.toString();
+  const total = parseInt(data) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return result;
 }
 
 export async function USDCBorrowTotal(): Promise<string> {
@@ -44,9 +54,14 @@ export async function USDCBorrowTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getTotalDebt(usdc_address)
     .call();
-  const result = parseInt(data) / 10 ** parseInt(decimals);
-
-  return result.toString();
+  const total = parseInt(data) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return result;
 }
 
 export async function WBTCBorrowTotal(): Promise<string> {
@@ -54,9 +69,14 @@ export async function WBTCBorrowTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getTotalDebt(wbtc_address)
     .call();
-  const result = parseInt(data) / 10 ** parseInt(decimals);
-
-  return result.toString();
+  const total = parseInt(data) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return result;
 }
 
 export async function LINKBorrowTotal(): Promise<string> {
@@ -64,9 +84,14 @@ export async function LINKBorrowTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getTotalDebt(link_address)
     .call();
-  const result = parseInt(data) / 10 ** parseInt(decimals);
-
-  return result.toString();
+  const total = parseInt(data) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return result;
 }
 
 export async function AAVEBorrowTotal(): Promise<string> {
@@ -74,9 +99,14 @@ export async function AAVEBorrowTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getTotalDebt(aave_address)
     .call();
-  const result = parseInt(data) / 10 ** parseInt(decimals);
-
-  return result.toString();
+  const total = parseInt(data) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return result;
 }
 
 export async function EURSBorrowTotal(): Promise<string> {
@@ -84,9 +114,14 @@ export async function EURSBorrowTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getTotalDebt(eurs_address)
     .call();
-  const result = parseInt(data) / 10 ** parseInt(decimals);
-
-  return result.toString();
+  const total = parseInt(data) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return result;
 }
 
 export async function WETHBorrowTotal(): Promise<string> {
@@ -94,7 +129,12 @@ export async function WETHBorrowTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getTotalDebt(weth_address)
     .call();
-  const result = parseInt(data) / 10 ** parseInt(decimals);
-
-  return result.toString();
+  const total = parseInt(data) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return result;
 }

@@ -38,7 +38,7 @@ interface Props {
   allMarket: boolean;
   setCryptoImg: React.Dispatch<React.SetStateAction<string>>;
   setCryptoName: React.Dispatch<React.SetStateAction<string>>;
-  setBalance: React.Dispatch<React.SetStateAction<string>>;
+
   setBorrowAmount: React.Dispatch<React.SetStateAction<string>>;
   setBorrowableAmount: React.Dispatch<React.SetStateAction<string>>;
   account: string;
@@ -51,7 +51,7 @@ export default function BorrowTableData({
   allMarket,
   setCryptoImg,
   setCryptoName,
-  setBalance,
+
   setBorrowAmount,
   setBorrowableAmount,
   account,
@@ -61,7 +61,7 @@ export default function BorrowTableData({
       setCryptoName(tableCol[index][1]);
       setCryptoImg(tableCol[index][0]);
       setOpenBorrow(true);
-      checkBalance(tableCol[index][1], account);
+
       checkBorrowableAmount(tableCol[index][1], account);
     }
   };
@@ -72,26 +72,6 @@ export default function BorrowTableData({
       setCryptoImg(tableCol[index][0]);
       setOpenRepay(true);
       checkBorrowAmount(tableCol[index][1], account);
-    }
-  };
-
-  const checkBalance = async (cryptoName: string, account: string) => {
-    if (cryptoName === name[0]) {
-      DAIBalance(account).then((item) => setBalance(item ?? "0"));
-    } else if (cryptoName === name[1]) {
-      USDTBalance(account).then((item) => setBalance(item ?? " 0"));
-    } else if (cryptoName === name[2]) {
-      USDCBalance(account).then((item) => setBalance(item ?? " 0"));
-    } else if (cryptoName === name[3]) {
-      WBTCBalance(account).then((item) => setBalance(item ?? " 0"));
-    } else if (cryptoName === name[4]) {
-      LINKBalance(account).then((item) => setBalance(item ?? "0"));
-    } else if (cryptoName === name[5]) {
-      AAVEBalance(account).then((item) => setBalance(item ?? "0"));
-    } else if (cryptoName === name[6]) {
-      EURSBalance(account).then((item) => setBalance(item ?? "0"));
-    } else {
-      WETHBalance(account).then((item) => setBalance(item ?? "0"));
     }
   };
 
@@ -195,6 +175,9 @@ export default function BorrowTableData({
 
               <td className="font-pretendard font-normal text-[14px] leading-[24px] text-[#B0B0B0] ">
                 {col[4]}
+              </td>
+              <td className="font-pretendard font-normal text-[14px] leading-[24px] text-[#B0B0B0] ">
+                {col[5]}
               </td>
             </tr>
           )

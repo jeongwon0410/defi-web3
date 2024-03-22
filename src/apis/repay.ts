@@ -20,6 +20,7 @@ import {
 
 export async function DAIRepay(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -31,9 +32,10 @@ export async function DAIRepay(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Repay Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -44,6 +46,7 @@ export async function DAIRepay(
 
 export async function USDCRepay(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -55,9 +58,10 @@ export async function USDCRepay(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Repay Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -68,6 +72,7 @@ export async function USDCRepay(
 
 export async function USDTRepay(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -79,9 +84,10 @@ export async function USDTRepay(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Repay Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -92,6 +98,7 @@ export async function USDTRepay(
 
 export async function WBTCRepay(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -103,9 +110,10 @@ export async function WBTCRepay(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Repay Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -116,6 +124,7 @@ export async function WBTCRepay(
 
 export async function LINKRepay(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -127,9 +136,10 @@ export async function LINKRepay(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Repay Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -140,6 +150,7 @@ export async function LINKRepay(
 
 export async function AAVERepay(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -151,9 +162,10 @@ export async function AAVERepay(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Repay Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -164,6 +176,7 @@ export async function AAVERepay(
 
 export async function EURSRepay(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -175,9 +188,10 @@ export async function EURSRepay(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Repay Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -188,6 +202,7 @@ export async function EURSRepay(
 
 export async function WETHRepay(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -199,9 +214,10 @@ export async function WETHRepay(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Repay Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {

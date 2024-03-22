@@ -20,6 +20,7 @@ import {
 
 export async function DAIBorrow(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -32,9 +33,10 @@ export async function DAIBorrow(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Borrow Error", error);
     })
     .on("receipt", (receipt: any) => {
       console.log("Mined", receipt);
@@ -46,6 +48,7 @@ export async function DAIBorrow(
 
 export async function USDTBorrow(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -58,9 +61,10 @@ export async function USDTBorrow(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Borrow Error", error);
     })
     .on("receipt", (receipt: any) => {
       console.log("Mined", receipt);
@@ -72,6 +76,7 @@ export async function USDTBorrow(
 
 export async function USDCBorrow(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -84,9 +89,10 @@ export async function USDCBorrow(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Borrow Error", error);
     })
     .on("receipt", (receipt: any) => {
       console.log("Mined", receipt);
@@ -98,6 +104,7 @@ export async function USDCBorrow(
 
 export async function WBTCBorrow(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -110,9 +117,10 @@ export async function WBTCBorrow(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Borrow Error", error);
     })
     .on("receipt", (receipt: any) => {
       console.log("Mined", receipt);
@@ -124,6 +132,7 @@ export async function WBTCBorrow(
 
 export async function LINKBorrow(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -136,9 +145,10 @@ export async function LINKBorrow(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Borrow Error", error);
     })
     .on("receipt", (receipt: any) => {
       console.log("Mined", receipt);
@@ -150,6 +160,7 @@ export async function LINKBorrow(
 
 export async function AAVEBorrow(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -162,9 +173,10 @@ export async function AAVEBorrow(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Borrow Error", error);
     })
     .on("receipt", (receipt: any) => {
       console.log("Mined", receipt);
@@ -176,6 +188,7 @@ export async function AAVEBorrow(
 
 export async function EURSBorrow(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -188,9 +201,10 @@ export async function EURSBorrow(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Borrow Error", error);
       setDisable(true);
     })
     .on("receipt", (receipt: any) => {
@@ -203,6 +217,7 @@ export async function EURSBorrow(
 
 export async function WETHBorrow(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -215,9 +230,11 @@ export async function WETHBorrow(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Borrow", hash);
       setDisable(true);
+      setFlag(true);
     })
+
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Borrow Error", error);
     })
     .on("receipt", (receipt: any) => {
       console.log("Mined", receipt);

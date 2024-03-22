@@ -25,9 +25,14 @@ export async function DAISupplyTotal(): Promise<string> {
     .getReserveData(dai_address)
     .call();
 
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
-
-  return result.toString();
+  const total = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return result;
 }
 
 export async function USDTSupplyTotal(): Promise<string> {
@@ -36,9 +41,15 @@ export async function USDTSupplyTotal(): Promise<string> {
     .getReserveData(usdt_address)
     .call();
 
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const total = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-  return result.toString();
+  return result;
 }
 
 export async function USDCSupplyTotal(): Promise<string> {
@@ -47,9 +58,15 @@ export async function USDCSupplyTotal(): Promise<string> {
     .getReserveData(usdc_address)
     .call();
 
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const total = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-  return result.toString();
+  return result;
 }
 
 export async function WBTCSupplyTotal(): Promise<string> {
@@ -58,9 +75,15 @@ export async function WBTCSupplyTotal(): Promise<string> {
     .getReserveData(wbtc_address)
     .call();
 
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const total = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-  return result.toString();
+  return result;
 }
 
 export async function LINKSupplyTotal(): Promise<string> {
@@ -68,9 +91,15 @@ export async function LINKSupplyTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveData(link_address)
     .call();
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const total = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-  return result.toString();
+  return result;
 }
 
 export async function AAVESupplyTotal(): Promise<string> {
@@ -78,9 +107,15 @@ export async function AAVESupplyTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveData(aave_address)
     .call();
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const total = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-  return result.toString();
+  return result;
 }
 
 export async function EURSSupplyTotal(): Promise<string> {
@@ -88,9 +123,15 @@ export async function EURSSupplyTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveData(eurs_address)
     .call();
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const total = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-  return result.toString();
+  return result;
 }
 
 export async function WETHSupplyTotal(): Promise<string> {
@@ -98,7 +139,13 @@ export async function WETHSupplyTotal(): Promise<string> {
   const data = await pool_data_provider_contract.methods
     .getReserveData(weth_address)
     .call();
-  const result = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const total = parseInt(data["totalAToken"]) / 10 ** parseInt(decimals);
+  const result =
+    "$" +
+    total
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-  return result.toString();
+  return result;
 }

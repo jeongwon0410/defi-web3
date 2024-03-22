@@ -1,4 +1,3 @@
-import ModalMiddle from "./ModalMiddle";
 import ModalHeader from "./ModalHeader";
 import ModalMain from "./ModalMain";
 import ModalTop from "./ModalTop";
@@ -7,6 +6,10 @@ import { useEffect, useState } from "react";
 import ModalBorrowButton from "./button/ModalBorrowButton";
 import ModalWithdrawButton from "./button/ModalWithdrawButton";
 import ModalRepayButton from "./button/ModalRepayButton";
+import ModalSupplyAmount from "./amount/ModalSupplyAmount";
+import ModalBorrowAmount from "./amount/ModalBorrowAmount";
+import ModalWithdrawAmount from "./amount/ModalWithdrawAmount";
+import ModalRepayAmount from "./amount/ModalRepayAmount";
 
 interface item {
   name: string;
@@ -57,7 +60,35 @@ export default function Modal({
               />
             </div>
             <div className="mt-5">
-              <ModalMiddle setAmount={setAmount} amount={amount} max={max} />
+              {item.name === "Supply" ? (
+                <ModalSupplyAmount
+                  setAmount={setAmount}
+                  amount={amount}
+                  max={max}
+                  account={account}
+                />
+              ) : item.name === "Withdraw" ? (
+                <ModalWithdrawAmount
+                  setAmount={setAmount}
+                  amount={amount}
+                  max={max}
+                  account={account}
+                />
+              ) : item.name === "Borrow" ? (
+                <ModalBorrowAmount
+                  setAmount={setAmount}
+                  amount={amount}
+                  max={max}
+                  account={account}
+                />
+              ) : (
+                <ModalRepayAmount
+                  setAmount={setAmount}
+                  amount={amount}
+                  max={max}
+                  account={account}
+                />
+              )}
             </div>
             {item && item.name === "Supply" ? (
               <div className="mt-5">

@@ -20,6 +20,7 @@ import {
 
 export async function DAISupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -32,6 +33,7 @@ export async function DAISupply(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -39,12 +41,15 @@ export async function DAISupply(
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
-      } else console.log("Transaction Failed");
+      } else {
+        console.log("Transaction Failed");
+      }
     });
 }
 
 export async function USDTSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -56,6 +61,7 @@ export async function USDTSupply(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -63,12 +69,15 @@ export async function USDTSupply(
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
-      } else console.log("Transaction Failed");
+      } else {
+        console.log("Transaction Failed");
+      }
     });
 }
 
 export async function USDCSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -80,6 +89,7 @@ export async function USDCSupply(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -87,12 +97,15 @@ export async function USDCSupply(
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
-      } else console.log("Transaction Failed");
+      } else {
+        console.log("Transaction Failed");
+      }
     });
 }
 
 export async function WBTCSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -104,6 +117,7 @@ export async function WBTCSupply(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -111,12 +125,15 @@ export async function WBTCSupply(
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
-      } else console.log("Transaction Failed");
+      } else {
+        console.log("Transaction Failed");
+      }
     });
 }
 
 export async function LINKSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -128,6 +145,7 @@ export async function LINKSupply(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -135,12 +153,15 @@ export async function LINKSupply(
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
-      } else console.log("Transaction Failed");
+      } else {
+        console.log("Transaction Failed");
+      }
     });
 }
 
 export async function AAVESupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -152,6 +173,7 @@ export async function AAVESupply(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -159,12 +181,15 @@ export async function AAVESupply(
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
-      } else console.log("Transaction Failed");
+      } else {
+        console.log("Transaction Failed");
+      }
     });
 }
 
 export async function EURSSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -176,6 +201,7 @@ export async function EURSSupply(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -183,12 +209,15 @@ export async function EURSSupply(
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
-      } else console.log("Transaction Failed");
+      } else {
+        console.log("Transaction Failed");
+      }
     });
 }
 
 export async function WETHSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -200,6 +229,7 @@ export async function WETHSupply(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Supply Error", error);
@@ -207,6 +237,8 @@ export async function WETHSupply(
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
-      } else console.log("Transaction Failed");
+      } else {
+        console.log("Transaction Failed");
+      }
     });
 }

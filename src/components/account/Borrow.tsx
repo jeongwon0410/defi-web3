@@ -21,12 +21,31 @@ import {
   WBTCBorrowAPY,
   WETHBorrowAPY,
 } from "@/apis/borrowAPY";
-import { DAILiquidation } from "@/apis/liquidation";
+import {
+  AAVELiquidation,
+  DAILiquidation,
+  EURSLiquidation,
+  LINKLiquidation,
+  USDCLiquidation,
+  USDTLiquidation,
+  WBTCLiquidation,
+  WETHLiquidation,
+} from "@/apis/liquidation";
+import {
+  AAVEMaxLTV,
+  DAIMaxLTV,
+  EURSMaxLTV,
+  LINKMaxLTV,
+  USDCMaxLTV,
+  USDTMaxLTV,
+  WBTCMaxLTV,
+  WETHMaxLTV,
+} from "@/apis/maxLTV";
 
 interface Props {
   account: string;
 }
-const tableRow = ["Asset", "Supplied", "APY", "MAXLTV", "LIQUIDATION"];
+const tableRow = ["Asset", "Borrowed", "APY", "MAXLTV", "LIQUIDATION"];
 export default function Borrow({ account }: Props) {
   const [balance, setBalance] = useState(0);
   const [tableCol, setTableCol] = useState<any>([]);
@@ -86,64 +105,63 @@ export default function Borrow({ account }: Props) {
 
     if (parseFloat(dai) > 0) {
       const apy = await DAIBorrowAPY();
-      const ltv = 0;
-      const liquidataion = await DAILiquidation();
-      console.log(liquidataion);
+      const ltv = await DAIMaxLTV();
+      const liquidataion = await DAILiquidation(account);
 
       const item = ["ETH.png", "DAI", dai, apy, ltv, liquidataion];
       list.push(item);
     }
     if (parseFloat(usdt) > 0) {
       const apy = await USDTBorrowAPY();
-      const ltv = 0;
-      const liquidataion = "0%";
+      const ltv = await USDTMaxLTV();
+      const liquidataion = await USDTLiquidation(account);
       const item = ["ETH.png", "USDT", usdt, apy, ltv, liquidataion];
       list.push(item);
     }
     if (parseFloat(usdc) > 0) {
       const apy = await USDCBorrowAPY();
-      const ltv = 0;
-      const liquidataion = "0%";
+      const ltv = await USDCMaxLTV();
+      const liquidataion = await USDCLiquidation(account);
       const item = ["usdc.png", "USDC", usdc, apy, ltv, liquidataion];
       list.push(item);
     }
 
     if (parseFloat(wbtc) > 0) {
       const apy = await WBTCBorrowAPY();
-      const ltv = 0;
-      const liquidataion = "0%";
+      const ltv = await WBTCMaxLTV();
+      const liquidataion = await WBTCLiquidation(account);
       const item = ["wbtc.png", "WBTC", wbtc, apy, ltv, liquidataion];
       list.push(item);
     }
 
     if (parseFloat(link) > 0) {
       const apy = await LINKBorrowAPY();
-      const ltv = 0;
-      const liquidataion = "0%";
+      const ltv = await LINKMaxLTV();
+      const liquidataion = await LINKLiquidation(account);
       const item = ["ETH.png", "LINK", link, apy, ltv, liquidataion];
       list.push(item);
     }
 
     if (parseFloat(aave) > 0) {
       const apy = await AAVEBorrowAPY();
-      const ltv = 0;
-      const liquidataion = "0%";
+      const ltv = await AAVEMaxLTV();
+      const liquidataion = await AAVELiquidation(account);
       const item = ["ETH.png", "AAVE", aave, apy, ltv, liquidataion];
       list.push(item);
     }
 
     if (parseFloat(eurs) > 0) {
       const apy = await EURSBorrowAPY();
-      const ltv = 0;
-      const liquidataion = "0%";
+      const ltv = await EURSMaxLTV();
+      const liquidataion = await EURSLiquidation(account);
       const item = ["ETH.png", "EURS", eurs, apy, ltv, liquidataion];
       list.push(item);
     }
 
     if (parseFloat(weth) > 0) {
       const apy = await WETHBorrowAPY();
-      const ltv = 0;
-      const liquidataion = "0%";
+      const ltv = await WETHMaxLTV();
+      const liquidataion = await WETHLiquidation(account);
       const item = ["ETH.png", "WETH", weth, apy, ltv, liquidataion];
       list.push(item);
     }

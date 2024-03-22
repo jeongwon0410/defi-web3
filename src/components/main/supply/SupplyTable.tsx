@@ -23,16 +23,7 @@ import {
   WBTCSupplyTotal,
   WETHSupplyTotal,
 } from "@/apis/supplyTotal";
-import {
-  AAVESupplyMaxLTV,
-  DAISupplyMaxLTV,
-  EURSSupplyMaxLTV,
-  LINKSupplyMaxLTV,
-  USDCSupplyMaxLTV,
-  USDTSupplyMaxLTV,
-  WBTCSupplyMaxLTV,
-  WETHSupplyMaxLTV,
-} from "@/apis/supplyMaxLTV";
+
 import {
   AAVEMySupplyRatio,
   DAIMySupplyRatio,
@@ -53,6 +44,36 @@ import {
   WBTCSupplyAPY,
   WETHSupplyAPY,
 } from "@/apis/supplyAPY";
+import {
+  AAVEBalance,
+  DAIBalance,
+  EURSBalance,
+  LINKBalance,
+  USDCBalance,
+  USDTBalance,
+  WBTCBalance,
+  WETHBalance,
+} from "@/apis/balance";
+import {
+  AAVEMySupplyBalance,
+  DAIMySupplyBalance,
+  EURSMySupplyBalance,
+  LINKMySupplyBalance,
+  USDCMySupplyBalance,
+  USDTMySupplyBalance,
+  WBTCMySupplyBalance,
+  WETHMySupplyBalance,
+} from "@/apis/mySupplyBalance";
+import {
+  AAVEMaxLTV,
+  DAIMaxLTV,
+  EURSMaxLTV,
+  LINKMaxLTV,
+  USDCMaxLTV,
+  USDTMaxLTV,
+  WBTCMaxLTV,
+  WETHMaxLTV,
+} from "@/apis/maxLTV";
 
 interface Props {
   allMarket: boolean;
@@ -78,6 +99,7 @@ export default function SupplyTable({ allMarket, account }: Props) {
   const [mySupply, setMySupply] = useState("0");
   const [maxLTV, setMaxLTV] = useState("0%");
   const [apy, setAPY] = useState("0%");
+  const [max, setMax] = useState("0");
 
   const [daiTotalSupplied, setDaiTotalSupplied] = useState("0");
   const [usdtTotalSupplied, setUsdtTotalSupplied] = useState("0");
@@ -97,14 +119,14 @@ export default function SupplyTable({ allMarket, account }: Props) {
   const [eursMaxLTV, setEursMaxLTV] = useState("0%");
   const [wethMaxLTV, setWethMaxLTV] = useState("0%");
 
-  const [daiSupplyRatio, setDaiSupplyRatio] = useState("0%");
-  const [usdtSupplyRatio, setUsdtSupplyRatio] = useState("0%");
-  const [usdcSupplyRatio, setUsdcSupplyRatio] = useState("0%");
-  const [wbtcSupplyRatio, setWbtcSupplyRatio] = useState("0%");
-  const [linkSupplyRatio, setLinkSupplyRatio] = useState("0%");
-  const [aaveSupplyRatio, setAaveSupplyRatio] = useState("0%");
-  const [eursSupplyRatio, setEursSupplyRatio] = useState("0%");
-  const [wethSupplyRatio, setWethSupplyRatio] = useState("0%");
+  const [daiSupply, setDaiSupply] = useState("0%");
+  const [usdtSupply, setUsdtSupply] = useState("0%");
+  const [usdcSupply, setUsdcSupply] = useState("0%");
+  const [wbtcSupply, setWbtcSupply] = useState("0%");
+  const [linkSupply, setLinkSupply] = useState("0%");
+  const [aaveSupply, setAaveSupply] = useState("0%");
+  const [eursSupply, setEursSupply] = useState("0%");
+  const [wethSupply, setWethSupply] = useState("0%");
 
   const [daiSupplyAPY, setDaiSupplyAPY] = useState("0%");
   const [usdtSupplyAPY, setUsdtSupplyAPY] = useState("0%");
@@ -114,6 +136,15 @@ export default function SupplyTable({ allMarket, account }: Props) {
   const [aaveSupplyAPY, setAaveSupplyAPY] = useState("0%");
   const [eursSupplyAPY, setEursSupplyAPY] = useState("0%");
   const [wethSupplyAPY, setWethSupplyAPY] = useState("0%");
+
+  const [daiBalance, setDaiBalance] = useState("0");
+  const [usdtBalance, setUsdtBalance] = useState("0");
+  const [usdcBalance, setUsdcBalance] = useState("0");
+  const [wbtcBalance, setWbtcBalance] = useState("0");
+  const [linkBalance, setLinkBalance] = useState("0");
+  const [aaveBalance, setAaveBalance] = useState("0");
+  const [eursBalance, setEursBalance] = useState("0");
+  const [wethBalance, setWethBalance] = useState("0");
 
   const supply = {
     name: "Supply",
@@ -138,66 +169,66 @@ export default function SupplyTable({ allMarket, account }: Props) {
       "ETH.png",
       "DAI",
       daiTotalSupplied,
-      daiSupplyAPY,
-      daiMaxLTV,
-      daiSupplyRatio,
+      daiSupplyAPY + " / " + daiMaxLTV,
+      daiBalance,
+      daiSupply,
     ],
     [
       "ETH.png",
       "USDT",
       usdtTotalSupplied,
-      usdtSupplyAPY,
-      usdtMaxLTV,
-      usdtSupplyRatio,
+      usdtSupplyAPY + " / " + usdtMaxLTV,
+      usdtBalance,
+      usdtSupply,
     ],
     [
       "usdc.png",
       "USDC",
       usdcTotalSupplied,
-      usdcSupplyAPY,
-      usdcMaxLTV,
-      usdcSupplyRatio,
+      usdcSupplyAPY + " / " + usdcMaxLTV,
+      usdcBalance,
+      usdcSupply,
     ],
     // ["eth.png", "ETH", "0.000", "0.00%", "0.00%", "00.00"],
     [
       "wbtc.png",
       "WBTC",
       wbtcTotalSupplied,
-      wbtcSupplyAPY,
-      wbtcMaxLTV,
-      wbtcSupplyRatio,
+      wbtcSupplyAPY + " / " + wbtcMaxLTV,
+      wbtcBalance,
+      wbtcSupply,
     ],
     [
       "ETH.png",
       "LINK",
       linkTotalSupplied,
-      linkSupplyAPY,
-      linkMaxLTV,
-      linkSupplyRatio,
+      linkSupplyAPY + " / " + linkMaxLTV,
+      linkBalance,
+      linkSupply,
     ],
     [
       "ETH.png",
       "AAVE",
       aaveTotalSupplied,
-      aaveSupplyAPY,
-      aaveMaxLTV,
-      aaveSupplyRatio,
+      aaveSupplyAPY + " / " + aaveMaxLTV,
+      aaveBalance,
+      aaveSupply,
     ],
     [
       "ETH.png",
       "EURS",
       eursTotalSupplied,
-      eursSupplyAPY,
-      eursMaxLTV,
-      eursSupplyRatio,
+      eursSupplyAPY + " / " + eursMaxLTV,
+      eursBalance,
+      eursSupply,
     ],
     [
       "ETH.png",
       "WETH",
       wethTotalSupplied,
-      wethSupplyAPY,
-      wethMaxLTV,
-      wethSupplyRatio,
+      wethSupplyAPY + " / " + wethMaxLTV,
+      wethBalance,
+      wethSupply,
     ],
   ];
 
@@ -213,25 +244,25 @@ export default function SupplyTable({ allMarket, account }: Props) {
   };
 
   const checkMaxLTV = async () => {
-    DAISupplyMaxLTV().then((item) => setDaiMaxLTV(item ?? "0%"));
-    USDTSupplyMaxLTV().then((item) => setUsdtMaxLTV(item ?? "0%"));
-    USDCSupplyMaxLTV().then((item) => setUsdcMaxLTV(item ?? "0%"));
-    WBTCSupplyMaxLTV().then((item) => setWbtcMaxLTV(item ?? "0%"));
-    LINKSupplyMaxLTV().then((item) => setLinkMaxLTV(item ?? "0%"));
-    AAVESupplyMaxLTV().then((item) => setAaveMaxLTV(item ?? "0%"));
-    EURSSupplyMaxLTV().then((item) => setEursMaxLTV(item ?? "0%"));
-    WETHSupplyMaxLTV().then((item) => setWethMaxLTV(item ?? "0%"));
+    DAIMaxLTV().then((item) => setDaiMaxLTV(item ?? "0%"));
+    USDTMaxLTV().then((item) => setUsdtMaxLTV(item ?? "0%"));
+    USDCMaxLTV().then((item) => setUsdcMaxLTV(item ?? "0%"));
+    WBTCMaxLTV().then((item) => setWbtcMaxLTV(item ?? "0%"));
+    LINKMaxLTV().then((item) => setLinkMaxLTV(item ?? "0%"));
+    AAVEMaxLTV().then((item) => setAaveMaxLTV(item ?? "0%"));
+    EURSMaxLTV().then((item) => setEursMaxLTV(item ?? "0%"));
+    WETHMaxLTV().then((item) => setWethMaxLTV(item ?? "0%"));
   };
 
-  const checkSupplyRatio = async () => {
-    DAIMySupplyRatio(account).then((item) => setDaiSupplyRatio(item ?? "0%"));
-    USDTMySupplyRatio(account).then((item) => setUsdtSupplyRatio(item ?? "0%"));
-    USDCMySupplyRatio(account).then((item) => setUsdcSupplyRatio(item ?? "0%"));
-    WBTCMySupplyRatio(account).then((item) => setWbtcSupplyRatio(item ?? "0%"));
-    LINKMySupplyRatio(account).then((item) => setLinkSupplyRatio(item ?? "0%"));
-    AAVEMySupplyRatio(account).then((item) => setAaveSupplyRatio(item ?? "0%"));
-    EURSMySupplyRatio(account).then((item) => setEursSupplyRatio(item ?? "0%"));
-    WETHMySupplyRatio(account).then((item) => setWethSupplyRatio(item ?? "0%"));
+  const checkSupply = async (account: string) => {
+    DAIMySupplyBalance(account).then((item) => setDaiSupply(item ?? "0"));
+    USDTMySupplyBalance(account).then((item) => setUsdtSupply(item ?? "0"));
+    USDCMySupplyBalance(account).then((item) => setUsdcSupply(item ?? "0"));
+    WBTCMySupplyBalance(account).then((item) => setWbtcSupply(item ?? "0"));
+    LINKMySupplyBalance(account).then((item) => setLinkSupply(item ?? "0"));
+    AAVEMySupplyBalance(account).then((item) => setAaveSupply(item ?? "0"));
+    EURSMySupplyBalance(account).then((item) => setEursSupply(item ?? "0"));
+    WETHMySupplyBalance(account).then((item) => setWethSupply(item ?? "0"));
   };
 
   const checkSupplyAPY = async () => {
@@ -243,6 +274,17 @@ export default function SupplyTable({ allMarket, account }: Props) {
     AAVESupplyAPY().then((item) => setAaveSupplyAPY(item ?? "0%"));
     EURSSupplyAPY().then((item) => setEursSupplyAPY(item ?? "0%"));
     WETHSupplyAPY().then((item) => setWethSupplyAPY(item ?? "0%"));
+  };
+
+  const checkBalance = async (account: string) => {
+    DAIBalance(account).then((item) => setDaiBalance(item ?? "0"));
+    USDTBalance(account).then((item) => setUsdtBalance(item ?? "0"));
+    USDCBalance(account).then((item) => setUsdcBalance(item ?? "0"));
+    WBTCBalance(account).then((item) => setWbtcBalance(item ?? "0"));
+    LINKBalance(account).then((item) => setLinkBalance(item ?? "0"));
+    AAVEBalance(account).then((item) => setAaveBalance(item ?? "0"));
+    EURSBalance(account).then((item) => setEursBalance(item ?? "0"));
+    WETHBalance(account).then((item) => setWethBalance(item ?? "0"));
   };
 
   const choiceMaxLTV = (cryptoName: string) => {
@@ -285,12 +327,53 @@ export default function SupplyTable({ allMarket, account }: Props) {
     }
   };
 
+  const choiceBalance = async (cryptoName: string) => {
+    if (cryptoName === name[0]) {
+      setBalance(daiBalance);
+    } else if (cryptoName === name[1]) {
+      setBalance(usdtBalance);
+    } else if (cryptoName === name[2]) {
+      setBalance(usdcBalance);
+    } else if (cryptoName === name[3]) {
+      setBalance(wbtcBalance);
+    } else if (cryptoName === name[4]) {
+      setBalance(linkBalance);
+    } else if (cryptoName === name[5]) {
+      setBalance(aaveBalance);
+    } else if (cryptoName === name[6]) {
+      setBalance(eursBalance);
+    } else {
+      setBalance(wethBalance);
+    }
+  };
+
+  const choiceSupply = async (cryptoName: string) => {
+    if (cryptoName === name[0]) {
+      setMySupply(daiSupply);
+    } else if (cryptoName === name[1]) {
+      setMySupply(usdtSupply);
+    } else if (cryptoName === name[2]) {
+      setMySupply(usdcSupply);
+    } else if (cryptoName === name[3]) {
+      setMySupply(wbtcSupply);
+    } else if (cryptoName === name[4]) {
+      setMySupply(linkSupply);
+    } else if (cryptoName === name[5]) {
+      setMySupply(aaveSupply);
+    } else if (cryptoName === name[6]) {
+      setMySupply(eursSupply);
+    } else {
+      setMySupply(wbtcBalance);
+    }
+  };
+
   useEffect(() => {
     if (account) {
       checkTotalSupply();
       checkMaxLTV();
-      checkSupplyRatio();
+      checkBalance(account);
       checkSupplyAPY();
+      checkSupply(account);
     }
   }, [account]);
 
@@ -298,6 +381,8 @@ export default function SupplyTable({ allMarket, account }: Props) {
     if (account) {
       choiceMaxLTV(cryptoName);
       choiceAPY(cryptoName);
+      choiceSupply(cryptoName);
+      choiceBalance(cryptoName);
     }
   }, [cryptoName, account]);
 
@@ -309,14 +394,13 @@ export default function SupplyTable({ allMarket, account }: Props) {
         </thead>
         <tbody>
           <SupplyTableData
-            setMySupply={setMySupply}
-            setBalance={setBalance}
             tableCol={tableCol}
             setOpenSupply={setOpenSupply}
             setOpenWithdraw={setOpenWithdraw}
             allMarket={allMarket}
             setCryptoName={setCryptoName}
             setCryptoImg={setCryptoImg}
+            setMax={setMax}
             account={account}
           />
         </tbody>
@@ -327,7 +411,7 @@ export default function SupplyTable({ allMarket, account }: Props) {
           item={supply}
           cryptoImg={cryptoImg}
           cryptoName={cryptoName}
-          max={balance}
+          max={max}
           account={account}
         />
       )}

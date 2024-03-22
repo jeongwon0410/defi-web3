@@ -20,6 +20,7 @@ import {
 
 export async function DAIWithdraw(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -31,9 +32,10 @@ export async function DAIWithdraw(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Withdraw Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -44,6 +46,7 @@ export async function DAIWithdraw(
 
 export async function USDTWithdraw(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -55,9 +58,10 @@ export async function USDTWithdraw(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Withdraw Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -68,6 +72,7 @@ export async function USDTWithdraw(
 
 export async function USDCWithdraw(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -80,9 +85,10 @@ export async function USDCWithdraw(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Withdraw Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -93,6 +99,7 @@ export async function USDCWithdraw(
 
 export async function WBTCWithdraw(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -104,9 +111,10 @@ export async function WBTCWithdraw(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Withdraw Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -117,6 +125,7 @@ export async function WBTCWithdraw(
 
 export async function LINKWithdraw(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -128,9 +137,10 @@ export async function LINKWithdraw(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Withdraw Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -141,6 +151,7 @@ export async function LINKWithdraw(
 
 export async function AAVEWithdraw(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -152,9 +163,10 @@ export async function AAVEWithdraw(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Withdraw Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -165,6 +177,7 @@ export async function AAVEWithdraw(
 
 export async function EURSWithdraw(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -176,9 +189,10 @@ export async function EURSWithdraw(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Withdraw Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
@@ -189,6 +203,7 @@ export async function EURSWithdraw(
 
 export async function WETHWithdraw(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -200,9 +215,10 @@ export async function WETHWithdraw(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Supply", hash);
       setDisable(true);
+      setFlag(true);
     })
     .on("error", (error: any) => {
-      console.log("Supply Error", error);
+      console.log("Withdraw Error", error);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {

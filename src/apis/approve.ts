@@ -1,4 +1,3 @@
-import { useSDK } from "@metamask/sdk-react";
 import {
   aave_contract,
   dai_contract,
@@ -10,10 +9,10 @@ import {
   wbtc_contract,
   weth_contract,
 } from "./common";
-import { useState } from "react";
 
 export async function DAIAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -25,21 +24,26 @@ export async function DAIAprove(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
       setApproveDisable(true);
+      setApproveFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
+      setApproveFlag(false);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
+        setApproveFlag(false);
       } else {
         console.log("Transaction Failed");
+        setApproveFlag(false);
       }
     });
 }
 
 export async function USDTAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -51,21 +55,26 @@ export async function USDTAprove(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
       setApproveDisable(true);
+      setApproveFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
+      setApproveFlag(false);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
+        setApproveFlag(false);
       } else {
         console.log("Transaction Failed");
+        setApproveFlag(false);
       }
     });
 }
 
 export async function USDCAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -77,21 +86,26 @@ export async function USDCAprove(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
       setApproveDisable(true);
+      setApproveFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
+      setApproveFlag(false);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
+        setApproveFlag(false);
       } else {
         console.log("Transaction Failed");
+        setApproveFlag(false);
       }
     });
 }
 
 export async function WBTCAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -103,21 +117,26 @@ export async function WBTCAprove(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
       setApproveDisable(true);
+      setApproveFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
+      setApproveFlag(false);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
+        setApproveFlag(false);
       } else {
         console.log("Transaction Failed");
+        setApproveFlag(false);
       }
     });
 }
 
 export async function AAVEAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -129,21 +148,26 @@ export async function AAVEAprove(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
       setApproveDisable(true);
+      setApproveFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
+      setApproveFlag(false);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
+        setApproveFlag(false);
       } else {
         console.log("Transaction Failed");
+        setApproveFlag(false);
       }
     });
 }
 
 export async function LINKAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -155,21 +179,26 @@ export async function LINKAprove(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
       setApproveDisable(true);
+      setApproveFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
+      setApproveFlag(false);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
+        setApproveFlag(false);
       } else {
         console.log("Transaction Failed");
+        setApproveFlag(false);
       }
     });
 }
 
 export async function EURSAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -181,21 +210,26 @@ export async function EURSAprove(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
       setApproveDisable(true);
+      setApproveFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
+      setApproveFlag(false);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
+        setApproveFlag(false);
       } else {
         console.log("Transaction Failed");
+        setApproveFlag(false);
       }
     });
 }
 
 export async function WETHAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
+  setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
   account: string
 ) {
@@ -207,15 +241,19 @@ export async function WETHAprove(
     .on("transactionHash", (hash: any) => {
       console.log("TX Hash Approve", hash);
       setApproveDisable(true);
+      setApproveFlag(true);
     })
     .on("error", (error: any) => {
       console.log("Approve Error", error);
+      setApproveFlag(false);
     })
     .on("receipt", (receipt: any) => {
       if (receipt.status == "0x1" || receipt.status == 1) {
         console.log("Transaction Success");
+        setApproveFlag(false);
       } else {
         console.log("Transaction Failed");
+        setApproveFlag(false);
       }
     });
 }
