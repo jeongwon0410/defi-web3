@@ -5,20 +5,16 @@ import Supply from "./Supply";
 import Table from "./Table";
 import { useMutation } from "react-query";
 import saveAddress from "@/apis/saveAddress";
+import { useAtom } from "jotai";
+import { addressAtom } from "@/datas/address";
 
-interface Props {
-  account: string;
-}
-export default function AccountMain({ account }: Props) {
+export default function AccountMain() {
   const [address, setAddress] = useState("");
-
+  const [account] = useAtom(addressAtom);
   useEffect(() => {
     if (account) {
       setAddress(account);
       save.mutate(account || "");
-    } else {
-      setAddress(localStorage.getItem("account") || "");
-      save.mutate(localStorage.getItem("account") || "");
     }
   }, [account]);
 

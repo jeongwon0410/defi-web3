@@ -2,12 +2,12 @@ import saveAddress from "@/apis/saveAddress";
 import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { MetaMaskSDK } from "@metamask/sdk";
-interface Props {
-  setAccount: React.Dispatch<React.SetStateAction<string>>;
-}
-export default function ConnectButton({ setAccount }: Props) {
-  const [address, setAddress] = useState("");
+import { useAtom } from "jotai";
+import { addressAtom } from "@/datas/address";
 
+export default function ConnectButton() {
+  const [address, setAddress] = useState("");
+  const [account, setAccount] = useAtom(addressAtom);
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -33,7 +33,6 @@ export default function ConnectButton({ setAccount }: Props) {
       typeof window.ethereum !== "undefined"
     ) {
       setAddress("");
-      setAccount("");
     }
   };
 
@@ -46,7 +45,6 @@ export default function ConnectButton({ setAccount }: Props) {
         const res: any = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        localStorage.setItem("account", res[0]);
 
         setAddress(res[0]);
         setAccount(res[0]);

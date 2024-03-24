@@ -8,6 +8,7 @@ import {
   WBTCAprove,
   WETHAprove,
 } from "@/apis/approve";
+import cointousd from "@/apis/cointousd";
 import {
   dai_address,
   name,
@@ -25,6 +26,7 @@ import {
   WBTCSupply,
   WETHSupply,
 } from "@/apis/supply";
+import { DaiToUsd } from "@/apis/supplyUsd";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -47,6 +49,7 @@ export default function ModalSupplyButton({
   const [approveFlag, setApproveFlag] = useState(false);
   const [flag, setFlag] = useState(false);
   useEffect(() => {
+    // updateDeposit();
     if (account) {
       if (amount === "" || amount === "0") {
         setApproveDisable(true);
@@ -153,6 +156,29 @@ export default function ModalSupplyButton({
       });
     }
   };
+
+  // const updateDeposit = async (tokenSupply: string) => {
+  //   if (cryptoName === name[0]) {
+  //     const data = await cointousd("dai");
+  //     if (data.data.dai.usd) {
+  //       const usd = data.data.dai.usd * parseFloat(tokenSupply);
+  //     }
+  //   } else if (cryptoName === name[1]) {
+  //     const ctu = await cointousd(name[1]);
+  //   } else if (cryptoName === name[2]) {
+  //     const ctu = await cointousd(name[2]);
+  //   } else if (cryptoName === name[3]) {
+  //     const ctu = await cointousd(name[3]);
+  //   } else if (cryptoName === name[4]) {
+  //     const ctu = await cointousd(name[4]);
+  //   } else if (cryptoName === name[5]) {
+  //     const ctu = await cointousd(name[5]);
+  //   } else if (cryptoName === name[6]) {
+  //     const ctu = await cointousd(name[6]);
+  //   } else {
+  //     const ctu = await cointousd(name[7]);
+  //   }
+  // };
 
   return (
     <div className="w-full flex flex-col">

@@ -369,8 +369,6 @@ export default function BorrowTable({ allMarket, account }: Props) {
           cryptoName={cryptoName}
           max={borrowableAmount}
           account={account}
-          borrow={borrowAmount}
-          supply={"0"}
         />
       )}
       {openRepay && (
@@ -381,8 +379,6 @@ export default function BorrowTable({ allMarket, account }: Props) {
           cryptoName={cryptoName}
           max={borrowAmount}
           account={account}
-          borrow={borrowAmount}
-          supply={"0"}
         />
       )}
     </div>

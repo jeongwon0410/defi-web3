@@ -6,10 +6,9 @@ import RewardMain from "@/components/reward/RewardMain";
 import { useState } from "react";
 
 export default function Reward() {
-  const [account, setAccount] = useState("");
   return (
     <Background>
-      <Header setAccount={setAccount} />
+      <Header />
       <RewardMain />
     </Background>
   );

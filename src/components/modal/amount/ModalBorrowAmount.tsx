@@ -1,3 +1,4 @@
+import cointousd from "@/apis/cointousd";
 import { name } from "@/apis/common";
 import {
   AAVEMySupplyBalance,
@@ -77,7 +78,7 @@ export default function ModalBorrowAmount({
     setBalance(result);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setAmount("");
     setLtv("0%");
   };

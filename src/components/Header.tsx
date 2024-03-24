@@ -7,10 +7,7 @@ import saveAddress from "@/apis/saveAddress";
 import Link from "next/link";
 import { MetaMaskProvider } from "@metamask/sdk-react";
 
-interface Props {
-  setAccount: React.Dispatch<React.SetStateAction<string>>;
-}
-export default function Header({ setAccount }: Props) {
+export default function Header() {
   const router = useRouter();
 
   const host =
@@ -71,7 +68,7 @@ export default function Header({ setAccount }: Props) {
             )}
           </button>
         </div>
-        <ConnectButton setAccount={setAccount} />
+        <ConnectButton />
         {/* <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
           <ConnectWalletButton setAccount={setAccount} />
         </MetaMaskProvider> */}

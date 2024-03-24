@@ -3,11 +3,11 @@ import SupplyTable from "./supply/SupplyTable";
 
 import Switch from "./Switch";
 import BorrowTable from "./borrow/BorrowTable";
+import { useAtom } from "jotai";
+import { addressAtom } from "@/datas/address";
 
-interface Props {
-  account: string;
-}
-export default function Main({ account }: Props) {
+export default function Main() {
+  const [account] = useAtom(addressAtom);
   const [supply, setSupply] = useState(true);
   const [borrow, setBorrow] = useState(false);
   const [allMarket, setAllMarket] = useState(false);
@@ -16,8 +16,6 @@ export default function Main({ account }: Props) {
   useEffect(() => {
     if (account) {
       setAddress(account);
-    } else {
-      setAddress(localStorage.getItem("account") || "");
     }
   }, [account]);
   return (

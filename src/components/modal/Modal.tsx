@@ -7,9 +7,10 @@ import ModalBorrowButton from "./button/ModalBorrowButton";
 import ModalWithdrawButton from "./button/ModalWithdrawButton";
 import ModalRepayButton from "./button/ModalRepayButton";
 import ModalSupplyAmount from "./amount/ModalSupplyAmount";
-import ModalBorrowAmount from "./amount/ModalBorrowAmount";
+
 import ModalWithdrawAmount from "./amount/ModalWithdrawAmount";
 import ModalRepayAmount from "./amount/ModalRepayAmount";
+import ModalBorrowAmount from "./amount/ModalBorrowAmount";
 
 interface item {
   name: string;
