@@ -3,18 +3,19 @@ import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { MetaMaskSDK } from "@metamask/sdk";
 import { useAtom } from "jotai";
-import { addressAtom } from "@/datas/address";
+import { addressAtom, flagAtom } from "@/datas/address";
 
 export default function ConnectButton() {
   const [address, setAddress] = useState("");
   const [account, setAccount] = useAtom(addressAtom);
+  const [flag, setFlag] = useAtom(flagAtom);
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
       typeof window.ethereum !== "undefined"
     ) {
-      window.ethereum.on("accountsChanged", connect);
-      window.ethereum.on("chainChanged", chainChanged);
+      window.ethereum.on("accountsChanged", connectWallet);
+      // window.ethereum.on("chainChanged", chainChanged);s
     }
   }, []);
 
@@ -27,14 +28,18 @@ export default function ConnectButton() {
     }
   }, []);
 
-  const chainChanged = async () => {
-    if (
-      typeof window !== "undefined" &&
-      typeof window.ethereum !== "undefined"
-    ) {
-      setAddress("");
-    }
-  };
+  // const chainChanged = async () => {
+  //   if (
+  //     typeof window !== "undefined" &&
+  //     typeof window.ethereum !== "undefined"
+  //   ) {
+  //     setAddress("");
+  //   }
+  // };
+
+  const save = useMutation({
+    mutationFn: saveAddress,
+  });
 
   const connect = async () => {
     if (
@@ -48,6 +53,33 @@ export default function ConnectButton() {
 
         setAddress(res[0]);
         setAccount(res[0]);
+
+        if (!flag) {
+          save.mutate(res[0]);
+          setFlag(true);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      console.log("Install Metamask");
+    }
+  };
+
+  const connectWallet = async () => {
+    if (
+      typeof window !== "undefined" &&
+      typeof window.ethereum !== "undefined"
+    ) {
+      try {
+        const res: any = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+
+        setAddress(res[0]);
+        setAccount(res[0]);
+
+        save.mutate(res[0]);
       } catch (err) {
         console.error(err);
       }

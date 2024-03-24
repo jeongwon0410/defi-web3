@@ -11,16 +11,12 @@ import { addressAtom } from "@/datas/address";
 export default function AccountMain() {
   const [address, setAddress] = useState("");
   const [account] = useAtom(addressAtom);
+
   useEffect(() => {
     if (account) {
       setAddress(account);
-      save.mutate(account || "");
     }
   }, [account]);
-
-  const save = useMutation({
-    mutationFn: saveAddress,
-  });
 
   return (
     <div className=" justify-center  items-center flex  flex-col mt-20 ">
