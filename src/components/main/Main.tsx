@@ -12,7 +12,7 @@ export default function Main() {
   const [allMarket, setAllMarket] = useState(false);
 
   return (
-    <div className=" px-5 justify-center  flex  flex-col mt-20">
+    <div className=" mt-20 flex  flex-col  justify-center px-5">
       <Switch
         supply={supply}
         borrow={borrow}
@@ -20,7 +20,7 @@ export default function Main() {
         setBorrow={setBorrow}
         setAllMarket={setAllMarket}
       />
-      <div className="flex mt-10">
+      <div className="mt-10 flex">
         {supply === true ? (
           <SupplyTable allMarket={allMarket} account={address!} />
         ) : (
@@ -28,18 +28,18 @@ export default function Main() {
         )}
       </div>
       <button
-        className="flex justify-center items-center flex-col mt-5"
+        className="mt-5 flex flex-col items-center justify-center"
         onClick={() => setAllMarket(!allMarket)}
       >
-        <div className="flex justify-center items-center ">
+        <div className="flex items-center justify-center ">
           <img src="all_img.png" className="h-[16px] w-[16px] " />
-          <div className="font-pretendard font-normal text-[14px] leading-[20px] text-[#525C52]">
+          <div className="font-pretendard text-[14px] font-normal leading-[20px] text-[#525C52]">
             All market
           </div>
         </div>
-        <div className=" bg-[#525C52] h-[1px] w-[99px] mt-1" />
+        <div className=" mt-1 h-[1px] w-[99px] bg-[#525C52]" />
       </button>
-      <div className="flex  flex-col justify-center items-center py-10">
+      <div className="flex  flex-col items-center justify-center py-10">
         <img src="person.png" className="h-[50px] w-[500px] " />
         <div className="text-white">
           {/* 나는 몇개 예치하고 1년에 약 00 이자를 받을 수 있다 */}

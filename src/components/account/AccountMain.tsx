@@ -6,11 +6,11 @@ export default function AccountMain() {
   const { address } = useTmpContext();
 
   return (
-    <div className=" justify-center  items-center flex  flex-col mt-20 ">
-      <div className="font-montserrat  font-bold text-[30px] leading-[45px] text-[white]">
+    <div className=" mt-20  flex flex-col  items-center justify-center ">
+      <div className="font-montserrat  text-[30px] font-bold leading-[45px] text-[white]">
         My Account
       </div>
-      <div className="flex  gap-10 justify-center items-center mt-10">
+      <div className="mt-10  flex items-center justify-center gap-10">
         <div className="w-[510px]">
           {address && <Supply account={address} />}
         </div>

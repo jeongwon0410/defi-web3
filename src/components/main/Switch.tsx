@@ -28,9 +28,9 @@ export default function Switch({
   };
 
   return (
-    <div className="flex mx-auto flex-wrap mb-5">
+    <div className="mx-auto mb-5 flex flex-wrap">
       <button
-        className={`font-montserrat  font-bold text-[30px] leading-[45px] mr-10 ${
+        className={`mr-10  font-montserrat text-[30px] font-bold leading-[45px] ${
           supply === true ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
         }`}
         onClick={clickSupply}
@@ -38,7 +38,7 @@ export default function Switch({
         Supply
       </button>
       <button
-        className={`font-montserrat  font-bold text-[30px] leading-[45px] mr-10 ${
+        className={`mr-10  font-montserrat text-[30px] font-bold leading-[45px] ${
           borrow === true ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
         }`}
         onClick={clickBorrow}

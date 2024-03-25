@@ -41,22 +41,22 @@ export default function ConnectWalletButton({ setAccount }: Props) {
     <div className="relative">
       {connected ? (
         <button
-          className="items-center py-2 px-5 rounded-full bg-[#252a39] mr-4"
+          className="mr-4 items-center rounded-full bg-[#252a39] px-5 py-2"
           // onClick={disconnect}
         >
-          <div className="flex text-white  font-montserrat  font-semibold text-[16px] leading-[24px]">
-            <img src="metamask.png" className="h-4 w-4 mt-1 mr-2" />
+          <div className="flex font-montserrat  text-[16px]  font-semibold leading-[24px] text-white">
+            <img src="metamask.png" className="mr-2 mt-1 h-4 w-4" />
             {account}
           </div>
         </button>
       ) : (
         <button
-          className="items-center py-2 px-5 rounded-full bg-[#252a39] mr-4"
+          className="mr-4 items-center rounded-full bg-[#252a39] px-5 py-2"
           disabled={connecting}
           onClick={connect}
         >
-          <div className="flex text-white  font-montserrat  font-semibold text-[16px] leading-[24px]">
-            <img src="metamask.png" className="h-4 w-4 mt-1 mr-2" />
+          <div className="flex font-montserrat  text-[16px]  font-semibold leading-[24px] text-white">
+            <img src="metamask.png" className="mr-2 mt-1 h-4 w-4" />
           </div>
         </button>
       )}

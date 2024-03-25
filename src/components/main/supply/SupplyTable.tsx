@@ -388,7 +388,7 @@ export default function SupplyTable({ allMarket, account }: Props) {
 
   return (
     <div className="w-full ">
-      <table className="table w-full text-center px-20">
+      <table className="table w-full px-20 text-center">
         <thead className="">
           <SupplyTableField tableRow={tableRow} />
         </thead>

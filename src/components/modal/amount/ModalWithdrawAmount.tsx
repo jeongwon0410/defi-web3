@@ -121,12 +121,12 @@ export default function ModalWithdrawAmount({
   };
 
   return (
-    <div className="w-full flex">
-      <div className="p-3 rounded-[20px]  bg-[#151615] flex flex-col w-[158px] h-[120px]">
-        <div className="flex justify-start mb-5 text-white">LTV</div>
+    <div className="flex w-full">
+      <div className="flex h-[120px]  w-[158px] flex-col rounded-[20px] bg-[#151615] p-3">
+        <div className="mb-5 flex justify-start text-white">LTV</div>
         <div className="flex justify-end text-white">{ltv}</div>
       </div>
-      <div className="flex items-center mx-2">
+      <div className="mx-2 flex items-center">
         <svg
           width="25"
           height="26"
@@ -155,8 +155,8 @@ export default function ModalWithdrawAmount({
           </defs>
         </svg>
       </div>
-      <div className="p-3 rounded-[20px]  bg-[#151615] flex flex-col  w-[240px] h-[120px]">
-        <div className="flex  mb-5 bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] inline-block text-transparent bg-clip-text font-pretendard font-bold text-[20px] leading-[25px] ">
+      <div className="flex h-[120px]  w-[240px] flex-col rounded-[20px]  bg-[#151615] p-3">
+        <div className="mb-5  inline-block flex bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] bg-clip-text font-pretendard text-[20px] font-bold leading-[25px] text-transparent ">
           Amount
         </div>
 
@@ -167,7 +167,7 @@ export default function ModalWithdrawAmount({
               ref={inputRef}
               autoFocus={true}
               placeholder="0"
-              className="text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder-current w-[210px] caret-white outline outline-0 bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] inline-block text-transparent bg-clip-text font-pretendard font-bold text-[18px] leading-[25px]"
+              className="inline-block w-[210px] bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] bg-clip-text text-right font-pretendard text-[18px] font-bold leading-[25px] text-transparent placeholder-current caret-white outline outline-0 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               required
               value={amount}
               onChange={(e) => handleAmount(e)}
@@ -180,7 +180,7 @@ export default function ModalWithdrawAmount({
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="#52A44B"
-                  className="w-5 h-5 mt-1"
+                  className="mt-1 h-5 w-5"
                 >
                   <path
                     strokeLinecap="round"
@@ -199,7 +199,7 @@ export default function ModalWithdrawAmount({
             // className="ml-auto rounded  bg-[#2F8128]  text-[#E1E3EA] w-[40px]"
             onClick={handleMax}
           >
-            <div className="text-right text-white font-pretendard  text-[11px] leading-[15px] ">
+            <div className="text-right font-pretendard text-[11px]  leading-[15px] text-white ">
               MAX
             </div>
           </button>

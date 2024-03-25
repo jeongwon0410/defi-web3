@@ -181,7 +181,7 @@ export default function ModalSupplyButton({
   // };
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="flex w-full flex-col">
       {/* <div className="flex w-full ">
         <img src="local_gas_station.png" className="h-[20px] w-[20px]" />
         <div className="font-pretendard font-nomal text-[16px] leading-[20px] text-[#535353]">
@@ -190,7 +190,7 @@ export default function ModalSupplyButton({
       </div> */}
 
       <button
-        className="disabled:bg-gray-300 mt-5 py-4 rounded-lg bg-[#52A44B] font-pretendard font-bold text-[20px] leading-[25px] text-white"
+        className="mt-5 rounded-lg bg-[#52A44B] py-4 font-pretendard text-[20px] font-bold leading-[25px] text-white disabled:bg-gray-300"
         disabled={approveDisable}
         onClick={() => approve(amount, cryptoName)}
       >
@@ -198,7 +198,7 @@ export default function ModalSupplyButton({
           {approveFlag && (
             <svg
               aria-hidden="true"
-              className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 mr-4"
+              className="mr-4 h-8 w-8 animate-spin fill-gray-600 text-gray-200 dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +218,7 @@ export default function ModalSupplyButton({
       </button>
 
       <button
-        className="disabled:bg-gray-300 mt-5 py-4 rounded-lg bg-[#52A44B] font-pretendard font-bold text-[20px] leading-[25px] text-white "
+        className="mt-5 rounded-lg bg-[#52A44B] py-4 font-pretendard text-[20px] font-bold leading-[25px] text-white disabled:bg-gray-300 "
         disabled={disable}
         onClick={() => supply(amount, cryptoName)}
       >
@@ -226,7 +226,7 @@ export default function ModalSupplyButton({
           {flag && (
             <svg
               aria-hidden="true"
-              className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 mr-4"
+              className="mr-4 h-8 w-8 animate-spin fill-gray-600 text-gray-200 dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

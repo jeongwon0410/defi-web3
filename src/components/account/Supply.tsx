@@ -151,8 +151,8 @@ export default function Supply({ account }: Props) {
     setTableCol(list);
   };
   return (
-    <div className="overflow-hidden rounded-lg w-full max-w-lg">
-      <div className="bg-gradient-to-r from-[#83AD82]/[28%] via-[#83AD82]/[9%] to-[#FFFFFF]/[1%] px-4 pt-5 pb-7">
+    <div className="w-full max-w-lg overflow-hidden rounded-lg">
+      <div className="bg-gradient-to-r from-[#83AD82]/[28%] via-[#83AD82]/[9%] to-[#FFFFFF]/[1%] px-4 pb-7 pt-5">
         <div className="flex justify-between ">
           <div className="font-montserrat text-[18px] leading-[20px] text-[#CDD9C9]">
             Supply
