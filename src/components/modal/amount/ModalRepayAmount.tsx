@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import {
   AAVEBorrowAmount,
   DAIBorrowAmount,
@@ -19,7 +20,6 @@ import {
   WBTCMySupplyBalance,
   WETHMySupplyBalance,
 } from "@/apis/mySupplyBalance";
-import { useEffect, useRef, useState } from "react";
 
 interface Props {
   setAmount: React.Dispatch<React.SetStateAction<string>>;

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   AAVEAprove,
   DAIAprove,
@@ -27,7 +28,6 @@ import {
   WETHSupply,
 } from "@/apis/supply";
 import { DaiToUsd } from "@/apis/supplyUsd";
-import { useEffect, useState } from "react";
 
 interface Props {
   amount: string;

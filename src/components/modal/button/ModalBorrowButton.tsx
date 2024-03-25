@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   AAVEBorrow,
   DAIBorrow,
@@ -9,15 +10,14 @@ import {
   WETHBorrow,
 } from "@/apis/borrow";
 import {
-  pool_contract,
-  pool_address,
-  usdc_address,
-  usdc_contract,
   dai_address,
   dai_contract,
   name,
+  pool_address,
+  pool_contract,
+  usdc_address,
+  usdc_contract,
 } from "@/apis/common";
-import { useEffect, useState } from "react";
 
 interface Props {
   cryptoName: string;

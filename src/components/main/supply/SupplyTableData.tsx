@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { name } from "@/apis/common";
 import {
   AAVEBalance,
@@ -19,7 +20,6 @@ import {
   WBTCMySupplyBalance,
   WETHMySupplyBalance,
 } from "@/apis/mySupplyBalance";
-import { useEffect, useState } from "react";
 import {
   AAVEMaxAmount,
   DAIMaxAmount,

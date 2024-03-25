@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import Modal from "../../modal/Modal";
-import SupplyTableField from "./SupplyTableField";
-import SupplyTableData from "./SupplyTableData";
 import {
   dai_address,
   dai_contract,
@@ -12,6 +10,8 @@ import {
   weth_address,
   weth_contract,
 } from "../../../apis/common";
+import SupplyTableField from "./SupplyTableField";
+import SupplyTableData from "./SupplyTableData";
 
 import {
   AAVESupplyTotal,

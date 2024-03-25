@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import {
   AAVEBorrowAmount,
   DAIBorrowAmount,
@@ -9,7 +10,6 @@ import {
   WETHBorrowAmount,
 } from "@/apis/borrowAmount";
 import { name } from "@/apis/common";
-import { useEffect, useRef, useState } from "react";
 
 interface Props {
   setAmount: React.Dispatch<React.SetStateAction<string>>;

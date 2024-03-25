@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   AAVEAprove,
   DAIAprove,
@@ -9,11 +10,11 @@ import {
   WETHAprove,
 } from "@/apis/approve";
 import {
-  pool_contract,
+  name,
   pool_address,
+  pool_contract,
   usdc_address,
   usdc_contract,
-  name,
 } from "@/apis/common";
 import {
   AAVERepay,
@@ -25,7 +26,6 @@ import {
   WBTCRepay,
   WETHRepay,
 } from "@/apis/repay";
-import { useEffect, useState } from "react";
 
 interface Props {
   cryptoName: string;

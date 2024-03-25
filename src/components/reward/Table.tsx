@@ -1,5 +1,5 @@
-import getAllAddress from "@/apis/getAllAddress";
 import { useQuery } from "react-query";
+import getAllAddress from "@/apis/getAllAddress";
 
 export default function Table() {
   const data = useQuery({

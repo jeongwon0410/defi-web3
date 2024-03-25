@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import ModalHeader from "./ModalHeader";
 import ModalMain from "./ModalMain";
 import ModalTop from "./ModalTop";
 import ModalSupplyButton from "./button/ModalSupplyButton";
-import { useEffect, useState } from "react";
 import ModalBorrowButton from "./button/ModalBorrowButton";
 import ModalWithdrawButton from "./button/ModalWithdrawButton";
 import ModalRepayButton from "./button/ModalRepayButton";

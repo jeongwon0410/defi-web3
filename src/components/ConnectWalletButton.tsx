@@ -1,7 +1,7 @@
-import saveAddress from "@/apis/saveAddress";
 import { useSDK } from "@metamask/sdk-react";
 import { useEffect } from "react";
 import { useMutation } from "react-query";
+import saveAddress from "@/apis/saveAddress";
 
 interface Props {
   setAccount: React.Dispatch<React.SetStateAction<string>>;

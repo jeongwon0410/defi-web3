@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useSDK } from "@metamask/sdk-react";
 import { name } from "@/apis/common";
 import {
   AAVEBalance,
@@ -29,8 +31,6 @@ import {
   WBTCBorrowAmount,
   WETHBorrowAmount,
 } from "@/apis/borrowAmount";
-import { useEffect, useState } from "react";
-import { useSDK } from "@metamask/sdk-react";
 interface Props {
   tableCol: string[][];
   setOpenBorrow: React.Dispatch<React.SetStateAction<boolean>>;
