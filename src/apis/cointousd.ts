@@ -9,7 +9,7 @@ export default async function cointousd(coinName: string): Promise<any> {
           ids: coinName,
           vs_currencies: "usd",
         },
-      }
+      },
     );
     return response;
   } catch (error) {

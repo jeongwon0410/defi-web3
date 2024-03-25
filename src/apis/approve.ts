@@ -14,7 +14,7 @@ export async function DAIAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await dai_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -45,7 +45,7 @@ export async function USDTAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await usdt_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -76,7 +76,7 @@ export async function USDCAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await usdc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -107,7 +107,7 @@ export async function WBTCAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await wbtc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -138,7 +138,7 @@ export async function AAVEAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await aave_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -169,7 +169,7 @@ export async function LINKAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await link_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -200,7 +200,7 @@ export async function EURSAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await eurs_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -231,7 +231,7 @@ export async function WETHAprove(
   setApproveDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setApproveFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await weth_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);

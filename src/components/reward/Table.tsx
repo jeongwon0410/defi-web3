@@ -55,7 +55,7 @@ export default function Table() {
                   {item.total}
                 </td>
               </tr>
-            )
+            ),
           )}
         </tbody>
       </table>

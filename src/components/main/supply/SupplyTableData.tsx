@@ -136,7 +136,7 @@ export default function SupplyTableData({
                 {col[5]}
               </td>
             </tr>
-          )
+          ),
         )}
     </>
   );

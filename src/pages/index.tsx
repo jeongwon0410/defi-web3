@@ -4,12 +4,12 @@ import Main from "../components/main/Main";
 import { TmpContextProvider } from "./TmpContext";
 
 export default function Home() {
-    return (
-        <TmpContextProvider>
-            <Background>
-                <Header />
-                <Main />
-            </Background>
-        </TmpContextProvider>
-    );
+  return (
+    <TmpContextProvider>
+      <Background>
+        <Header />
+        <Main />
+      </Background>
+    </TmpContextProvider>
+  );
 }

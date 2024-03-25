@@ -63,56 +63,56 @@ export default function ModalRepayButton({
         () => {
           setDisable(false);
           setApproveDisable(true);
-        }
+        },
       );
     } else if (cryptoName === name[1]) {
       USDTAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
         () => {
           setDisable(false);
           setApproveDisable(true);
-        }
+        },
       );
     } else if (cryptoName === name[2]) {
       USDCAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
         () => {
           setDisable(false);
           setApproveDisable(true);
-        }
+        },
       );
     } else if (cryptoName === name[3]) {
       WBTCAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
         () => {
           setDisable(false);
           setApproveDisable(true);
-        }
+        },
       );
     } else if (cryptoName === name[4]) {
       LINKAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
         () => {
           setDisable(false);
           setApproveDisable(true);
-        }
+        },
       );
     } else if (cryptoName === name[5]) {
       AAVEAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
         () => {
           setDisable(false);
           setApproveDisable(true);
-        }
+        },
       );
     } else if (cryptoName === name[6]) {
       EURSAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
         () => {
           setDisable(false);
           setApproveDisable(true);
-        }
+        },
       );
     } else {
       WETHAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
         () => {
           setDisable(false);
           setApproveDisable(true);
-        }
+        },
       );
     }
   };

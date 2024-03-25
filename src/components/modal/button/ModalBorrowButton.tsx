@@ -80,8 +80,6 @@ export default function ModalBorrowButton({
     }
   };
 
-
-
   return (
     <div className="w-full flex flex-col">
       {/* <div className="p-3 rounded-[20px]  bg-[#151615] flex  justify-between h-[50px]">

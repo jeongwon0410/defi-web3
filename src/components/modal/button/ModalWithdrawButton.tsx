@@ -62,35 +62,35 @@ export default function ModalWithdrawButton({
   const withdraw = async (tokenSupply: string, cryptoName: string) => {
     if (cryptoName === name[0]) {
       DAIWithdraw(setDisable, setFlag, tokenSupply, account).then(() =>
-        setOpen(false)
+        setOpen(false),
       );
     } else if (cryptoName === name[1]) {
       USDTWithdraw(setDisable, setFlag, tokenSupply, account).then(() =>
-        setOpen(false)
+        setOpen(false),
       );
     } else if (cryptoName === name[2]) {
       USDCWithdraw(setDisable, setFlag, tokenSupply, account).then(() =>
-        setOpen(false)
+        setOpen(false),
       );
     } else if (cryptoName === name[3]) {
       WBTCWithdraw(setDisable, setFlag, tokenSupply, account).then(() =>
-        setOpen(false)
+        setOpen(false),
       );
     } else if (cryptoName === name[4]) {
       LINKWithdraw(setDisable, setFlag, tokenSupply, account).then(() =>
-        setOpen(false)
+        setOpen(false),
       );
     } else if (cryptoName === name[5]) {
       AAVEWithdraw(setDisable, setFlag, tokenSupply, account).then(() =>
-        setOpen(false)
+        setOpen(false),
       );
     } else if (cryptoName === name[6]) {
       EURSWithdraw(setDisable, setFlag, tokenSupply, account).then(() =>
-        setOpen(false)
+        setOpen(false),
       );
     } else {
       WETHWithdraw(setDisable, setFlag, tokenSupply, account).then(() =>
-        setOpen(false)
+        setOpen(false),
       );
     }
   };

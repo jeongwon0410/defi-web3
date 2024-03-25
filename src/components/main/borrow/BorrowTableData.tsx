@@ -78,35 +78,35 @@ export default function BorrowTableData({
   const checkBorrowableAmount = async (cryptoName: string, account: string) => {
     if (cryptoName === name[0]) {
       DAIBorrowableAmount(account).then((item) =>
-        setBorrowableAmount(item ?? " 0")
+        setBorrowableAmount(item ?? " 0"),
       );
     } else if (cryptoName === name[1]) {
       USDTBorrowableAmount(account).then((item) =>
-        setBorrowableAmount(item ?? "0")
+        setBorrowableAmount(item ?? "0"),
       );
     } else if (cryptoName === name[2]) {
       USDCBorrowableAmount(account).then((item) =>
-        setBorrowableAmount(item ?? "0")
+        setBorrowableAmount(item ?? "0"),
       );
     } else if (cryptoName === name[3]) {
       WBTCBorrowableAmount(account).then((item) =>
-        setBorrowableAmount(item ?? "0")
+        setBorrowableAmount(item ?? "0"),
       );
     } else if (cryptoName === name[4]) {
       LINKBorrowableAmount(account).then((item) =>
-        setBorrowableAmount(item ?? "0")
+        setBorrowableAmount(item ?? "0"),
       );
     } else if (cryptoName === name[5]) {
       AAVEBorrowableAmount(account).then((item) =>
-        setBorrowableAmount(item ?? "0")
+        setBorrowableAmount(item ?? "0"),
       );
     } else if (cryptoName === name[6]) {
       EURSBorrowableAmount(account).then((item) =>
-        setBorrowableAmount(item ?? "0")
+        setBorrowableAmount(item ?? "0"),
       );
     } else {
       WETHBorrowableAmount(account).then((item) =>
-        setBorrowableAmount(item ?? "0")
+        setBorrowableAmount(item ?? "0"),
       );
     }
   };
@@ -180,7 +180,7 @@ export default function BorrowTableData({
                 {col[5]}
               </td>
             </tr>
-          )
+          ),
         )}
     </>
   );

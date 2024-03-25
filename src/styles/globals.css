@@ -20,7 +20,9 @@
 
 .column {
   border-radius: 7px;
-  box-shadow: 0 0px 0px 1px #49824f, 0 0 5px 0 #81bd7c;
+  box-shadow:
+    0 0px 0px 1px #49824f,
+    0 0 5px 0 #81bd7c;
 }
 
 .rewardColum {
