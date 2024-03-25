@@ -1,7 +1,6 @@
 import api from "./network";
 
-export default function getAllAddress() {
-  return api.get("/").then((res) => {
+export default async function getAllAddress() {
+    const res = await api.get("/");
     return res.data;
-  });
 }
