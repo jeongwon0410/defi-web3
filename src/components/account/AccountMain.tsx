@@ -1,6 +1,6 @@
 import Borrow from "./Borrow";
 import Supply from "./Supply";
-import { useTmpContext } from "@/pages/TmpContext";
+import { useTmpContext } from "@/components/TmpContext";
 
 export default function AccountMain() {
   const { address } = useTmpContext();

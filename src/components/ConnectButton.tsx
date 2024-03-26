@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
-import { useTmpContext } from "@/pages/TmpContext";
+import { useTmpContext } from "@/components/TmpContext";
 import saveAddress from "@/apis/saveAddress";
 
 export default function ConnectButton() {

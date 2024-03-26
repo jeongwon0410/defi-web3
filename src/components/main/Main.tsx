@@ -3,7 +3,7 @@ import SupplyTable from "./supply/SupplyTable";
 
 import Switch from "./Switch";
 import BorrowTable from "./borrow/BorrowTable";
-import { useTmpContext } from "@/pages/TmpContext";
+import { useTmpContext } from "@/components/TmpContext";
 
 export default function Main() {
   const { address, setAddress } = useTmpContext();

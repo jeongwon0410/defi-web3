@@ -10,7 +10,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@ethersproject/contracts": "^5.7.0",
     "@metamask/sdk-react": "^0.17.2",
     "axios": "^1.6.8",
     "bignumber.js": "^9.1.2",
