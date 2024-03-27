@@ -41,7 +41,7 @@ const SwitchButton = ({
 }) => {
   return (
     <button
-      className={`mr-10  font-montserrat text-[30px] font-bold leading-[45px] ${
+      className={`mr-10 font-montserrat text-[30px] font-bold leading-[45px] ${
         selected ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
       }`}
       onClick={onClick}
