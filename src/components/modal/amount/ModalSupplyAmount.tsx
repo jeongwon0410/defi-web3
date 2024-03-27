@@ -117,7 +117,7 @@ export default function ModalSupplyAmount({
         </svg>
       </div>
       <div className="flex h-[120px]  w-[240px] flex-col rounded-[20px]  bg-[#151615] p-3">
-        <div className="mb-5  inline-block flex bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] bg-clip-text font-pretendard text-[20px] font-bold leading-[25px] text-transparent ">
+        <div className="mb-5  inline-block flex bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] bg-clip-text  text-[20px] font-bold leading-[25px] text-transparent ">
           Amount
         </div>
 
@@ -127,7 +127,7 @@ export default function ModalSupplyAmount({
               type="number"
               autoFocus={true}
               placeholder="0"
-              className="inline-block w-[210px] bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] bg-clip-text text-right font-pretendard text-[18px] font-bold leading-[25px] text-transparent placeholder-current caret-white outline outline-0 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              className="inline-block w-[210px] bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] bg-clip-text text-right  text-[18px] font-bold leading-[25px] text-transparent placeholder-current caret-white outline outline-0 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               required
               value={amount}
               onChange={(e) => handleAmount(e)}
@@ -151,7 +151,7 @@ export default function ModalSupplyAmount({
               </button>
             )}
           </div>
-          {/* <div className="text-right bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] inline-block text-transparent bg-clip-text font-pretendard  text-[11px] leading-[15px] ">
+          {/* <div className="text-right bg-gradient-to-r from-[#567554] via-[#6EC568] to-[#567554] inline-block text-transparent bg-clip-text   text-[11px] leading-[15px] ">
               $0.00
             </div> */}
 
@@ -159,7 +159,7 @@ export default function ModalSupplyAmount({
             // className="ml-auto rounded  bg-[#2F8128]  text-[#E1E3EA] w-[40px]"
             onClick={handleMax}
           >
-            <div className="text-right font-pretendard text-[11px]  leading-[15px] text-white ">
+            <div className="text-right  text-[11px]  leading-[15px] text-white ">
               MAX
             </div>
           </button>

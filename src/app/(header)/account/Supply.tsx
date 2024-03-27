@@ -157,7 +157,7 @@ export default function Supply({ account }: Props) {
           <div className="font-montserrat text-[18px] leading-[20px] text-[#CDD9C9]">
             Supply
           </div>
-          <div className="font-pretendard text-[18px] leading-[20px] text-[#B0B0B0]">
+          <div className=" text-[18px] leading-[20px] text-[#B0B0B0]">
             Balance : ${balance}
           </div>
         </div>

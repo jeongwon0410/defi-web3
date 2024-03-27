@@ -33,33 +33,33 @@ export default function Header() {
         <div className="flex flex-wrap items-center justify-center md:ml-4 md:mr-auto md:py-1  md:pl-4">
           <button onClick={() => router.push("/")}>
             {pathname === "/" ? (
-              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-white">
+              <div className="mr-5  text-[14px] font-semibold leading-[20px] text-white">
                 Bank
               </div>
             ) : (
-              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-[#F6F8FF]/[50%]">
+              <div className="mr-5  text-[14px] font-semibold leading-[20px] text-[#F6F8FF]/[50%]">
                 Bank
               </div>
             )}
           </button>
           <button onClick={() => router.push("/account")}>
             {pathname === "/account" ? (
-              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-white">
+              <div className="mr-5  text-[14px] font-semibold leading-[20px] text-white">
                 My Account
               </div>
             ) : (
-              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-[#F6F8FF]/[50%]">
+              <div className="mr-5  text-[14px] font-semibold leading-[20px] text-[#F6F8FF]/[50%]">
                 My Account
               </div>
             )}
           </button>
           <button onClick={() => router.push("/reward")}>
             {pathname === "/reward" ? (
-              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-white">
+              <div className="mr-5  text-[14px] font-semibold leading-[20px] text-white">
                 Reward
               </div>
             ) : (
-              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-[#F6F8FF]/[50%]">
+              <div className="mr-5  text-[14px] font-semibold leading-[20px] text-[#F6F8FF]/[50%]">
                 Reward
               </div>
             )}

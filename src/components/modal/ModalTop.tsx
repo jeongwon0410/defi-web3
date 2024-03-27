@@ -14,7 +14,7 @@ export default function ModalTop({ content, cryptoImg, cryptoName }: Props) {
       <div className="mb-5 flex flex-col">
         <div className="flex">
           <img src={cryptoImg} className="mr-5 h-[68px] w-[68px]" />
-          <div className="flex items-center justify-center font-pretendard text-[16px] font-bold  leading-[22px] text-[#BCE8B9]">
+          <div className="flex items-center justify-center  text-[16px] font-bold  leading-[22px] text-[#BCE8B9]">
             {cryptoName}
           </div>
         </div>

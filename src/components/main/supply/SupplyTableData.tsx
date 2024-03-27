@@ -76,25 +76,25 @@ export default function SupplyTableData({
               <td>
                 <div className="flex justify-center ">
                   <img src={col[0]} className="mr-3 h-[28px] w-[28px]" />
-                  <div className="mt-1 font-pretendard text-[14px] font-semibold leading-[20px] text-[#B0B0B0] ">
+                  <div className="mt-1  text-[14px] font-semibold leading-[20px] text-[#B0B0B0] ">
                     {col[1]}
                   </div>
                 </div>
               </td>
-              <td className="font-pretendard text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
+              <td className=" text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
                 {col[2]}
               </td>
-              <td className="font-pretendard text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
+              <td className=" text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
                 {col[3]}
               </td>
-              <td className="font-pretendard text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
+              <td className=" text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
                 {col[4]}
               </td>
               <td>
                 <div className=" h-[20px] w-[2px] bg-[#252423]" />
               </td>
 
-              <td className="w-[350px] font-pretendard text-[14px] font-normal leading-[24px] text-[#3E4064]">
+              <td className="w-[350px]  text-[14px] font-normal leading-[24px] text-[#3E4064]">
                 <div className="flex justify-center">
                   <button
                     className="mr-4 items-center rounded-lg bg-[#2F8128]  px-8 py-2 text-[#E1E3EA] "
@@ -111,7 +111,7 @@ export default function SupplyTableData({
                 </div>
               </td>
 
-              <td className="font-pretendard text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
+              <td className=" text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
                 {col[5]}
               </td>
             </tr>

@@ -98,13 +98,13 @@ export default function ModalWithdrawButton({
     <div className="flex w-full flex-col">
       {/* <div className="flex w-full ">
         <img src="local_gas_station.png" className="h-[20px] w-[20px]" />
-        <div className="font-pretendard font-nomal text-[16px] leading-[20px] text-[#535353]">
+        <div className=" font-nomal text-[16px] leading-[20px] text-[#535353]">
           $00.00
         </div>
       </div> */}
 
       <button
-        className="mt-5 rounded-lg bg-[#52A44B] py-4 font-pretendard text-[20px] font-bold leading-[25px] text-white disabled:bg-gray-300 "
+        className="mt-5 rounded-lg bg-[#52A44B] py-4  text-[20px] font-bold leading-[25px] text-white disabled:bg-gray-300 "
         disabled={disable}
         onClick={() => withdraw(amount, cryptoName)}
       >

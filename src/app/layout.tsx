@@ -10,7 +10,7 @@ const montserrat = Montserrat({
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={montserrat.variable}>
-      <body className="h-full w-full overflow-scroll bg-[#151515] font-pretendard">
+      <body className="h-full w-full overflow-scroll bg-[#151515] font-pretendard ">
         {children}
       </body>
     </html>

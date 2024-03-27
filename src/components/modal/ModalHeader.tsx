@@ -8,7 +8,7 @@ export default function ModalHeader({ setOpen, name }: Props) {
       <div className="bg-[#38B82D] px-4 pb-7 pt-5">
         <div className="flex justify-between">
           <div></div>
-          <div className="font-pretendard text-[22px] font-extrabold leading-[26px] text-white">
+          <div className=" text-[22px] font-extrabold leading-[26px] text-white">
             {name}
           </div>
           <button

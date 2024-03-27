@@ -88,7 +88,7 @@ export default function ModalBorrowButton({
       </div> */}
 
       <button
-        className="mt-5 rounded-lg bg-[#52A44B] py-4 font-pretendard text-[20px] font-bold leading-[25px] text-white disabled:bg-gray-300 "
+        className="mt-5 rounded-lg bg-[#52A44B] py-4  text-[20px] font-bold leading-[25px] text-white disabled:bg-gray-300 "
         disabled={disable}
         onClick={() => borrow(amount, cryptoName)}
       >

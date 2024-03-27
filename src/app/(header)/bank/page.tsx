@@ -41,7 +41,7 @@ const AllMarketButton = ({ onClick }: { onClick: () => void }) => {
     >
       <div className="flex items-center justify-center ">
         <Image src="/all_img.png" width={16} height={16} alt="" />
-        <div className="font-pretendard text-[14px] font-normal leading-[20px] text-[#525C52]">
+        <div className=" text-[14px] font-normal leading-[20px] text-[#525C52]">
           All market
         </div>
       </div>

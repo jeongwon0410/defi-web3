@@ -12,8 +12,8 @@ export default function BorrowTableField({ tableRow }: Props) {
               key={index}
               className={
                 index === 4
-                  ? `font-pretendard text-[14px] font-semibold leading-[20px] text-[#559465]`
-                  : `font-pretendard text-[14px] font-semibold leading-[20px] text-[#525C52]`
+                  ? `text-[14px] font-semibold leading-[20px] text-[#559465]`
+                  : `text-[14px] font-semibold leading-[20px] text-[#525C52]`
               }
             >
               {item}
