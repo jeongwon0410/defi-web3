@@ -1,5 +1,7 @@
-import Borrow from "./Borrow";
-import Supply from "./Supply";
+"use client";
+
+import Borrow from "@/app/(header)/account/Borrow";
+import Supply from "@/app/(header)/account/Supply";
 import { useTmpContext } from "@/components/TmpContext";
 
 export default function AccountMain() {

@@ -1,4 +1,6 @@
-import Table from "./Table";
+"use client";
+
+import Table from "@/app/(header)/reward/Table";
 
 export const total = "Points refresh every 24 hours";
 export const supply = "Supply earns 1 point per dollar deposit per day";

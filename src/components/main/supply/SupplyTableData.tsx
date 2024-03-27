@@ -1,25 +1,4 @@
-import { useEffect, useState } from "react";
 import { name } from "@/apis/common";
-import {
-  AAVEBalance,
-  DAIBalance,
-  EURSBalance,
-  LINKBalance,
-  USDCBalance,
-  USDTBalance,
-  WBTCBalance,
-  WETHBalance,
-} from "@/apis/balance";
-import {
-  AAVEMySupplyBalance,
-  DAIMySupplyBalance,
-  EURSMySupplyBalance,
-  LINKMySupplyBalance,
-  USDCMySupplyBalance,
-  USDTMySupplyBalance,
-  WBTCMySupplyBalance,
-  WETHMySupplyBalance,
-} from "@/apis/mySupplyBalance";
 import {
   AAVEMaxAmount,
   DAIMaxAmount,

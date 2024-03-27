@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react";
 import Modal from "../../modal/Modal";
-import {
-  dai_address,
-  dai_contract,
-  name,
-  pool_contract,
-  pool_data_provider_contract,
-  usdc_contract,
-  weth_address,
-  weth_contract,
-} from "../../../apis/common";
+import { name } from "../../../apis/common";
 import SupplyTableField from "./SupplyTableField";
 import SupplyTableData from "./SupplyTableData";
 
@@ -24,16 +15,6 @@ import {
   WETHSupplyTotal,
 } from "@/apis/supplyTotal";
 
-import {
-  AAVEMySupplyRatio,
-  DAIMySupplyRatio,
-  EURSMySupplyRatio,
-  LINKMySupplyRatio,
-  USDCMySupplyRatio,
-  USDTMySupplyRatio,
-  WBTCMySupplyRatio,
-  WETHMySupplyRatio,
-} from "@/apis/supplyRatio";
 import {
   AAVESupplyAPY,
   DAISupplyAPY,

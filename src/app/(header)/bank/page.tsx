@@ -1,9 +1,10 @@
-import { ReactNode, useState } from "react";
-import Image from "next/image";
-import SupplyTable from "./supply/SupplyTable";
+"use client";
 
-import Switch from "./Switch";
-import BorrowTable from "./borrow/BorrowTable";
+import { useState, ReactNode } from "react";
+import Image from "next/image";
+import BorrowTable from "@/components/main/borrow/BorrowTable";
+import SupplyTable from "@/components/main/supply/SupplyTable";
+import Switch from "@/app/(header)/bank/Switch";
 import { useTmpContext } from "@/components/TmpContext";
 
 export type Tab = "supply" | "borrow";

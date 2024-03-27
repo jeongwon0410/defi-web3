@@ -9,14 +9,7 @@ import {
   WBTCAprove,
   WETHAprove,
 } from "@/apis/approve";
-import cointousd from "@/apis/cointousd";
-import {
-  dai_address,
-  name,
-  pool_contract,
-  usdc_address,
-  usdt_address,
-} from "@/apis/common";
+import { name } from "@/apis/common";
 import {
   AAVESupply,
   DAISupply,
@@ -27,7 +20,6 @@ import {
   WBTCSupply,
   WETHSupply,
 } from "@/apis/supply";
-import { DaiToUsd } from "@/apis/supplyUsd";
 
 interface Props {
   amount: string;

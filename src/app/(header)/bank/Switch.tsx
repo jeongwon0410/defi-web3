@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Tab } from "./Main";
+import { Tab } from "@/app/(header)/bank/page";
 
 interface Props {
   tab: Tab;
