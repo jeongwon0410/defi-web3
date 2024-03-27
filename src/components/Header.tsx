@@ -1,4 +1,6 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { useRouter } from "next/navigation";
 import ConnectButton from "./ConnectButton";
 
 export default function Header() {
