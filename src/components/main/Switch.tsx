@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Tab } from "./Main";
 
 interface Props {
@@ -19,22 +20,33 @@ export default function Switch({ tab, setTab, setAllMarket }: Props) {
 
   return (
     <div className="mx-auto mb-5 flex flex-wrap">
-      <button
-        className={`mr-10  font-montserrat text-[30px] font-bold leading-[45px] ${
-          tab === "supply" ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
-        }`}
-        onClick={clickSupply}
-      >
+      <SwitchButton onClick={clickSupply} selected={tab === "supply"}>
         Supply
-      </button>
-      <button
-        className={`mr-10  font-montserrat text-[30px] font-bold leading-[45px] ${
-          tab === "borrow" ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
-        }`}
-        onClick={clickBorrow}
-      >
+      </SwitchButton>
+      <SwitchButton onClick={clickBorrow} selected={tab === "borrow"}>
         Borrow
-      </button>
+      </SwitchButton>
     </div>
   );
 }
+
+const SwitchButton = ({
+  onClick,
+  selected,
+  children,
+}: {
+  onClick: () => void;
+  selected: boolean;
+  children: ReactNode;
+}) => {
+  return (
+    <button
+      className={`mr-10  font-montserrat text-[30px] font-bold leading-[45px] ${
+        selected ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
+      }`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
