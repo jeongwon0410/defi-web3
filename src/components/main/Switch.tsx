@@ -1,29 +1,19 @@
-import { useState } from "react";
+import { Tab } from "./Main";
 
 interface Props {
-  supply: boolean;
-  borrow: boolean;
-  setSupply: React.Dispatch<React.SetStateAction<boolean>>;
-  setBorrow: React.Dispatch<React.SetStateAction<boolean>>;
+  tab: Tab;
+  setTab: React.Dispatch<React.SetStateAction<Tab>>;
   setAllMarket: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Switch({
-  supply,
-  borrow,
-  setSupply,
-  setBorrow,
-  setAllMarket,
-}: Props) {
+export default function Switch({ tab, setTab, setAllMarket }: Props) {
   const clickSupply = () => {
-    setSupply(true);
-    setBorrow(false);
+    setTab("supply");
     setAllMarket(false);
   };
 
   const clickBorrow = () => {
-    setSupply(false);
-    setBorrow(true);
+    setTab("borrow");
     setAllMarket(false);
   };
 
@@ -31,7 +21,7 @@ export default function Switch({
     <div className="mx-auto mb-5 flex flex-wrap">
       <button
         className={`mr-10  font-montserrat text-[30px] font-bold leading-[45px] ${
-          supply === true ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
+          tab === "supply" ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
         }`}
         onClick={clickSupply}
       >
@@ -39,7 +29,7 @@ export default function Switch({
       </button>
       <button
         className={`mr-10  font-montserrat text-[30px] font-bold leading-[45px] ${
-          borrow === true ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
+          tab === "borrow" ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
         }`}
         onClick={clickBorrow}
       >

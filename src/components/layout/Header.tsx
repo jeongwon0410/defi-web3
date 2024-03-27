@@ -1,9 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ConnectButton from "./ConnectButton";
 
 export default function Header() {
+  const pathname = usePathname();
   const router = useRouter();
 
   const host =
@@ -31,7 +32,7 @@ export default function Header() {
         </div>
         <div className="flex flex-wrap items-center justify-center md:ml-4 md:mr-auto md:py-1  md:pl-4">
           <button onClick={() => router.push("/")}>
-            {router.pathname === "/" ? (
+            {pathname === "/" ? (
               <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-white">
                 Bank
               </div>
@@ -42,7 +43,7 @@ export default function Header() {
             )}
           </button>
           <button onClick={() => router.push("/account")}>
-            {router.pathname === "/account" ? (
+            {pathname === "/account" ? (
               <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-white">
                 My Account
               </div>
@@ -53,7 +54,7 @@ export default function Header() {
             )}
           </button>
           <button onClick={() => router.push("/reward")}>
-            {router.pathname === "/reward" ? (
+            {pathname === "/reward" ? (
               <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-white">
                 Reward
               </div>
@@ -65,9 +66,6 @@ export default function Header() {
           </button>
         </div>
         <ConnectButton />
-        {/* <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
-          <ConnectWalletButton setAccount={setAccount} />
-        </MetaMaskProvider> */}
       </div>
     </header>
   );
