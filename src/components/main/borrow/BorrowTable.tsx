@@ -2,19 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "../../modal/Modal";
 import BorrowTableData from "./BorrowTableData";
 import BorrowTableField from "./BorrowTableField";
-import { Contract } from "@ethersproject/contracts";
-import {
-  aave_oracle_contract,
-  dai_address,
-  dai_contract,
-  link_address,
-  name,
-  pool_contract,
-  pool_data_provider_contract,
-  usdc_address,
-  usdc_contract,
-  usdt_address,
-} from "@/apis/common";
+import { name } from "@/apis/common";
 import {
   AAVEBorrowTotal,
   DAIBorrowTotal,
@@ -25,12 +13,6 @@ import {
   WBTCBorrowTotal,
   WETHBorrowTotal,
 } from "@/apis/borrowTotal";
-import { ethers } from "ethers";
-import {
-  BigNumberValue,
-  normalize,
-  valueToZDBigNumber,
-} from "@/apis/bignumber";
 import {
   AAVEBorrowAPY,
   DAIBorrowAPY,
@@ -41,7 +23,6 @@ import {
   WBTCBorrowAPY,
   WETHBorrowAPY,
 } from "@/apis/borrowAPY";
-import { DAIMySupplyRatio } from "@/apis/supplyRatio";
 import {
   AAVESupplyTotal,
   DAISupplyTotal,
@@ -343,7 +324,7 @@ export default function BorrowTable({ allMarket, account }: Props) {
 
   return (
     <div className="w-full  ">
-      <table className="table w-full text-center px-20">
+      <table className="table w-full px-20 text-center">
         <thead className="">
           <BorrowTableField tableRow={tableRow} />
         </thead>

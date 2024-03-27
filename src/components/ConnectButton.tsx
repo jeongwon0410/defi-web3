@@ -1,14 +1,12 @@
-import saveAddress from "@/apis/saveAddress";
 import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
-import { MetaMaskSDK } from "@metamask/sdk";
-import { useAtom } from "jotai";
-import { addressAtom, flagAtom } from "@/datas/address";
+import { useTmpContext } from "@/components/TmpContext";
+import saveAddress from "@/apis/saveAddress";
 
 export default function ConnectButton() {
-  const [address, setAddress] = useState("");
-  const [account, setAccount] = useAtom(addressAtom);
-  const [flag, setFlag] = useAtom(flagAtom);
+  const { address, setAddress } = useTmpContext();
+  const [flag, setFlag] = useState(false);
+
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -52,7 +50,6 @@ export default function ConnectButton() {
         });
 
         setAddress(res[0]);
-        setAccount(res[0]);
 
         if (!flag) {
           save.mutate(res[0]);
@@ -77,7 +74,6 @@ export default function ConnectButton() {
         });
 
         setAddress(res[0]);
-        setAccount(res[0]);
 
         save.mutate(res[0]);
       } catch (err) {
@@ -90,11 +86,11 @@ export default function ConnectButton() {
   return (
     <div className="relative">
       <button
-        className="items-center py-2 px-5 rounded-full bg-[#252a39] mr-4"
+        className="mr-4 items-center rounded-full bg-[#252a39] px-5 py-2"
         onClick={connect}
       >
-        <div className="flex text-white  font-montserrat  font-semibold text-[16px] leading-[24px]">
-          <img src="metamask.png" className="h-4 w-4 mt-1 mr-2" />
+        <div className="flex font-montserrat  text-[16px]  font-semibold leading-[24px] text-white">
+          <img src="metamask.png" className="mr-2 mt-1 h-4 w-4" />
           {address === "" ? "connect wallet" : address}
         </div>
       </button>

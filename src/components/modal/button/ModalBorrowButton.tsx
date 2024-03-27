@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   AAVEBorrow,
   DAIBorrow,
@@ -9,15 +10,14 @@ import {
   WETHBorrow,
 } from "@/apis/borrow";
 import {
-  pool_contract,
-  pool_address,
-  usdc_address,
-  usdc_contract,
   dai_address,
   dai_contract,
   name,
+  pool_address,
+  pool_contract,
+  usdc_address,
+  usdc_contract,
 } from "@/apis/common";
-import { useEffect, useState } from "react";
 
 interface Props {
   cryptoName: string;
@@ -80,17 +80,15 @@ export default function ModalBorrowButton({
     }
   };
 
-
-
   return (
-    <div className="w-full flex flex-col">
+    <div className="flex w-full flex-col">
       {/* <div className="p-3 rounded-[20px]  bg-[#151615] flex  justify-between h-[50px]">
         <div className="flex text-[#B0B0B0]">Health factor</div>
         <div className="flex text-[#B0B0B0]">{"00 -> 00"}</div>
       </div> */}
 
       <button
-        className="disabled:bg-gray-300 mt-5 py-4 rounded-lg bg-[#52A44B] font-pretendard font-bold text-[20px] leading-[25px] text-white "
+        className="mt-5 rounded-lg bg-[#52A44B] py-4 font-pretendard text-[20px] font-bold leading-[25px] text-white disabled:bg-gray-300 "
         disabled={disable}
         onClick={() => borrow(amount, cryptoName)}
       >
@@ -98,7 +96,7 @@ export default function ModalBorrowButton({
           {flag && (
             <svg
               aria-hidden="true"
-              className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 mr-4"
+              className="mr-4 h-8 w-8 animate-spin fill-gray-600 text-gray-200 dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

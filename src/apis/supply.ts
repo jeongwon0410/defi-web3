@@ -22,7 +22,7 @@ export async function DAISupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await dai_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -51,7 +51,7 @@ export async function USDTSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await usdt_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -79,7 +79,7 @@ export async function USDCSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await usdc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -107,7 +107,7 @@ export async function WBTCSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await wbtc_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -135,7 +135,7 @@ export async function LINKSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await link_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -163,7 +163,7 @@ export async function AAVESupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await aave_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -191,7 +191,7 @@ export async function EURSSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await eurs_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);
@@ -219,7 +219,7 @@ export async function WETHSupply(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>,
   setFlag: React.Dispatch<React.SetStateAction<boolean>>,
   tokenSupply: string,
-  account: string
+  account: string,
 ) {
   const decimals = await weth_contract.methods.decimals().call();
   const result = parseFloat(tokenSupply) * 10 ** parseInt(decimals);

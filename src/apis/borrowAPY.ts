@@ -22,7 +22,7 @@ export async function DAIBorrowAPY(): Promise<string> {
     valueToZDBigNumber(data["currentVariableBorrowRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const borrowAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -40,7 +40,7 @@ export async function USDTBorrowAPY(): Promise<string> {
     valueToZDBigNumber(data["currentVariableBorrowRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const borrowAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -58,7 +58,7 @@ export async function USDCBorrowAPY(): Promise<string> {
     valueToZDBigNumber(data["currentVariableBorrowRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const borrowAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -76,7 +76,7 @@ export async function WBTCBorrowAPY(): Promise<string> {
     valueToZDBigNumber(data["currentVariableBorrowRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const borrowAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -94,7 +94,7 @@ export async function LINKBorrowAPY(): Promise<string> {
     valueToZDBigNumber(data["currentVariableBorrowRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const borrowAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -112,7 +112,7 @@ export async function AAVEBorrowAPY(): Promise<string> {
     valueToZDBigNumber(data["currentVariableBorrowRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const borrowAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -130,7 +130,7 @@ export async function EURSBorrowAPY(): Promise<string> {
     valueToZDBigNumber(data["currentVariableBorrowRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const borrowAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -148,7 +148,7 @@ export async function WETHBorrowAPY(): Promise<string> {
     valueToZDBigNumber(data["currentVariableBorrowRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const borrowAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";

@@ -12,8 +12,8 @@ export default function SupplyTableField({ tableRow }: Props) {
               key={index}
               className={
                 index === 5
-                  ? `font-pretendard font-semibold text-[14px] leading-[20px] text-[#559465]`
-                  : `font-pretendard font-semibold text-[14px] leading-[20px] text-[#525C52]`
+                  ? `font-pretendard text-[14px] font-semibold leading-[20px] text-[#559465]`
+                  : `font-pretendard text-[14px] font-semibold leading-[20px] text-[#525C52]`
               }
             >
               {item}

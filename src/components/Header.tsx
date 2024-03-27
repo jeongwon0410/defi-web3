@@ -1,11 +1,5 @@
-import ConnectWalletButton from "./ConnectWalletButton";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import ConnectButton from "./ConnectButton";
-import { useMutation, useQuery } from "react-query";
-import saveAddress from "@/apis/saveAddress";
-import Link from "next/link";
-import { MetaMaskProvider } from "@metamask/sdk-react";
 
 export default function Header() {
   const router = useRouter();
@@ -26,43 +20,43 @@ export default function Header() {
 
   return (
     <header className="body-font">
-      <div className=" flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <div className="flex title-font font-medium items-center mb-4 md:mb-0">
-          <img src="light.png" className="h-[28px] w-[21px] mr-2" />
-          <div className="text-[20px] leading-[20px] font-extrabold font-montserrat text-[#D9FFCC]">
+      <div className=" flex flex-col flex-wrap items-center p-5 md:flex-row">
+        <div className="title-font mb-4 flex items-center font-medium md:mb-0">
+          <img src="light.png" className="mr-2 h-[28px] w-[21px]" />
+          <div className="font-montserrat text-[20px] font-extrabold leading-[20px] text-[#D9FFCC]">
             LightBank
           </div>
         </div>
-        <div className="md:mr-auto md:ml-4 md:py-1 md:pl-4 flex flex-wrap items-center  justify-center">
+        <div className="flex flex-wrap items-center justify-center md:ml-4 md:mr-auto md:py-1  md:pl-4">
           <button onClick={() => router.push("/")}>
             {router.pathname === "/" ? (
-              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-white">
+              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-white">
                 Bank
               </div>
             ) : (
-              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-[#F6F8FF]/[50%]">
+              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-[#F6F8FF]/[50%]">
                 Bank
               </div>
             )}
           </button>
           <button onClick={() => router.push("/account")}>
             {router.pathname === "/account" ? (
-              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-white">
+              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-white">
                 My Account
               </div>
             ) : (
-              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-[#F6F8FF]/[50%]">
+              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-[#F6F8FF]/[50%]">
                 My Account
               </div>
             )}
           </button>
           <button onClick={() => router.push("/reward")}>
             {router.pathname === "/reward" ? (
-              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-white">
+              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-white">
                 Reward
               </div>
             ) : (
-              <div className="mr-5 font-pretendard text-[14px] leading-[20px] font-semibold text-[#F6F8FF]/[50%]">
+              <div className="mr-5 font-pretendard text-[14px] font-semibold leading-[20px] text-[#F6F8FF]/[50%]">
                 Reward
               </div>
             )}

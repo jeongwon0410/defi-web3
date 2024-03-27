@@ -4,9 +4,9 @@ interface Props {
 
 export default function ModalMain({ children }: Props) {
   return (
-    <div className="relative -top-3 bg-[#1B1B1B] rounded-lg w-full max-w-lg border border-[#38B82D]">
-      <div className=" w-full max-w-lg flex justify-between px-10 py-8">
-        <div className="flex flex-col w-full">{children}</div>
+    <div className="relative -top-3 w-full max-w-lg rounded-lg border border-[#38B82D] bg-[#1B1B1B]">
+      <div className=" flex w-full max-w-lg justify-between px-10 py-8">
+        <div className="flex w-full flex-col">{children}</div>
       </div>
     </div>
   );

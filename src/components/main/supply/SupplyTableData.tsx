@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { name } from "@/apis/common";
 import {
   AAVEBalance,
@@ -19,7 +20,6 @@ import {
   WBTCMySupplyBalance,
   WETHMySupplyBalance,
 } from "@/apis/mySupplyBalance";
-import { useEffect, useState } from "react";
 import {
   AAVEMaxAmount,
   DAIMaxAmount,
@@ -93,38 +93,38 @@ export default function SupplyTableData({
       {tableCol &&
         tableCol.map((col: string[], index: number) =>
           !allMarket && index > 3 ? null : (
-            <tr key={index} className="h-[74px] column ">
+            <tr key={index} className="column h-[74px] ">
               <td>
                 <div className="flex justify-center ">
-                  <img src={col[0]} className="h-[28px] w-[28px] mr-3" />
-                  <div className="font-pretendard font-semibold text-[14px] leading-[20px] text-[#B0B0B0] mt-1 ">
+                  <img src={col[0]} className="mr-3 h-[28px] w-[28px]" />
+                  <div className="mt-1 font-pretendard text-[14px] font-semibold leading-[20px] text-[#B0B0B0] ">
                     {col[1]}
                   </div>
                 </div>
               </td>
-              <td className="font-pretendard font-normal text-[14px] leading-[24px] text-[#B0B0B0] ">
+              <td className="font-pretendard text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
                 {col[2]}
               </td>
-              <td className="font-pretendard font-normal text-[14px] leading-[24px] text-[#B0B0B0] ">
+              <td className="font-pretendard text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
                 {col[3]}
               </td>
-              <td className="font-pretendard font-normal text-[14px] leading-[24px] text-[#B0B0B0] ">
+              <td className="font-pretendard text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
                 {col[4]}
               </td>
               <td>
-                <div className=" bg-[#252423] h-[20px] w-[2px]" />
+                <div className=" h-[20px] w-[2px] bg-[#252423]" />
               </td>
 
-              <td className="font-pretendard font-normal text-[14px] leading-[24px] text-[#3E4064] w-[350px]">
+              <td className="w-[350px] font-pretendard text-[14px] font-normal leading-[24px] text-[#3E4064]">
                 <div className="flex justify-center">
                   <button
-                    className="items-center py-2 px-8 rounded-lg  bg-[#2F8128] mr-4 text-[#E1E3EA] "
+                    className="mr-4 items-center rounded-lg bg-[#2F8128]  px-8 py-2 text-[#E1E3EA] "
                     onClick={() => handleSupplyClick(index)}
                   >
                     Supply
                   </button>
                   <button
-                    className="items-center py-2 px-5 rounded-lg bg-[#262626] text-[#818A80]"
+                    className="items-center rounded-lg bg-[#262626] px-5 py-2 text-[#818A80]"
                     onClick={() => handleWithdrawClick(index)}
                   >
                     Withdraw
@@ -132,11 +132,11 @@ export default function SupplyTableData({
                 </div>
               </td>
 
-              <td className="font-pretendard font-normal text-[14px] leading-[24px] text-[#B0B0B0] ">
+              <td className="font-pretendard text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
                 {col[5]}
               </td>
             </tr>
-          )
+          ),
         )}
     </>
   );

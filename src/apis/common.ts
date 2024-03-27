@@ -74,7 +74,7 @@ if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
   pool_data_provider_address = "0x3e9708d80f7B3e43118013075F7e95CE3AB31F31";
   pool_data_provider_contract = new web3.eth.Contract(
     PoolDataProvider,
-    pool_data_provider_address
+    pool_data_provider_address,
   );
 
   aave_oracle_address = "0x2da88497588bf89281816106C7259e31AF45a663";

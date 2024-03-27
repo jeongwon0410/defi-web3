@@ -1,12 +1,14 @@
+import { ReactNode } from "react";
+
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function Account({ children }: Props) {
   return (
-    <div className="relative -top-3 bg-[#151515] rounded-lg w-full max-w-lg border border-white">
-      <div className=" w-full max-w-lg flex justify-between px-6 py-8 ">
-        <div className="flex flex-col w-full ">{children}</div>
+    <div className="relative -top-3 w-full max-w-lg rounded-lg border border-white bg-[#151515]">
+      <div className=" flex w-full max-w-lg justify-between px-6 py-8 ">
+        <div className="flex w-full flex-col ">{children}</div>
       </div>
     </div>
   );

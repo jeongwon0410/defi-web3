@@ -22,7 +22,7 @@ export async function DAISupplyAPY(): Promise<string> {
     valueToZDBigNumber(data["currentLiquidityRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const SupplyAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -40,7 +40,7 @@ export async function USDTSupplyAPY(): Promise<string> {
     valueToZDBigNumber(data["currentLiquidityRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const SupplyAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -58,7 +58,7 @@ export async function USDCSupplyAPY(): Promise<string> {
     valueToZDBigNumber(data["currentLiquidityRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const SupplyAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -76,7 +76,7 @@ export async function WBTCSupplyAPY(): Promise<string> {
     valueToZDBigNumber(data["currentLiquidityRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const SupplyAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -94,7 +94,7 @@ export async function LINKSupplyAPY(): Promise<string> {
     valueToZDBigNumber(data["currentLiquidityRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const SupplyAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -112,7 +112,7 @@ export async function AAVESupplyAPY(): Promise<string> {
     valueToZDBigNumber(data["currentLiquidityRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const SupplyAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -130,7 +130,7 @@ export async function EURSSupplyAPY(): Promise<string> {
     valueToZDBigNumber(data["currentLiquidityRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const SupplyAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";
@@ -148,7 +148,7 @@ export async function WETHSupplyAPY(): Promise<string> {
     valueToZDBigNumber(data["currentLiquidityRate"])
       .dividedBy(SECONDS_PER_YEAR)
       .plus(RAY),
-    SECONDS_PER_YEAR
+    SECONDS_PER_YEAR,
   ).minus(RAY);
   const SupplyAPY =
     (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%";

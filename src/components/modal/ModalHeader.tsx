@@ -4,11 +4,11 @@ interface Props {
 }
 export default function ModalHeader({ setOpen, name }: Props) {
   return (
-    <div className="overflow-hidden rounded-lg bg-white transition-all w-full max-w-lg">
-      <div className="bg-[#38B82D] px-4 pt-5 pb-7">
+    <div className="w-full max-w-lg overflow-hidden rounded-lg bg-white transition-all">
+      <div className="bg-[#38B82D] px-4 pb-7 pt-5">
         <div className="flex justify-between">
           <div></div>
-          <div className="font-pretendard font-extrabold text-[22px] leading-[26px] text-white">
+          <div className="font-pretendard text-[22px] font-extrabold leading-[26px] text-white">
             {name}
           </div>
           <button
@@ -17,7 +17,7 @@ export default function ModalHeader({ setOpen, name }: Props) {
             onClick={() => setOpen(false)}
           >
             <svg
-              className="w-3 h-3"
+              className="h-3 w-3"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

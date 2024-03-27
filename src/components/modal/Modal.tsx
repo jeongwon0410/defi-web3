@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import ModalHeader from "./ModalHeader";
 import ModalMain from "./ModalMain";
 import ModalTop from "./ModalTop";
 import ModalSupplyButton from "./button/ModalSupplyButton";
-import { useEffect, useState } from "react";
 import ModalBorrowButton from "./button/ModalBorrowButton";
 import ModalWithdrawButton from "./button/ModalWithdrawButton";
 import ModalRepayButton from "./button/ModalRepayButton";
@@ -50,7 +50,7 @@ export default function Modal({
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex flex-col h-full w-full justify-center items-center ">
+        <div className="flex h-full w-full flex-col items-center justify-center ">
           <ModalHeader setOpen={setOpen} name={item && item.name} />
           <ModalMain>
             <div>
