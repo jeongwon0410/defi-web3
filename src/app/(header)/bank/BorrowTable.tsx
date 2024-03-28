@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import BigNumber from "bignumber.js";
 import { useImmer } from "use-immer";
-import TableHeader from "../TableHeader";
+import TableHeader from "./TableHeader";
 import BorrowTableData from "./BorrowTableData";
 import { useTmpContext } from "@/components/TmpContext";
 import { allAssetTitles } from "@/constants/assets";

@@ -1,4 +1,4 @@
-import { IconTd, Td, Divider, Button } from "../Table";
+import { IconTd, Td, Divider, Button } from "./Table";
 import { SupplyTableCol } from "./SupplyTable";
 import { TABLE_PREVIEW_CNT } from "@/constants/common";
 import { normalize } from "@/util/bignumber";

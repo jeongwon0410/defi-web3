@@ -9,7 +9,7 @@ export const IconTd = ({
   children: ReactNode;
 }) => (
   <td>
-    <div className="flex justify-center ">
+    <div className="flex justify-center">
       <Image src={src} className="mr-3" height={28} width={28} alt="" />
       <div className="mt-1  text-[14px] font-semibold leading-[20px] text-[#B0B0B0] ">
         {children}

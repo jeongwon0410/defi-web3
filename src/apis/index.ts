@@ -117,3 +117,48 @@ export const getBorrowApy = async (title: AssetTitle) => {
     SECONDS_PER_YEAR,
   ).minus(RAY);
 };
+
+// My Account
+
+export const getBorrowAmount = async (title: AssetTitle, account: string) => {
+  const addr = titleToAddr[title];
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const data = await pool_data_provider_contract.methods
+    .getUserReserveData(addr, account)
+    .call();
+
+  const currentVariableDebt = BigNumber(data.currentVariableDebt.toString());
+  const decimals = BigNumber(_decimals.toString());
+
+  return currentVariableDebt.dividedBy(10).pow(decimals);
+};
+
+export const getLiquidation = async (title: AssetTitle, account: string) => {
+  const addr = titleToAddr[title];
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const decimals = BigNumber(
+    ((await contract.methods.decimals().call()) as bigint).toString(),
+  );
+
+  const data = await pool_data_provider_contract.methods
+    .getUserReserveData(addr, account)
+    .call();
+
+  // TODO: borrow, supply 0일 때 예외 처리
+  const borrow = BigNumber(data.currentVariableDebt.toString());
+  const supply = BigNumber(data.currentATokenBalance.toString());
+
+  const tmp = BigNumber(10).pow(decimals);
+  const result = borrow.dividedBy(tmp).dividedBy(supply).dividedBy(tmp);
+
+  const ltv = await pool_data_provider_contract.methods
+    .getReserveConfigurationData(addr)
+    .call();
+
+  return result.times(ltv.ltv.toString());
+};

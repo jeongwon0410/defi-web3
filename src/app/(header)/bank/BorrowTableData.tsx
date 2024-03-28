@@ -1,4 +1,4 @@
-import { Button, Divider, IconTd, Td } from "../Table";
+import { Button, Divider, IconTd, Td } from "./Table";
 import { BorrowTableCol } from "./BorrowTable";
 import { normalize } from "@/util/bignumber";
 import { RAY_DECIMALS, TABLE_PREVIEW_CNT } from "@/constants/common";

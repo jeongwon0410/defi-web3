@@ -10,7 +10,8 @@ const montserrat = Montserrat({
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={montserrat.variable}>
-      <body className="h-full w-full overflow-scroll bg-[#151515] font-pretendard ">
+      {/* TODO: min-w 처리 */}
+      <body className="h-full w-full min-w-[1400px] overflow-scroll bg-[#151515] font-pretendard">
         {children}
       </body>
     </html>

@@ -2,8 +2,8 @@
 
 import { useState, ReactNode } from "react";
 import Image from "next/image";
-import BorrowTable from "@/components/main/borrow/BorrowTable";
-import SupplyTable from "@/components/main/supply/SupplyTable";
+import BorrowTable from "@/app/(header)/bank/BorrowTable";
+import SupplyTable from "@/app/(header)/bank/SupplyTable";
 import Switch from "@/app/(header)/bank/Switch";
 
 export type Tab = "supply" | "borrow";
