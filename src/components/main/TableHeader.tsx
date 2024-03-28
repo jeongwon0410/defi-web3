@@ -1,18 +1,8 @@
-const tableRow = [
-  "Asset",
-  "Total Supplied",
-  "APY/LTV",
-  "Available",
-  "",
-  "Supply&Withdraw",
-  "Supplied",
-];
-
-export default function SupplyTableHeader() {
+export default function TableHeader({ rows }: { rows: string[] }) {
   return (
     <thead>
       <tr>
-        {tableRow.map((item: string, index: number) => (
+        {rows.map((item: string, index: number) => (
           <th
             key={index}
             className={`text-[14px] font-semibold leading-[20px] ${

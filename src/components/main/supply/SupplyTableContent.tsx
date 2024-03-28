@@ -1,14 +1,12 @@
-import { ReactNode } from "react";
-import Image from "next/image";
+import { IconTd, Td, Divider, Button } from "../Table";
 import { SupplyTableCol } from "./SupplyTable";
+import { TABLE_PREVIEW_CNT } from "@/constants/common";
 import { normalize } from "@/util/bignumber";
 
-interface Props {
+type Props = {
   cols: SupplyTableCol[];
   expanded: boolean;
-}
-
-const PREVIEW_CNT = 4;
+};
 
 export default function SupplyTableContent({ cols, expanded }: Props) {
   // const choiceMax = async (cryptoName: string, account: string) => {
@@ -27,7 +25,7 @@ export default function SupplyTableContent({ cols, expanded }: Props) {
 
   return (
     <tbody>
-      {(expanded ? cols : cols.slice(0, PREVIEW_CNT)).map((col, idx) => (
+      {(expanded ? cols : cols.slice(0, TABLE_PREVIEW_CNT)).map((col, idx) => (
         <Tr
           key={idx}
           col={col}
@@ -66,7 +64,6 @@ const Tr = ({
 
   return (
     <tr className="h-[74px]">
-      {/* TODO: slash 없애기 */}
       <IconTd src={col.imageURL}>{col.title}</IconTd>
 
       <Td>{col.totalSupplied.toString()}</Td>
@@ -90,43 +87,3 @@ const Tr = ({
     </tr>
   );
 };
-
-const IconTd = ({ src, children }: { src: string; children: ReactNode }) => (
-  <td>
-    <div className="flex justify-center ">
-      <Image src={src} className="mr-3" height={28} width={28} alt="" />
-      <div className="mt-1  text-[14px] font-semibold leading-[20px] text-[#B0B0B0] ">
-        {children}
-      </div>
-    </div>
-  </td>
-);
-
-const Td = ({ children }: { children: ReactNode }) => (
-  <td className="text-[14px] font-normal leading-[24px] text-[#B0B0B0] ">
-    {children}
-  </td>
-);
-
-const Divider = () => (
-  <td>
-    <div className="h-[20px] w-[2px] bg-[#252423]" />
-  </td>
-);
-
-const Button = ({
-  className,
-  onClick,
-  children,
-}: {
-  className: string;
-  onClick: () => void;
-  children: ReactNode;
-}) => (
-  <button
-    className={`items-center rounded-lg px-5 py-2 ${className}`}
-    onClick={onClick}
-  >
-    {children}
-  </button>
-);

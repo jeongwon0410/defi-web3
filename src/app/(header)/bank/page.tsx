@@ -5,7 +5,6 @@ import Image from "next/image";
 import BorrowTable from "@/components/main/borrow/BorrowTable";
 import SupplyTable from "@/components/main/supply/SupplyTable";
 import Switch from "@/app/(header)/bank/Switch";
-import { useTmpContext } from "@/components/TmpContext";
 
 export type Tab = "supply" | "borrow";
 
@@ -21,8 +20,7 @@ export default function Main() {
         {tab === "supply" ? (
           <SupplyTable expanded={expanded} />
         ) : (
-          // <BorrowTable allMarket={expanded} account={address!} />
-          <></>
+          <BorrowTable expanded={expanded} />
         )}
       </div>
 

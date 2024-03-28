@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useImmer } from "use-immer";
-import SupplyTableHeader from "./SupplyTableHeader";
+import BigNumber from "bignumber.js";
+import TableHeader from "../TableHeader";
 import SupplyTableContent from "./SupplyTableContent";
 
 import { useTmpContext } from "@/components/TmpContext";
-import BigNumber from "bignumber.js";
+
 import { allAssetTitles } from "@/constants/assets";
 import {
   getSupplyTotal,
@@ -44,7 +45,7 @@ export default function SupplyTable({ expanded }: { expanded: boolean }) {
   return (
     <div className="w-full ">
       <table className="table w-full px-20 text-center">
-        <SupplyTableHeader />
+        <TableHeader rows={rows} />
         <SupplyTableContent cols={cols} expanded={expanded} />
       </table>
 
@@ -73,7 +74,7 @@ export default function SupplyTable({ expanded }: { expanded: boolean }) {
   );
 }
 
-const fetchCols = async (account: string) => {
+const fetchCols = async (account: string): Promise<SupplyTableCol[]> => {
   const promises = allAssetTitles.map(async (title) => ({
     // TODO: title -> imageURL
     imageURL: "/ETH.png",
@@ -87,6 +88,16 @@ const fetchCols = async (account: string) => {
 
   return await Promise.all(promises);
 };
+
+const rows = [
+  "Asset",
+  "Total Supplied",
+  "APY/LTV",
+  "Available",
+  "",
+  "Supply&Withdraw",
+  "Supplied",
+];
 
 // const supply = {
 //   name: "Supply",

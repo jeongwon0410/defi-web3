@@ -8,6 +8,8 @@ import {
 import { AssetTitle, titleToAddr } from "@/constants/assets";
 import { valueToZDBigNumber } from "@/util/bignumber";
 
+// SUPPLY
+
 export const getSupplyTotal = async (title: AssetTitle) => {
   const addr = titleToAddr[title];
   const contract = titleToContract[title];
@@ -82,4 +84,36 @@ export const getMySupplyBalance = async (
   return currentATokenBalance.dividedBy(
     BigNumber(10).pow(BigNumber(decimals.toString())),
   );
+};
+
+// BORROW
+
+export const getBorrowTotal = async (title: AssetTitle) => {
+  const addr = titleToAddr[title];
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const decimals = (await contract.methods.decimals().call()) as bigint;
+  const data = (await pool_data_provider_contract.methods
+    .getTotalDebt(addr)
+    .call()) as bigint;
+
+  return BigNumber((data / 10n ** decimals).toString());
+};
+
+export const getBorrowApy = async (title: AssetTitle) => {
+  const addr = titleToAddr[title];
+
+  const RAY = 10 ** 27;
+  const SECONDS_PER_YEAR = secondsToYear();
+
+  const data = await pool_contract.methods.getReserveData(addr).call();
+  const currentVariableBorrowRate = data.currentVariableBorrowRate as bigint;
+
+  return rayPow(
+    valueToZDBigNumber(currentVariableBorrowRate.toString())
+      .dividedBy(SECONDS_PER_YEAR)
+      .plus(RAY),
+    SECONDS_PER_YEAR,
+  ).minus(RAY);
 };
