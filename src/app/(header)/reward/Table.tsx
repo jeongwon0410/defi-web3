@@ -33,9 +33,9 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          {data.data?.map((item: any, index: number) =>
+          {data.data?.map((item, idx: number) =>
             item.address === "" ? null : (
-              <tr key={index} className="rewardColum h-[60px] ">
+              <tr key={idx} className="h-[60px] ">
                 <td className=" text-[14px] font-bold leading-[20px] text-[#B0B0B0]">
                   {item.rank}
                 </td>
