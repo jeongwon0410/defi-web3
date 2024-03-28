@@ -9,7 +9,7 @@ import {
   WBTCBorrowAmount,
   WETHBorrowAmount,
 } from "@/apis/borrowAmount";
-import { name } from "@/apis/common";
+import { name } from "@/constants/contract";
 import {
   AAVEMySupplyBalance,
   DAIMySupplyBalance,

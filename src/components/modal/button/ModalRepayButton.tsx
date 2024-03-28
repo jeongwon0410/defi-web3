@@ -12,10 +12,10 @@ import {
 import {
   name,
   pool_address,
-  pool_contract,
+  poolContract,
   usdc_address,
-  usdc_contract,
-} from "@/apis/common";
+  usdcContract,
+} from "@/constants/contract";
 import {
   AAVERepay,
   DAIRepay,

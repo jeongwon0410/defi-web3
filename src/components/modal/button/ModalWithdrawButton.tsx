@@ -9,7 +9,7 @@ import {
   WBTCAprove,
   WETHAprove,
 } from "@/apis/approve";
-import { name, pool_contract, usdc_address } from "@/apis/common";
+import { name, poolContract, usdc_address } from "@/constants/contract";
 import {
   AAVESupply,
   DAISupply,

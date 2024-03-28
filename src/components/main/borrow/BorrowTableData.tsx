@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSDK } from "@metamask/sdk-react";
-import { name } from "@/apis/common";
+import { name } from "@/constants/contract";
 import {
   AAVEBalance,
   DAIBalance,

@@ -1,4 +1,5 @@
-import { BigNumberValue, valueToZDBigNumber } from "./bignumber";
+import BigNumber from "bignumber.js";
+import { valueToZDBigNumber } from "./bignumber";
 
 export function secondsToYear() {
   const dateObj = new Date();
@@ -9,13 +10,13 @@ export function secondsToYear() {
   return dateCurrent - dateInit;
 }
 
-export function rayMul(a: BigNumberValue, b: BigNumberValue) {
+export function rayMul(a: BigNumber.Value, b: BigNumber.Value) {
   const RAY = valueToZDBigNumber(10).pow(27);
   const HALF_RAY = RAY.dividedBy(2);
   return HALF_RAY.plus(valueToZDBigNumber(a).multipliedBy(b)).div(RAY);
 }
 
-export function rayPow(a: BigNumberValue, p: BigNumberValue) {
+export function rayPow(a: BigNumber.Value, p: BigNumber.Value) {
   const RAY = valueToZDBigNumber(10).pow(27);
   let x = valueToZDBigNumber(a);
   let n = valueToZDBigNumber(p);

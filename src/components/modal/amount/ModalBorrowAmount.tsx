@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import cointousd from "@/apis/cointousd";
-import { name } from "@/apis/common";
+import { name } from "@/constants/contract";
 import {
   AAVEMySupplyBalance,
   DAIMySupplyBalance,

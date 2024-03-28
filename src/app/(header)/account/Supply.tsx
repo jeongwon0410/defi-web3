@@ -20,7 +20,7 @@ import {
   USDTSupplyAPY,
   WBTCSupplyAPY,
   WETHSupplyAPY,
-} from "@/apis/supplyAPY";
+} from "@/apis/getSupplyAPY";
 import {
   AAVEMaxLTV,
   DAIMaxLTV,

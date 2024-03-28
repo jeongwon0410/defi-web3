@@ -1,88 +1,29 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useMutation } from "react-query";
+import Image from "next/image";
 import { useTmpContext } from "@/components/TmpContext";
 import saveAddress from "@/apis/saveAddress";
 
 export default function ConnectButton() {
   const { address, setAddress } = useTmpContext();
-  const [flag, setFlag] = useState(false);
+  const save = useMutation({ mutationFn: saveAddress });
+
+  const connect = useCallback(async () => {
+    if (window.ethereum === undefined) return;
+
+    const res = (await window.ethereum.request({
+      method: "eth_requestAccounts",
+    })) as string[];
+
+    setAddress(res[0]);
+    save.mutate(res[0]);
+  }, [save, setAddress]);
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      typeof window.ethereum !== "undefined"
-    ) {
-      window.ethereum.on("accountsChanged", connectWallet);
-      // window.ethereum.on("chainChanged", chainChanged);s
-    }
-  }, []);
+    if (window.ethereum === undefined) return;
+    window.ethereum.on("accountsChanged", connect);
+  }, [connect]);
 
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      typeof window.ethereum !== "undefined"
-    ) {
-      connect();
-    }
-  }, []);
-
-  // const chainChanged = async () => {
-  //   if (
-  //     typeof window !== "undefined" &&
-  //     typeof window.ethereum !== "undefined"
-  //   ) {
-  //     setAddress("");
-  //   }
-  // };
-
-  const save = useMutation({
-    mutationFn: saveAddress,
-  });
-
-  const connect = async () => {
-    if (
-      typeof window !== "undefined" &&
-      typeof window.ethereum !== "undefined"
-    ) {
-      try {
-        const res: any = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-
-        setAddress(res[0]);
-
-        if (!flag) {
-          save.mutate(res[0]);
-          setFlag(true);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      console.log("Install Metamask");
-    }
-  };
-
-  const connectWallet = async () => {
-    if (
-      typeof window !== "undefined" &&
-      typeof window.ethereum !== "undefined"
-    ) {
-      try {
-        const res: any = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-
-        setAddress(res[0]);
-
-        save.mutate(res[0]);
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      console.log("Install Metamask");
-    }
-  };
   return (
     <div className="relative">
       <button
@@ -90,7 +31,13 @@ export default function ConnectButton() {
         onClick={connect}
       >
         <div className="flex font-montserrat  text-[16px]  font-semibold leading-[24px] text-white">
-          <img src="metamask.png" className="mr-2 mt-1 h-4 w-4" />
+          <Image
+            src="/metamask.png"
+            alt=""
+            className="mr-2 mt-1"
+            height={16}
+            width={16}
+          />
           {address === "" ? "connect wallet" : address}
         </div>
       </button>

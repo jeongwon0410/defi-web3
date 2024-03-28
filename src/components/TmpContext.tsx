@@ -14,7 +14,7 @@ export const useTmpContext = () => useContext(TmpContext);
 const queryClient = new QueryClient();
 
 export const TmpContextProvider = ({ children }: { children: ReactNode }) => {
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState<string | null>(null);
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "../../modal/Modal";
 import BorrowTableData from "./BorrowTableData";
 import BorrowTableField from "./BorrowTableField";
-import { name } from "@/apis/common";
+import { name } from "@/constants/contract";
 import {
   AAVEBorrowTotal,
   DAIBorrowTotal,
@@ -32,7 +32,7 @@ import {
   USDTSupplyTotal,
   WBTCSupplyTotal,
   WETHSupplyTotal,
-} from "@/apis/supplyTotal";
+} from "@/apis/getSupplyTotal";
 import {
   AAVEBalance,
   DAIBalance,

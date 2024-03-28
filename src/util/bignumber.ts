@@ -1,17 +1,15 @@
 import BigNumber from "bignumber.js";
 
-export type BigNumberValue = string | number | BigNumber;
-
 export const BigNumberZD = BigNumber.clone({
   DECIMAL_PLACES: 0,
   ROUNDING_MODE: BigNumber.ROUND_DOWN,
 });
 
-export function valueToBigNumber(amount: BigNumberValue): BigNumber {
+export function valueToBigNumber(amount: BigNumber.Value): BigNumber {
   return new BigNumber(amount);
 }
 
-export function valueToZDBigNumber(amount: BigNumberValue): BigNumber {
+export function valueToZDBigNumber(amount: BigNumber.Value): BigNumber {
   return new BigNumberZD(amount);
 }
 
@@ -29,10 +27,10 @@ export function pow10(decimals: number): BigNumber {
   return bn10PowLookup[decimals];
 }
 
-export function normalize(n: BigNumberValue, decimals: number): string {
+export function normalize(n: BigNumber.Value, decimals: number): string {
   return normalizeBN(n, decimals).toString(10);
 }
 
-export function normalizeBN(n: BigNumberValue, decimals: number): BigNumber {
+export function normalizeBN(n: BigNumber.Value, decimals: number): BigNumber {
   return valueToBigNumber(n).dividedBy(pow10(decimals));
 }

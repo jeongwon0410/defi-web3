@@ -10,23 +10,23 @@ import { useTmpContext } from "@/components/TmpContext";
 export type Tab = "supply" | "borrow";
 
 export default function Main() {
-  const { address } = useTmpContext();
   const [tab, setTab] = useState<Tab>("supply");
-  const [allMarket, setAllMarket] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <div className=" mt-20 flex flex-col justify-center px-5">
-      <Switch tab={tab} setTab={setTab} setAllMarket={setAllMarket} />
+      <Switch tab={tab} setTab={setTab} setAllMarket={setExpanded} />
 
       <div className="mt-10 flex">
         {tab === "supply" ? (
-          <SupplyTable allMarket={allMarket} account={address!} />
+          <SupplyTable expanded={expanded} />
         ) : (
-          <BorrowTable allMarket={allMarket} account={address!} />
+          // <BorrowTable allMarket={expanded} account={address!} />
+          <></>
         )}
       </div>
 
-      <AllMarketButton onClick={() => setAllMarket((x) => !x)} />
+      <AllMarketButton onClick={() => setExpanded((x) => !x)} />
 
       <InfoLabel>나는 몇개 예치하고 1년에 약 00 이자를 받을 수 있다</InfoLabel>
     </div>

@@ -7,20 +7,6 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const host =
-    typeof window !== "undefined"
-      ? window.location.host
-      : "http://10.41.169.226:3001";
-
-  const sdkOptions = {
-    logging: { developerMode: false },
-    checkInstallationImmediately: false,
-    dappMetadata: {
-      name: "EventSea",
-      url: host, // using the host constant defined above
-    },
-  };
-
   return (
     <header className="body-font">
       <div className=" flex flex-col flex-wrap items-center p-5 md:flex-row">
