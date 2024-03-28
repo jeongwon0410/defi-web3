@@ -1,4 +1,5 @@
 import Image from "next/image";
+import GroupBg from "./GroupBg";
 
 type Props = {
   content: {
@@ -9,9 +10,9 @@ type Props = {
   title: string;
 };
 
-export default function AssetInfo({ content, imageURL, title }: Props) {
+export default function AssetGroup({ content, imageURL, title }: Props) {
   return (
-    <div className="w-full rounded-[20px] bg-[#151615] p-6">
+    <GroupBg>
       <div className="mb-5 flex flex-col">
         <div className="flex">
           <Image
@@ -25,7 +26,7 @@ export default function AssetInfo({ content, imageURL, title }: Props) {
             {title}
           </div>
         </div>
-        <div className=" mt-5 h-[1px] w-[390px] bg-[#1D1D1D]" />
+        <div className="mt-5 h-[1px] w-[390px] bg-[#1D1D1D]" />
       </div>
 
       <div className="flex flex-col text-white">
@@ -36,6 +37,6 @@ export default function AssetInfo({ content, imageURL, title }: Props) {
           </div>
         ))}
       </div>
-    </div>
+    </GroupBg>
   );
 }

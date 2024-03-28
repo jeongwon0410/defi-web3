@@ -1,12 +1,10 @@
 import { useCallback, useEffect } from "react";
-import { useMutation } from "react-query";
 import Image from "next/image";
 import { useTmpContext } from "@/components/TmpContext";
-import saveAddress from "@/apis/saveAddress";
 
 export default function ConnectButton() {
   const { address, setAddress } = useTmpContext();
-  const save = useMutation({ mutationFn: saveAddress });
+  // const save = useMutation({ mutationFn: saveAddress });
 
   const connect = useCallback(async () => {
     if (window.ethereum === undefined) return;
@@ -16,12 +14,15 @@ export default function ConnectButton() {
     })) as string[];
 
     setAddress(res[0]);
-    save.mutate(res[0]);
-  }, [save, setAddress]);
+    // save.mutate(res[0]);
+  }, [setAddress]);
 
   useEffect(() => {
     if (window.ethereum === undefined) return;
+
+    connect();
     window.ethereum.on("accountsChanged", connect);
+    return () => window.ethereum.removeListener("accountsChanged", connect);
   }, [connect]);
 
   return (
@@ -38,7 +39,7 @@ export default function ConnectButton() {
             height={16}
             width={16}
           />
-          {address === "" ? "connect wallet" : address}
+          {address === null ? "connect wallet" : address}
         </div>
       </button>
     </div>

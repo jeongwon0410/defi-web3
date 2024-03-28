@@ -45,30 +45,14 @@ export default function SupplyTable({ expanded }: { expanded: boolean }) {
     <div className="w-full ">
       <table className="table w-full px-20 text-center">
         <TableHeader rows={rows} />
-        <SupplyTableContent cols={cols} expanded={expanded} />
+        {account !== null && (
+          <SupplyTableContent
+            cols={cols}
+            expanded={expanded}
+            account={account}
+          />
+        )}
       </table>
-
-      {/* {modal === "supply" && (
-        <Modal
-          setOpen={setOpenSupply}
-          item={supply}
-          cryptoImg={cryptoImg}
-          cryptoName={cryptoName}
-          max={max}
-          account={account}
-        />
-      )}
-
-      {modal === "withdraw" && (
-        <Modal
-          setOpen={setOpenWithdraw}
-          item={withdraw}
-          cryptoImg={cryptoImg}
-          cryptoName={cryptoName}
-          max={mySupply}
-          account={account}
-        />
-      )} */}
     </div>
   );
 }
@@ -97,21 +81,3 @@ const rows = [
   "Supply&Withdraw",
   "Supplied",
 ];
-
-// const supply = {
-//   name: "Supply",
-//   content: [
-//     { name: "Wallet Balance", ratio: balance },
-//     { name: "Amount Supplied", ratio: mySupply },
-//     { name: "APY", ratio: apy },
-//     { name: "Max LTV", ratio: maxLTV },
-//   ],
-// };
-
-// const withdraw = {
-//   name: "Withdraw",
-//   content: [
-//     { name: "My Supply", ratio: mySupply },
-//     { name: "APY", ratio: apy },
-//   ],
-// };

@@ -1,12 +1,12 @@
 import BigNumber from "bignumber.js";
-import { secondsToYear, rayPow } from "../util/APY";
 import {
   titleToContract,
   pool_data_provider_contract,
   pool_contract,
 } from "../constants/contract";
-import { AssetTitle, titleToAddr } from "@/constants/assets";
+import { AssetTitle, poolAddr, titleToAddr } from "@/constants/assets";
 import { valueToZDBigNumber } from "@/util/bignumber";
+import { secondsToYear, rayPow } from "@/util/APY";
 
 // SUPPLY
 
@@ -162,3 +162,87 @@ export const getLiquidation = async (title: AssetTitle, account: string) => {
 
   return result.times(ltv.ltv.toString());
 };
+
+// Supply Modal
+
+// TODO: error handling .on(error), .on(receipt)
+export const approve = async (
+  title: AssetTitle,
+  account: string,
+  amount: BigNumber,
+) => {
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const decimals = (await contract.methods.decimals().call()) as bigint;
+  const result = amount.multipliedBy(
+    BigNumber(10).pow(BigNumber(decimals.toString())),
+  );
+
+  await contract.methods
+    .approve(poolAddr, result)
+    .send({ from: account })
+    .on("transactionHash", (hash) => {
+      console.log("TX Hash Approve", hash);
+      // setApproveDisable(true);
+      // setApproveFlag(true);
+    })
+    .on("error", (error) => {
+      console.log("Approve Error", error);
+      // setApproveFlag(false);
+    })
+    .on("receipt", (receipt) => {
+      if (receipt.status === 1n) {
+        console.log("Transaction Success");
+        // setApproveFlag(false);
+      } else {
+        console.log("Transaction Failed");
+        // setApproveFlag(false);
+      }
+    });
+};
+
+export const supply = async (
+  title: AssetTitle,
+  account: string,
+  amount: BigNumber,
+) => {
+  const addr = titleToAddr[title];
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const decimals = (await contract.methods.decimals().call()) as bigint;
+  const result = amount.multipliedBy(BigNumber(10).pow(decimals.toString()));
+
+  await pool_contract.methods
+    .supply(addr, result, account, "0")
+    .send({ from: account })
+    .on("transactionHash", (hash) => {
+      console.log("TX Hash Supply", hash);
+      // setDisable(true);
+      // setFlag(true);
+    })
+    .on("error", (error) => {
+      console.log("Supply Error", error);
+    })
+    .on("receipt", (receipt) => {
+      if (receipt.status == 1n) {
+        console.log("Transaction Success");
+      } else {
+        console.log("Transaction Failed");
+      }
+    });
+};
+
+export async function getMaxAmount(title: AssetTitle, account: string) {
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const _balance = (await contract.methods.balanceOf(account).call()) as bigint;
+
+  const decimals = BigNumber(_decimals.toString());
+  const balance = BigNumber(_balance.toString());
+
+  return balance.dividedBy(BigNumber(10).pow(decimals));
+}

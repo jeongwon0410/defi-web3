@@ -1,44 +1,61 @@
+import BigNumber from "bignumber.js";
+import { useState } from "react";
+import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
-import AssetInfo from "@/components/modal/AssetInfo";
-import { AssetTitle } from "@/constants/assets";
+import ModalButton from "@/components/modal/ModalButton";
+import AmountGroup from "@/components/modal/AmountGroup";
 
-export default function SupplyModal({
-  assetTitle,
-  close,
-}: {
-  assetTitle: AssetTitle | null;
-  close: () => void;
-}) {
-  return (
-    <Modal title="Supply" isOpen={assetTitle !== null} onRequestClose={close}>
-      {assetTitle !== null && <Content assetTitle={assetTitle} />}
-    </Modal>
-  );
-}
+type Props =
+  | { type: "CLOSED" }
+  | {
+      type: "OPEN";
 
-const Content = ({ assetTitle }: { assetTitle: string }) => {
+      imageURL: string;
+      title: string;
+
+      balance: BigNumber;
+      supplied: BigNumber;
+      apy: BigNumber;
+      ltv: BigNumber;
+
+      onApprove: (amount: BigNumber) => void;
+      onSupply: (amount: BigNumber) => void;
+
+      onClose: () => void;
+    };
+
+export default function SupplyModal(props: Props) {
+  const [amount, setAmount] = useState<BigNumber>(BigNumber(0));
+
+  if (props.type === "CLOSED") return <Modal isOpen={false}></Modal>;
+
   const content = [
-    {
-      name: "Wallet balance",
-      value: "",
-    },
-    {
-      name: "Amount supplied",
-      value: "",
-    },
-    {
-      name: "APY",
-      value: "",
-    },
-    {
-      name: "Max LTV",
-      value: "",
-    },
+    { name: "Wallet balance", value: props.balance.toString() },
+    { name: "Amount supplied", value: props.supplied.toString() },
+    { name: "APY", value: props.apy.toString() },
+    { name: "Max LTV", value: props.ltv.toString() },
   ];
 
   return (
-    <>
-      <AssetInfo title={assetTitle} imageURL="" content={content} />
-    </>
+    <Modal isOpen onRequestClose={props.onClose} title="Supply">
+      <AssetGroup
+        title={props.title}
+        imageURL={props.imageURL}
+        content={content}
+      />
+
+      <AmountGroup
+        ltv={props.ltv}
+        amount={amount}
+        setAmount={setAmount}
+        dollar={BigNumber(0)}
+        maxAmount={BigNumber(0)}
+      />
+
+      <div className="flex flex-col gap-3">
+        <ModalButton onClick={() => {}}>Approve</ModalButton>
+        <ModalButton onClick={() => {}}>Confirm Supply</ModalButton>
+      </div>
+    </Modal>
   );
-};
+}

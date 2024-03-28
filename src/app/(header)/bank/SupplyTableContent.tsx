@@ -3,29 +3,21 @@ import { useState } from "react";
 import { IconTd, Td, Divider, Button } from "./Table";
 import { SupplyTableCol } from "./SupplyTable";
 import SupplyModal from "./SupplyModal";
+import WithdrawModal from "./WithdrawModal";
 import { TABLE_PREVIEW_CNT } from "@/constants/common";
 import { normalize } from "@/util/bignumber";
-import Modal from "@/components/modal/Modal";
-import { allAssetTitles, AssetTitle } from "@/constants/assets";
+import { supply } from "@/apis";
+import { AssetTitle } from "@/constants/assets";
 
 type Props = {
   cols: SupplyTableCol[];
+  account: string;
   expanded: boolean;
 };
 
-export default function SupplyTableContent({ cols, expanded }: Props) {
-  // const choiceMax = async (cryptoName: string, account: string) => {
-  //     DAIMaxAmount(account).then((item) => setMax(item ?? "0"));
-  // };
-
-  const [supplyModalAsset, setSupplyModalAsset] = useState<AssetTitle | null>(
-    null,
-  );
-
-  const handleWithdrawClick = (idx: number) => {
-    // TODO
-    idx;
-  };
+export default function SupplyTableContent({ cols, account, expanded }: Props) {
+  const [supplyIdx, setSupplyIdx] = useState<number | null>(null);
+  const [withdrawIdx, setWithdrawIdx] = useState<number | null>(null);
 
   return (
     <tbody>
@@ -33,13 +25,46 @@ export default function SupplyTableContent({ cols, expanded }: Props) {
         <Tr
           key={idx}
           col={col}
-          onSupply={() => setSupplyModalAsset(allAssetTitles[idx])}
-          onWithdraw={() => handleWithdrawClick(idx)}
+          onSupply={() => setSupplyIdx(idx)}
+          onWithdraw={() => setWithdrawIdx(idx)}
         />
       ))}
+
       <SupplyModal
-        assetTitle={supplyModalAsset}
-        close={() => setSupplyModalAsset(null)}
+        {...(supplyIdx !== null
+          ? {
+              type: "OPEN",
+              imageURL: "",
+              title: cols[supplyIdx].title,
+              balance: cols[supplyIdx].balance,
+              supplied: cols[supplyIdx].supply,
+              apy: cols[supplyIdx].apy,
+              ltv: cols[supplyIdx].ltv,
+              onApprove: async (amount) => {
+                const asset = cols[supplyIdx].title as AssetTitle;
+                await supply(asset, account, amount);
+              },
+              onSupply: async (amount) => {
+                const asset = cols[supplyIdx].title as AssetTitle;
+                await supply(asset, account, amount);
+              },
+              onClose: () => setSupplyIdx(null),
+            }
+          : { type: "CLOSED" })}
+      />
+
+      <WithdrawModal
+        {...(withdrawIdx !== null
+          ? {
+              type: "OPEN",
+              imageURL: "",
+              title: cols[withdrawIdx].title.toString(),
+              supplied: cols[withdrawIdx].supply.toString(),
+              apy: cols[withdrawIdx].apy.toString(),
+              onWithdraw: async () => {},
+              onClose: () => setWithdrawIdx(null),
+            }
+          : { type: "CLOSED" })}
       />
     </tbody>
   );

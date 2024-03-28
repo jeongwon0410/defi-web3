@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Modal from "react-modal";
+import _Modal from "react-modal";
 
-Modal.setAppElement("#app");
+_Modal.setAppElement("#app");
 
 const customStyles = {
   content: {
@@ -20,7 +20,7 @@ const customStyles = {
   },
 };
 
-type Props = Modal.Props & { title: string };
+type Props = _Modal.Props & { title?: string };
 
 export default function Modal({
   title,
@@ -29,7 +29,7 @@ export default function Modal({
   ...props
 }: Props) {
   return (
-    <Modal {...props} onRequestClose={onRequestClose} style={customStyles}>
+    <_Modal {...props} onRequestClose={onRequestClose} style={customStyles}>
       <div className="relative py-[1.25rem]">
         <h3 className="text-center text-[1.375rem] font-extrabold leading-[1.6235rem] text-white">
           {title}
@@ -38,12 +38,18 @@ export default function Modal({
           onClick={onRequestClose}
           className="absolute right-[1.44rem] top-[1.36rem]"
         >
-          <Image src="/close.svg" width={24} height={24} alt="" />
+          <Image
+            src="/close.svg"
+            width={24}
+            height={24}
+            alt=""
+            className="h-auto w-auto"
+          />
         </button>
       </div>
-      <div className="rounded-[0.875rem] border-2 border-[#4A8350] bg-[#1B1B1B] px-[1.12rem] py-[1.38rem]">
+      <div className="flex flex-col gap-5 rounded-[0.875rem] border-2 border-[#4A8350] bg-[#1B1B1B] px-[1.12rem] py-[1.38rem]">
         {children}
       </div>
-    </Modal>
+    </_Modal>
   );
 }
