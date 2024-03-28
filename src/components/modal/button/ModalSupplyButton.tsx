@@ -1,25 +1,4 @@
 import { useEffect, useState } from "react";
-import {
-  AAVEAprove,
-  DAIAprove,
-  EURSAprove,
-  LINKAprove,
-  USDCAprove,
-  USDTAprove,
-  WBTCAprove,
-  WETHAprove,
-} from "@/apis/approve";
-import { name } from "@/constants/contract";
-import {
-  AAVESupply,
-  DAISupply,
-  EURSSupply,
-  LINKSupply,
-  USDCSupply,
-  USDTSupply,
-  WBTCSupply,
-  WETHSupply,
-} from "@/apis/supply";
 
 interface Props {
   amount: string;
@@ -61,89 +40,12 @@ export default function ModalSupplyButton({
           setApproveDisable(true);
         },
       );
-    } else if (cryptoName === name[1]) {
-      USDTAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
-        () => {
-          setDisable(false);
-          setApproveDisable(true);
-        },
-      );
-    } else if (cryptoName === name[2]) {
-      USDCAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
-        () => {
-          setDisable(false);
-          setApproveDisable(true);
-        },
-      );
-    } else if (cryptoName === name[3]) {
-      WBTCAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
-        () => {
-          setDisable(false);
-          setApproveDisable(true);
-        },
-      );
-    } else if (cryptoName === name[4]) {
-      LINKAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
-        () => {
-          setDisable(false);
-          setApproveDisable(true);
-        },
-      );
-    } else if (cryptoName === name[5]) {
-      AAVEAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
-        () => {
-          setDisable(false);
-          setApproveDisable(true);
-        },
-      );
-    } else if (cryptoName === name[6]) {
-      EURSAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
-        () => {
-          setDisable(false);
-          setApproveDisable(true);
-        },
-      );
-    } else {
-      WETHAprove(setApproveDisable, setApproveFlag, tokenSupply, account).then(
-        () => {
-          setDisable(false);
-          setApproveDisable(true);
-        },
-      );
     }
   };
 
   const supply = async (tokenSupply: string, cryptoName: string) => {
     if (cryptoName === name[0]) {
       DAISupply(setDisable, setFlag, tokenSupply, account).then(() => {
-        setOpen(false);
-      });
-    } else if (cryptoName === name[1]) {
-      USDTSupply(setDisable, setFlag, tokenSupply, account).then(() => {
-        setOpen(false);
-      });
-    } else if (cryptoName === name[2]) {
-      USDCSupply(setDisable, setFlag, tokenSupply, account).then(() => {
-        setOpen(false);
-      });
-    } else if (cryptoName === name[3]) {
-      WBTCSupply(setDisable, setFlag, tokenSupply, account).then(() => {
-        setOpen(false);
-      });
-    } else if (cryptoName === name[4]) {
-      LINKSupply(setDisable, setFlag, tokenSupply, account).then(() => {
-        setOpen(false);
-      });
-    } else if (cryptoName === name[5]) {
-      AAVESupply(setDisable, setFlag, tokenSupply, account).then(() => {
-        setOpen(false);
-      });
-    } else if (cryptoName === name[6]) {
-      EURSSupply(setDisable, setFlag, tokenSupply, account).then(() => {
-        setOpen(false);
-      });
-    } else {
-      WETHSupply(setDisable, setFlag, tokenSupply, account).then(() => {
         setOpen(false);
       });
     }

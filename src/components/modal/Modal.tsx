@@ -1,140 +1,49 @@
-import { useEffect, useState } from "react";
-import ModalHeader from "./ModalHeader";
-import ModalMain from "./ModalMain";
-import ModalTop from "./ModalTop";
-import ModalSupplyButton from "./button/ModalSupplyButton";
-import ModalBorrowButton from "./button/ModalBorrowButton";
-import ModalWithdrawButton from "./button/ModalWithdrawButton";
-import ModalRepayButton from "./button/ModalRepayButton";
-import ModalSupplyAmount from "./amount/ModalSupplyAmount";
+import Image from "next/image";
+import Modal from "react-modal";
 
-import ModalWithdrawAmount from "./amount/ModalWithdrawAmount";
-import ModalRepayAmount from "./amount/ModalRepayAmount";
-import ModalBorrowAmount from "./amount/ModalBorrowAmount";
+Modal.setAppElement("#app");
 
-interface item {
-  name: string;
-  ratio: string;
-}
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%, -50%)",
+    width: "30.125rem",
+    backgroundColor: "#38B82D",
+    padding: 0,
+    borderRadius: "0.875rem",
+  },
+  overlay: {
+    backgroundColor: "rgba(11, 11, 11, 0.75)",
+  },
+};
 
-interface Content {
-  name: string;
-  content: Array<item>;
-}
-interface Props {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  item: Content;
-  cryptoImg: string;
-  cryptoName: string;
-  max: string;
-  account: string;
-}
+type Props = Modal.Props & { title: string };
 
 export default function Modal({
-  setOpen,
-  item,
-  cryptoImg,
-  cryptoName,
-  max,
-  account,
+  title,
+  onRequestClose,
+  children,
+  ...props
 }: Props) {
-  const [amount, setAmount] = useState("");
-
   return (
-    <div
-      className="relative z-10"
-      aria-labelledby="modal-title"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex h-full w-full flex-col items-center justify-center ">
-          <ModalHeader setOpen={setOpen} name={item && item.name} />
-          <ModalMain>
-            <div>
-              <ModalTop
-                content={item && item.content}
-                cryptoImg={cryptoImg}
-                cryptoName={cryptoName}
-              />
-            </div>
-            <div className="mt-5">
-              {item.name === "Supply" ? (
-                <ModalSupplyAmount
-                  setAmount={setAmount}
-                  amount={amount}
-                  max={max}
-                  account={account}
-                />
-              ) : item.name === "Withdraw" ? (
-                <ModalWithdrawAmount
-                  setAmount={setAmount}
-                  amount={amount}
-                  max={max}
-                  account={account}
-                />
-              ) : item.name === "Borrow" ? (
-                <ModalBorrowAmount
-                  setAmount={setAmount}
-                  amount={amount}
-                  max={max}
-                  account={account}
-                />
-              ) : (
-                <ModalRepayAmount
-                  setAmount={setAmount}
-                  amount={amount}
-                  max={max}
-                  account={account}
-                />
-              )}
-            </div>
-            {item && item.name === "Supply" ? (
-              <div className="mt-5">
-                <ModalSupplyButton
-                  amount={amount}
-                  setOpen={setOpen}
-                  cryptoName={cryptoName}
-                  max={max}
-                  account={account}
-                />
-              </div>
-            ) : item && item.name === "Withdraw" ? (
-              <div className="mt-5">
-                <ModalWithdrawButton
-                  amount={amount}
-                  setOpen={setOpen}
-                  cryptoName={cryptoName}
-                  max={max}
-                  account={account}
-                />
-              </div>
-            ) : item && item.name === "Borrow" ? (
-              <div className="mt-5">
-                <ModalBorrowButton
-                  amount={amount}
-                  setOpen={setOpen}
-                  cryptoName={cryptoName}
-                  max={max}
-                  account={account}
-                />
-              </div>
-            ) : (
-              <div className="mt-5">
-                <ModalRepayButton
-                  amount={amount}
-                  setOpen={setOpen}
-                  cryptoName={cryptoName}
-                  max={max}
-                  account={account}
-                />
-              </div>
-            )}
-          </ModalMain>
-        </div>
+    <Modal {...props} onRequestClose={onRequestClose} style={customStyles}>
+      <div className="relative py-[1.25rem]">
+        <h3 className="text-center text-[1.375rem] font-extrabold leading-[1.6235rem] text-white">
+          {title}
+        </h3>
+        <button
+          onClick={onRequestClose}
+          className="absolute right-[1.44rem] top-[1.36rem]"
+        >
+          <Image src="/close.svg" width={24} height={24} alt="" />
+        </button>
       </div>
-    </div>
+      <div className="rounded-[0.875rem] border-2 border-[#4A8350] bg-[#1B1B1B] px-[1.12rem] py-[1.38rem]">
+        {children}
+      </div>
+    </Modal>
   );
 }

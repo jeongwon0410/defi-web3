@@ -1,25 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  AAVEAprove,
-  DAIAprove,
-  EURSAprove,
-  LINKAprove,
-  USDCAprove,
-  USDTAprove,
-  WBTCAprove,
-  WETHAprove,
-} from "@/apis/approve";
-import { name, poolContract, usdc_address } from "@/constants/contract";
-import {
-  AAVESupply,
-  DAISupply,
-  EURSSupply,
-  LINKSupply,
-  USDCSupply,
-  USDTSupply,
-  WBTCSupply,
-  WETHSupply,
-} from "@/apis/supply";
+import { name } from "@/constants/contract";
 import {
   AAVEWithdraw,
   DAIWithdraw,

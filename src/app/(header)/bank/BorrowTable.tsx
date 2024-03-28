@@ -1,6 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
-import { useImmer } from "use-immer";
 import TableHeader from "./TableHeader";
 import BorrowTableData from "./BorrowTableData";
 import { useTmpContext } from "@/components/TmpContext";
@@ -19,7 +18,7 @@ export type BorrowTableCol = {
 
 export default function BorrowTable({ expanded }: { expanded: boolean }) {
   const { address: account } = useTmpContext();
-  const [cols, setCols] = useImmer<BorrowTableCol[]>([]);
+  const [cols, setCols] = useState<BorrowTableCol[]>([]);
 
   useEffect(() => {
     if (account === null) return;

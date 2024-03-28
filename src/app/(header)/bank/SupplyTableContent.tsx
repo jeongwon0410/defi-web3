@@ -1,7 +1,12 @@
+import { useState } from "react";
+
 import { IconTd, Td, Divider, Button } from "./Table";
 import { SupplyTableCol } from "./SupplyTable";
+import SupplyModal from "./SupplyModal";
 import { TABLE_PREVIEW_CNT } from "@/constants/common";
 import { normalize } from "@/util/bignumber";
+import Modal from "@/components/modal/Modal";
+import { allAssetTitles, AssetTitle } from "@/constants/assets";
 
 type Props = {
   cols: SupplyTableCol[];
@@ -13,10 +18,9 @@ export default function SupplyTableContent({ cols, expanded }: Props) {
   //     DAIMaxAmount(account).then((item) => setMax(item ?? "0"));
   // };
 
-  const handleSupplyClick = (idx: number) => {
-    idx;
-    // choiceMax(tableCol[index][1], account);
-  };
+  const [supplyModalAsset, setSupplyModalAsset] = useState<AssetTitle | null>(
+    null,
+  );
 
   const handleWithdrawClick = (idx: number) => {
     // TODO
@@ -29,10 +33,14 @@ export default function SupplyTableContent({ cols, expanded }: Props) {
         <Tr
           key={idx}
           col={col}
-          onSupply={() => handleSupplyClick(idx)}
+          onSupply={() => setSupplyModalAsset(allAssetTitles[idx])}
           onWithdraw={() => handleWithdrawClick(idx)}
         />
       ))}
+      <SupplyModal
+        assetTitle={supplyModalAsset}
+        close={() => setSupplyModalAsset(null)}
+      />
     </tbody>
   );
 }

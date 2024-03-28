@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useImmer } from "use-immer";
+import { useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
 import TableHeader from "./TableHeader";
 import SupplyTableContent from "./SupplyTableContent";
@@ -27,7 +26,7 @@ export type SupplyTableCol = {
 
 export default function SupplyTable({ expanded }: { expanded: boolean }) {
   const { address: account } = useTmpContext();
-  const [cols, setCols] = useImmer<SupplyTableCol[]>([]);
+  const [cols, setCols] = useState<SupplyTableCol[]>([]);
 
   useEffect(() => {
     if (account === null) return;
