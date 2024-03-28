@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
 import TableHeader from "./TableHeader";
-import BorrowTableData from "./BorrowTableData";
+import BorrowTableContent from "./BorrowTableContent";
 import { useTmpContext } from "@/components/TmpContext";
 import { allAssetTitles } from "@/constants/assets";
 import { getBalance, getBorrowApy, getBorrowTotal, getMaxLTV } from "@/apis";
@@ -37,7 +37,7 @@ export default function BorrowTable({ expanded }: { expanded: boolean }) {
     <div className="w-full  ">
       <table className="table w-full px-20 text-center">
         <TableHeader rows={rows} />
-        <BorrowTableData cols={cols} expanded={expanded} />
+        <BorrowTableContent cols={cols} expanded={expanded} />
       </table>
       {/* {openBorrow && (
         <Modal

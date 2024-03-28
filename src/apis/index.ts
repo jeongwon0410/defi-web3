@@ -3,6 +3,7 @@ import {
   titleToContract,
   pool_data_provider_contract,
   pool_contract,
+  aave_oracle_contract,
 } from "../constants/contract";
 import { AssetTitle, poolAddr, titleToAddr } from "@/constants/assets";
 import { valueToZDBigNumber } from "@/util/bignumber";
@@ -246,3 +247,133 @@ export async function getMaxAmount(title: AssetTitle, account: string) {
 
   return balance.dividedBy(BigNumber(10).pow(decimals));
 }
+
+// Withdraw modal
+
+export const withdraw = async (
+  title: AssetTitle,
+  account: string,
+  amount: BigNumber,
+) => {
+  const addr = titleToAddr[title];
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const decimals = BigNumber(_decimals.toString());
+
+  const result = amount.multipliedBy(BigNumber(10).pow(decimals));
+
+  await pool_contract.methods
+    .withdraw(addr, result, account)
+    .send({ from: account })
+    .on("transactionHash", (hash) => {
+      console.log("TX Hash Supply", hash);
+      // setDisable(true);
+      // setFlag(true);
+    })
+    .on("error", (error) => {
+      console.log("Withdraw Error", error);
+    })
+    .on("receipt", (receipt) => {
+      if (receipt.status == 1n) {
+        console.log("Transaction Success");
+      } else {
+        console.log("Transaction Failed");
+      }
+    });
+};
+
+// Borrow Modal
+
+export const borrow = async (
+  title: AssetTitle,
+  account: string,
+  amount: BigNumber,
+) => {
+  const addr = titleToAddr[title];
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const decimals = BigNumber(_decimals.toString());
+
+  const result = amount.multipliedBy(BigNumber(10).pow(decimals));
+
+  await pool_contract.methods
+    .borrow(addr, parseInt(result.toString()), 2, "0", account)
+    .send({ from: account })
+    .on("transactionHash", (hash) => {
+      console.log("TX Hash Borrow", hash);
+      // setDisable(true);
+      // setFlag(true);
+    })
+    .on("error", (error) => {
+      console.log("Borrow Error", error);
+    })
+    .on("receipt", (receipt) => {
+      console.log("Mined", receipt);
+      if (receipt.status === 1n) {
+        console.log("Transaction Success");
+      } else {
+        console.log("Transaction Failed");
+      }
+    });
+};
+
+export const borrowableAmount = async (title: AssetTitle, account: string) => {
+  const addr = titleToAddr[title];
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const currency = await pool_contract.methods
+    .getUserAccountData(account)
+    .call();
+
+  const price = (await aave_oracle_contract.methods
+    .getAssetPrice(addr)
+    .call()) as bigint;
+
+  const maxUserAmountToBorrow = BigNumber(
+    currency.availableBorrowsBase.toString(),
+  )
+    .dividedBy(price.toString())
+    .multipliedBy(0.99);
+
+  return maxUserAmountToBorrow;
+};
+
+// Repay Modal
+export const repay = async (
+  title: AssetTitle,
+  account: string,
+  amount: BigNumber,
+) => {
+  const addr = titleToAddr[title];
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const _decimals = (await contract.methods.decimals().call()) as BigNumber;
+  const decimals = BigNumber(_decimals);
+
+  const result = amount.multipliedBy(BigNumber(10).pow(decimals));
+
+  await pool_contract.methods
+    .repay(addr, result, "2", account)
+    .send({ from: account })
+    .on("transactionHash", (hash) => {
+      console.log("TX Hash Supply", hash);
+      // setDisable(true);
+      // setFlag(true);
+    })
+    .on("error", (error) => {
+      console.log("Repay Error", error);
+    })
+    .on("receipt", (receipt) => {
+      if (receipt.status === 1n) {
+        console.log("Transaction Success");
+      } else {
+        console.log("Transaction Failed");
+      }
+    });
+};

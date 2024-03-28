@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Button, Divider, IconTd, Td } from "./Table";
 import { BorrowTableCol } from "./BorrowTable";
+import BorrowModal from "./modals/BorrowModal";
 import { normalize } from "@/util/bignumber";
 import { RAY_DECIMALS, TABLE_PREVIEW_CNT } from "@/constants/common";
 
@@ -8,7 +10,10 @@ interface Props {
   expanded: boolean;
 }
 
-export default function BorrowTableData({ cols, expanded }: Props) {
+export default function BorrowTableContent({ cols, expanded }: Props) {
+  const [borrowIdx, setBorrowIdx] = useState<number | null>(null);
+  const [repayIdx, setRepayIdx] = useState<number | null>(null);
+
   const handleBorrowClick = (idx: number) => {
     idx;
     // DAIBorrowableAmount(account).then((item) =>
@@ -27,10 +32,32 @@ export default function BorrowTableData({ cols, expanded }: Props) {
         <Tr
           key={idx}
           col={col}
-          onBorrow={() => handleBorrowClick(idx)}
-          onRepay={() => handleRepayClick(idx)}
+          onBorrow={() => setBorrowIdx(idx)}
+          onRepay={() => setRepayIdx(idx)}
         />
       ))}
+      <BorrowModal
+        {...(borrowIdx !== null
+          ? {
+              type: "OPEN",
+              imageURL: "",
+              title: cols[supplyIdx].title,
+              balance: cols[supplyIdx].balance,
+              supplied: cols[supplyIdx].supply,
+              apy: cols[supplyIdx].apy,
+              ltv: cols[supplyIdx].ltv,
+              onApprove: async (amount) => {
+                const asset = cols[supplyIdx].title as AssetTitle;
+                await supply(asset, account, amount);
+              },
+              onSupply: async (amount) => {
+                const asset = cols[supplyIdx].title as AssetTitle;
+                await supply(asset, account, amount);
+              },
+              onClose: () => setSupplyIdx(null),
+            }
+          : { type: "CLOSED" })}
+      />
     </tbody>
   );
 }

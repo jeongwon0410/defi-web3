@@ -2,11 +2,11 @@ import { useState } from "react";
 
 import { IconTd, Td, Divider, Button } from "./Table";
 import { SupplyTableCol } from "./SupplyTable";
-import SupplyModal from "./SupplyModal";
-import WithdrawModal from "./WithdrawModal";
+import SupplyModal from "./modals/SupplyModal";
+import WithdrawModal from "./modals/WithdrawModal";
 import { TABLE_PREVIEW_CNT } from "@/constants/common";
 import { normalize } from "@/util/bignumber";
-import { supply } from "@/apis";
+import { supply, withdraw } from "@/apis";
 import { AssetTitle } from "@/constants/assets";
 
 type Props = {
@@ -58,10 +58,16 @@ export default function SupplyTableContent({ cols, account, expanded }: Props) {
           ? {
               type: "OPEN",
               imageURL: "",
-              title: cols[withdrawIdx].title.toString(),
+              title: cols[withdrawIdx].title,
               supplied: cols[withdrawIdx].supply.toString(),
               apy: cols[withdrawIdx].apy.toString(),
-              onWithdraw: async () => {},
+              onWithdraw: async (amount) => {
+                await withdraw(
+                  cols[withdrawIdx].title as AssetTitle,
+                  account,
+                  amount,
+                );
+              },
               onClose: () => setWithdrawIdx(null),
             }
           : { type: "CLOSED" })}
