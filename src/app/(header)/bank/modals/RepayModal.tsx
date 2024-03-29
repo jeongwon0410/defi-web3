@@ -1,19 +1,19 @@
 import BigNumber from "bignumber.js";
 import { useState } from "react";
-import useSWR from "swr";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
 import ModalButton from "@/components/modal/ModalButton";
 import AmountGroup from "@/components/modal/AmountGroup";
-import { AssetTitle } from "@/constants/assets";
-import { getBorrowAmount, getMaxLTV, getSupplyAPY } from "@/apis/contract";
-import { useTmpContext } from "@/components/TmpContext";
 import { ModalProps } from "@/components/modal/ModalProps";
 import HealthFactorGroup from "@/components/modal/HealthFactorGroup";
+import { useContract, usePrivateContract } from "@/apis/swr";
 
 export default function RepayModal({ assetTitle, close }: ModalProps) {
   const [amount, setAmount] = useState<BigNumber>(BigNumber(0));
-  const { borrowed, apy, ltv } = useData(assetTitle);
+
+  const { data: borrowed } = usePrivateContract("BORROWAMOUNT", assetTitle);
+  const { data: apy } = useContract("SUPPLYAPY", assetTitle);
+  const { data: ltv } = useContract("MAXLTV", assetTitle);
 
   const content = [
     { name: "My debt(BorrowedAmount)", value: borrowed?.toString() ?? "-" },
@@ -40,17 +40,3 @@ export default function RepayModal({ assetTitle, close }: ModalProps) {
     </Modal>
   );
 }
-
-const useData = (assetTitle: AssetTitle | null) => {
-  const { address: account } = useTmpContext();
-  if (account === null) throw new Error();
-
-  const { data: borrowed } = useSWR(
-    assetTitle && [assetTitle, account],
-    ([title, account]) => getBorrowAmount(title, account),
-  );
-  const { data: apy } = useSWR(assetTitle, getSupplyAPY);
-  const { data: ltv } = useSWR(assetTitle, getMaxLTV);
-
-  return { borrowed, apy, ltv };
-};

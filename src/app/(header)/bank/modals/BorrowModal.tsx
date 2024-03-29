@@ -1,24 +1,23 @@
 import BigNumber from "bignumber.js";
 import { useState } from "react";
-import useSWR from "swr";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
 import ModalButton from "@/components/modal/ModalButton";
 import AmountGroup from "@/components/modal/AmountGroup";
-import { AssetTitle } from "@/constants/assets";
-import {
-  getBalance,
-  getBorrowableAmount,
-  getMaxLTV,
-  getSupplyAPY,
-} from "@/apis/contract";
-import { useTmpContext } from "@/components/TmpContext";
 import { ModalProps } from "@/components/modal/ModalProps";
 import HealthFactorGroup from "@/components/modal/HealthFactorGroup";
+import { useContract, usePrivateContract } from "@/apis/swr";
 
 export default function BorrowModal({ assetTitle, close }: ModalProps) {
   const [amount, setAmount] = useState<BigNumber>(BigNumber(0));
-  const { balance, borrowable, apy, ltv } = useData(assetTitle);
+
+  const { data: balance } = usePrivateContract("BALANCE", assetTitle);
+  const { data: borrowable } = usePrivateContract(
+    "BORROWABLEAMOUNT",
+    assetTitle,
+  );
+  const { data: apy } = useContract("SUPPLYAPY", assetTitle);
+  const { data: ltv } = useContract("MAXLTV", assetTitle);
 
   const content = [
     { name: "Wallet balance", value: balance?.toString() ?? "-" },
@@ -44,21 +43,3 @@ export default function BorrowModal({ assetTitle, close }: ModalProps) {
     </Modal>
   );
 }
-
-const useData = (assetTitle: AssetTitle | null) => {
-  const { address: account } = useTmpContext();
-  if (account === null) throw new Error();
-
-  const { data: balance } = useSWR(
-    assetTitle && [assetTitle, account],
-    ([title, account]) => getBalance(title, account),
-  );
-  const { data: borrowable } = useSWR(
-    assetTitle && [assetTitle, account],
-    ([title, account]) => getBorrowableAmount(title, account),
-  );
-  const { data: apy } = useSWR(assetTitle, getSupplyAPY);
-  const { data: ltv } = useSWR(assetTitle, getMaxLTV);
-
-  return { balance, borrowable, apy, ltv };
-};

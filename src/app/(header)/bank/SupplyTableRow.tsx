@@ -1,15 +1,8 @@
-import useSWR from "swr";
 import { IconTd, Td, Divider, Button } from "./Table";
 import { normalize } from "@/util/bignumber";
 import { AssetTitle } from "@/constants/assets";
-import { useTmpContext } from "@/components/TmpContext";
-import {
-  getBalance,
-  getMaxLTV,
-  getMySupplyBalance,
-  getSupplyAPY,
-  getSupplyTotal,
-} from "@/apis/contract";
+import { useContract, usePrivateContract } from "@/apis/swr";
+import { RAY_DECIMALS } from "@/constants/common";
 
 export default function SupplyTableRow({
   assetTitle,
@@ -20,9 +13,12 @@ export default function SupplyTableRow({
   onSupply: () => void;
   onWithdraw: () => void;
 }) {
-  const { apy, ltv, balance, supply, totalSupplied } = useData(assetTitle);
+  const { data: totalSupplied } = useContract("SUPPLYTOTAL", assetTitle);
+  const { data: apy } = useContract("SUPPLYAPY", assetTitle);
+  const { data: ltv } = useContract("MAXLTV", assetTitle);
+  const { data: balance } = usePrivateContract("BALANCE", assetTitle);
+  const { data: supply } = usePrivateContract("SUPPLYBALANCE", assetTitle);
 
-  const RAY_DECIMALS = 27;
   const formattedApy = apy
     ? (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%"
     : "-";
@@ -67,25 +63,3 @@ export default function SupplyTableRow({
     </tr>
   );
 }
-
-const useData = (title: AssetTitle) => {
-  const { address: account } = useTmpContext();
-
-  const { data: totalSupplied } = useSWR(title, getSupplyTotal);
-
-  const { data: apy } = useSWR(title, getSupplyAPY);
-
-  const { data: ltv } = useSWR(title, getMaxLTV);
-
-  const { data: balance } = useSWR(
-    account ? [title, account] : null,
-    ([title, account]) => getBalance(title, account),
-  );
-
-  const { data: supply } = useSWR(
-    account ? [title, account] : null,
-    ([title, account]) => getMySupplyBalance(title, account),
-  );
-
-  return { totalSupplied, apy, ltv, balance, supply };
-};

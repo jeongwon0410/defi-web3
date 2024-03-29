@@ -1,15 +1,8 @@
-import useSWR from "swr";
 import { Button, Divider, IconTd, Td } from "./Table";
 import { normalize } from "@/util/bignumber";
 import { RAY_DECIMALS } from "@/constants/common";
 import { AssetTitle } from "@/constants/assets";
-import { useTmpContext } from "@/components/TmpContext";
-import {
-  getMaxLTV,
-  getBalance,
-  getBorrowTotal,
-  getBorrowApy,
-} from "@/apis/contract";
+import { useContract, usePrivateContract } from "@/apis/swr";
 
 export default function BorrowTableRow({
   assetTitle,
@@ -20,7 +13,10 @@ export default function BorrowTableRow({
   onBorrow: () => void;
   onRepay: () => void;
 }) {
-  const { totalBorrow, apy, balance, ltv } = useData(assetTitle);
+  const { data: totalBorrow } = useContract("BORROWTOTAL", assetTitle);
+  const { data: apy } = useContract("BORROWAPY", assetTitle);
+  const { data: balance } = usePrivateContract("BALANCE", assetTitle);
+  const { data: ltv } = useContract("MAXLTV", assetTitle);
 
   const formattedTotal = totalBorrow
     ? "$" +
@@ -58,17 +54,3 @@ export default function BorrowTableRow({
     </tr>
   );
 }
-
-const useData = (title: AssetTitle) => {
-  const { address: account } = useTmpContext();
-
-  const { data: totalBorrow } = useSWR(title, getBorrowTotal);
-  const { data: apy } = useSWR(title, getBorrowApy);
-  const { data: balance } = useSWR(
-    account ? [title, account] : null,
-    ([title, account]) => getBalance(title, account),
-  );
-  const { data: ltv } = useSWR(title, getMaxLTV);
-
-  return { totalBorrow, apy, balance, ltv };
-};

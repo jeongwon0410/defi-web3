@@ -8,6 +8,7 @@ import {
 import { AssetTitle, poolAddr, titleToAddr } from "@/constants/assets";
 import { valueToZDBigNumber } from "@/util/bignumber";
 import { secondsToYear, rayPow } from "@/util/APY";
+import { RAY } from "@/constants/common";
 
 // SUPPLY
 
@@ -30,7 +31,6 @@ export const getSupplyTotal = async (title: AssetTitle) => {
 export const getSupplyAPY = async (title: AssetTitle) => {
   const addr = titleToAddr[title];
 
-  const RAY = 10 ** 27; // 10 to the power 27
   const SECONDS_PER_YEAR = secondsToYear();
 
   const data = await pool_contract.methods.getReserveData(addr).call();
@@ -105,7 +105,6 @@ export const getBorrowTotal = async (title: AssetTitle) => {
 export const getBorrowApy = async (title: AssetTitle) => {
   const addr = titleToAddr[title];
 
-  const RAY = 10 ** 27;
   const SECONDS_PER_YEAR = secondsToYear();
 
   const data = await pool_contract.methods.getReserveData(addr).call();
