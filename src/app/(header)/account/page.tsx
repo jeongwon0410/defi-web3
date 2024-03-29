@@ -12,7 +12,7 @@ import {
   getBorrowAmount,
   getBorrowApy,
   getLiquidation,
-} from "@/apis";
+} from "@/apis/contract";
 import { allAssetTitles } from "@/constants/assets";
 
 const supplyHeader = ["Asset", "Supplied", "APY", "MAXLTV"];

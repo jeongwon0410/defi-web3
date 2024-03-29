@@ -1,9 +1,11 @@
-import { useState } from "react";
 import { Button, Divider, IconTd, Td } from "./Table";
 import { BorrowTableCol } from "./BorrowTable";
 import BorrowModal from "./modals/BorrowModal";
+import RepayModal from "./modals/RepayModal";
 import { normalize } from "@/util/bignumber";
 import { RAY_DECIMALS, TABLE_PREVIEW_CNT } from "@/constants/common";
+import { AssetTitle } from "@/constants/assets";
+import { useModal } from "@/util/hook";
 
 interface Props {
   cols: BorrowTableCol[];
@@ -11,53 +13,22 @@ interface Props {
 }
 
 export default function BorrowTableContent({ cols, expanded }: Props) {
-  const [borrowIdx, setBorrowIdx] = useState<number | null>(null);
-  const [repayIdx, setRepayIdx] = useState<number | null>(null);
+  const { isOpen, openModal, close } = useModal<"borrow" | "repay">();
 
-  const handleBorrowClick = (idx: number) => {
-    idx;
-    // DAIBorrowableAmount(account).then((item) =>
-    //   setBorrowableAmount(item ?? " 0"),
-    // );
-  };
-
-  const handleRepayClick = (idx: number) => {
-    idx;
-    // DAIBorrowAmount(account).then((item) => setBorrowAmount(item ?? " 0"));
-  };
+  const colsToShow = expanded ? cols : cols.slice(0, TABLE_PREVIEW_CNT);
 
   return (
     <tbody>
-      {(expanded ? cols : cols.slice(0, TABLE_PREVIEW_CNT)).map((col, idx) => (
+      {colsToShow.map((col, idx) => (
         <Tr
           key={idx}
           col={col}
-          onBorrow={() => setBorrowIdx(idx)}
-          onRepay={() => setRepayIdx(idx)}
+          onBorrow={() => openModal("borrow", col.title as AssetTitle)}
+          onRepay={() => openModal("repay", col.title as AssetTitle)}
         />
       ))}
-      <BorrowModal
-        {...(borrowIdx !== null
-          ? {
-              type: "OPEN",
-              imageURL: "",
-              title: cols[supplyIdx].title,
-              balance: cols[supplyIdx].balance,
-              supplied: cols[supplyIdx].supply,
-              apy: cols[supplyIdx].apy,
-              ltv: cols[supplyIdx].ltv,
-              onApprove: async (amount) => {
-                const asset = cols[supplyIdx].title as AssetTitle;
-                await supply(asset, account, amount);
-              },
-              onSupply: async (amount) => {
-                const asset = cols[supplyIdx].title as AssetTitle;
-                await supply(asset, account, amount);
-              },
-              onClose: () => setSupplyIdx(null),
-            }
-          : { type: "CLOSED" })}
-      />
+      <BorrowModal assetTitle={isOpen("borrow")} close={close} />
+      <RepayModal assetTitle={isOpen("repay")} close={close} />
     </tbody>
   );
 }

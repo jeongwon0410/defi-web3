@@ -12,7 +12,7 @@ import {
   getMaxLTV,
   getBalance,
   getMySupplyBalance,
-} from "@/apis";
+} from "@/apis/contract";
 
 export type SupplyTableCol = {
   imageURL: string;
@@ -46,11 +46,7 @@ export default function SupplyTable({ expanded }: { expanded: boolean }) {
       <table className="table w-full px-20 text-center">
         <TableHeader rows={rows} />
         {account !== null && (
-          <SupplyTableContent
-            cols={cols}
-            expanded={expanded}
-            account={account}
-          />
+          <SupplyTableContent cols={cols} expanded={expanded} />
         )}
       </table>
     </div>

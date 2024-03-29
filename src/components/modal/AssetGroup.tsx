@@ -12,7 +12,7 @@ type Props = {
 
 export default function AssetGroup({ content, imageURL, title }: Props) {
   return (
-    <GroupBg>
+    <GroupBg className="p-8">
       <div className="mb-5 flex flex-col">
         <div className="flex">
           <Image

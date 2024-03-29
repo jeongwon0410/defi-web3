@@ -8,8 +8,6 @@ export default function GroupBg({
   children: ReactNode;
 }) {
   return (
-    <div className={`w-full rounded-[20px] bg-[#151615] p-6 ${className}`}>
-      {children}
-    </div>
+    <div className={`rounded-[20px] bg-[#151615] ${className}`}>{children}</div>
   );
 }

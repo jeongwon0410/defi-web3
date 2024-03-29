@@ -4,18 +4,18 @@ import { Tab } from "@/app/(header)/bank/page";
 interface Props {
   tab: Tab;
   setTab: React.Dispatch<React.SetStateAction<Tab>>;
-  setAllMarket: React.Dispatch<React.SetStateAction<boolean>>;
+  setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Switch({ tab, setTab, setAllMarket }: Props) {
+export default function Switch({ tab, setTab, setExpanded }: Props) {
   const clickSupply = () => {
     setTab("supply");
-    setAllMarket(false);
+    setExpanded(false);
   };
 
   const clickBorrow = () => {
     setTab("borrow");
-    setAllMarket(false);
+    setExpanded(false);
   };
 
   return (

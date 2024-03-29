@@ -14,7 +14,7 @@ export default function Main() {
 
   return (
     <div className=" mt-20 flex flex-col justify-center px-5">
-      <Switch tab={tab} setTab={setTab} setAllMarket={setExpanded} />
+      <Switch tab={tab} setTab={setTab} setExpanded={setExpanded} />
 
       <div className="mt-10 flex">
         {tab === "supply" ? (

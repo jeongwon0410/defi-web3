@@ -321,7 +321,10 @@ export const borrow = async (
     });
 };
 
-export const borrowableAmount = async (title: AssetTitle, account: string) => {
+export const getBorrowableAmount = async (
+  title: AssetTitle,
+  account: string,
+) => {
   const addr = titleToAddr[title];
   const contract = titleToContract[title];
   if (contract === null) throw new Error();

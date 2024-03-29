@@ -25,13 +25,15 @@ export default function AmountGroup({
         <p className="absolute left-[1.13rem] top-[0.94rem] text-[0.875rem] font-semibold text-white">
           LTV
         </p>
-        <p className="absolute bottom-[2rem] right-[1.13rem] text-[0.875rem] font-semibold text-white">
+        <p className="absolute bottom-[2rem] right-[1.13rem] overflow-hidden text-[0.875rem] font-semibold text-white">
           {ltv.toString()}
         </p>
       </GroupBg>
+
       <div className="my-auto">
         <Exclude />
       </div>
+
       <GroupBg className="relative w-[15.3125rem]">
         <GradientText className="absolute left-[1.13rem] top-[0.88rem] text-[1.25rem] font-bold">
           Amount

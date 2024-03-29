@@ -1,12 +1,10 @@
-import { useQuery } from "react-query";
 import { ReactNode } from "react";
-import getAllAddress from "@/apis/getAllAddress";
+import useSWR from "swr";
+import { getAllAddress } from "@/apis/local";
 
 export default function Table() {
-  const data = useQuery({
-    queryKey: ["getAllAddress"],
-    queryFn: getAllAddress,
-  });
+  // TODO: key값 제공
+  const { data } = useSWR("", getAllAddress);
 
   return (
     <div>
@@ -23,7 +21,7 @@ export default function Table() {
         </thead>
 
         <tbody>
-          {data.data?.map((item, idx) => (
+          {data?.map((item, idx) => (
             <tr key={idx} className="h-[60px] ">
               <Td>{item.rank}</Td>
               <Td>{item.address}</Td>

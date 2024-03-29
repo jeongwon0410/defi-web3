@@ -4,7 +4,12 @@ import TableHeader from "./TableHeader";
 import BorrowTableContent from "./BorrowTableContent";
 import { useTmpContext } from "@/components/TmpContext";
 import { allAssetTitles } from "@/constants/assets";
-import { getBalance, getBorrowApy, getBorrowTotal, getMaxLTV } from "@/apis";
+import {
+  getBalance,
+  getBorrowApy,
+  getBorrowTotal,
+  getMaxLTV,
+} from "@/apis/contract";
 
 export type BorrowTableCol = {
   imageURL: string;
@@ -39,26 +44,6 @@ export default function BorrowTable({ expanded }: { expanded: boolean }) {
         <TableHeader rows={rows} />
         <BorrowTableContent cols={cols} expanded={expanded} />
       </table>
-      {/* {openBorrow && (
-        <Modal
-          setOpen={setOpenBorrow}
-          item={borrow}
-          cryptoImg={cryptoImg}
-          cryptoName={cryptoName}
-          max={borrowableAmount}
-          account={account}
-        />
-      )}
-      {openRepay && (
-        <Modal
-          setOpen={setOpenRepay}
-          item={repay}
-          cryptoImg={cryptoImg}
-          cryptoName={cryptoName}
-          max={borrowAmount}
-          account={account}
-        />
-      )} */}
     </div>
   );
 }
