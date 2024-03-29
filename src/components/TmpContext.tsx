@@ -2,20 +2,25 @@
 
 import { ReactNode, createContext, useContext, useState } from "react";
 
-// jotai 대체를 위한 임시 context
-export const TmpContext = createContext<{
-  address: string | null;
-  setAddress: (value: string) => void;
-}>({ address: null, setAddress: () => {} });
+export const AccountContext = createContext<{
+  account: string | null;
+  setAccount: (value: string) => void;
+}>({ account: null, setAccount: () => {} });
 
-export const useTmpContext = () => useContext(TmpContext);
+export const useAccountContext = () => useContext(AccountContext);
 
-export const TmpContextProvider = ({ children }: { children: ReactNode }) => {
-  const [address, setAddress] = useState<string | null>(null);
+export const AccountContextProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
+  const [account, setAccount] = useState<string | null>(null);
 
   return (
-    <TmpContext.Provider value={{ address, setAddress }}>
+    <AccountContext.Provider
+      value={{ account: account, setAccount: setAccount }}
+    >
       {children}
-    </TmpContext.Provider>
+    </AccountContext.Provider>
   );
 };

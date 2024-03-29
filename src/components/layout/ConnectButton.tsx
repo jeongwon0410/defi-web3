@@ -1,10 +1,9 @@
 import { useCallback, useEffect } from "react";
 import Image from "next/image";
-import { useTmpContext } from "@/components/TmpContext";
+import { useAccountContext } from "@/components/TmpContext";
 
 export default function ConnectButton() {
-  const { address, setAddress } = useTmpContext();
-  // const save = useMutation({ mutationFn: saveAddress });
+  const { account, setAccount } = useAccountContext();
 
   const connect = useCallback(async () => {
     if (window.ethereum === undefined) return;
@@ -13,9 +12,8 @@ export default function ConnectButton() {
       method: "eth_requestAccounts",
     })) as string[];
 
-    setAddress(res[0]);
-    // save.mutate(res[0]);
-  }, [setAddress]);
+    setAccount(res[0]);
+  }, [setAccount]);
 
   useEffect(() => {
     if (window.ethereum === undefined) return;
@@ -26,22 +24,17 @@ export default function ConnectButton() {
   }, [connect]);
 
   return (
-    <div className="relative">
-      <button
-        className="mr-4 items-center rounded-full bg-[#252a39] px-5 py-2"
-        onClick={connect}
-      >
-        <div className="flex font-montserrat  text-[16px]  font-semibold leading-[24px] text-white">
-          <Image
-            src="/metamask.png"
-            alt=""
-            className="mr-2 mt-1"
-            height={16}
-            width={16}
-          />
-          {address === null ? "connect wallet" : address}
-        </div>
-      </button>
-    </div>
+    <button
+      className="flex items-center gap-[0.34rem] rounded-full bg-[#262626] px-[1.12rem] py-[0.52rem]"
+      onClick={connect}
+    >
+      <Image src="/header/metamask.svg" alt="" height={21.6} width={21.6} />
+      <p className="font-montserrat text-[1rem] font-semibold text-[#F6F8FF]">
+        {account === null ? "connect wallet" : formatAccount(account)}
+      </p>
+    </button>
   );
 }
+
+const formatAccount = (account: string) =>
+  `${account.slice(0, 8)}...${account.slice(-5)}`;

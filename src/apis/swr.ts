@@ -11,7 +11,7 @@ import {
   getBorrowableAmount,
 } from "./contract";
 import { AssetTitle } from "@/constants/assets";
-import { useTmpContext } from "@/components/TmpContext";
+import { useAccountContext } from "@/components/TmpContext";
 import { REFRESH_RATE_MS } from "@/constants/common";
 
 export const useContract = (
@@ -27,7 +27,7 @@ export const usePrivateContract = (
   type: PrivateContractType,
   title: AssetTitle | null | undefined,
 ) => {
-  const { address } = useTmpContext();
+  const { account: address } = useAccountContext();
 
   return useSWR(
     title && address ? [type, title, address] : null,

@@ -4,7 +4,7 @@ import BigNumber from "bignumber.js";
 import { useState, useEffect } from "react";
 import Table, { TableProps } from "./Table";
 import { TableRow } from "./TableContent";
-import { useTmpContext } from "@/components/TmpContext";
+import { useAccountContext } from "@/components/TmpContext";
 import {
   getMySupplyBalance,
   getSupplyAPY,
@@ -22,7 +22,7 @@ export default function AccountMain() {
   const [supplyContent, setSupplyContent] = useState<TableProps | null>(null);
   const [borrowContent, setBorrowContent] = useState<TableProps | null>(null);
 
-  const { address: account } = useTmpContext();
+  const { account: account } = useAccountContext();
 
   useEffect(() => {
     if (account === null) return;
