@@ -55,3 +55,10 @@ export const titleToABI = {
   EURS: EURS_ERC20,
   WETH: WETH_ERC20,
 } satisfies { [title in AssetTitle]: ContractAbi };
+
+// Icon (https://cryptologos.cc/)
+export const titleToIcon = Object.fromEntries(
+  allAssetTitles.map((title) => [title, `/icons/${title}.png`]),
+) as { [title in AssetTitle]: string };
+
+titleToIcon.WETH = "/icons/weth.webp";

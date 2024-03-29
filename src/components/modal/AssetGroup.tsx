@@ -1,22 +1,22 @@
 import Image from "next/image";
 import GroupBg from "./GroupBg";
+import { AssetTitle, titleToIcon } from "@/constants/assets";
 
 type Props = {
+  title: AssetTitle | null;
   content: {
     name: string;
     value: string;
   }[];
-  imageURL: string;
-  title: string;
 };
 
-export default function AssetGroup({ content, imageURL, title }: Props) {
+export default function AssetGroup({ content, title }: Props) {
   return (
     <GroupBg className="p-8">
       <div className="mb-5 flex flex-col">
         <div className="flex">
           <Image
-            src={imageURL}
+            src={title ? titleToIcon[title] : ""}
             className="mr-5"
             width={68}
             height={68}

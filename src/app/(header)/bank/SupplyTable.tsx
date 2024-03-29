@@ -4,6 +4,7 @@ import SupplyTableRow from "./SupplyTableRow";
 import SupplyModal from "./modals/SupplyModal";
 
 import WithdrawModal from "./modals/WithdrawModal";
+import { Table } from "./Table";
 import { allAssetTitles } from "@/constants/assets";
 import { useModal } from "@/util/hook";
 import { TABLE_PREVIEW_CNT } from "@/constants/common";
@@ -16,7 +17,7 @@ export default function SupplyTable({ expanded }: { expanded: boolean }) {
     : allAssetTitles.slice(0, TABLE_PREVIEW_CNT);
 
   return (
-    <table className="table w-full px-20 text-center">
+    <Table>
       <TableHeader rows={rows} />
       <tbody>
         {assetTitleList.map((assetTitle) => (
@@ -30,16 +31,16 @@ export default function SupplyTable({ expanded }: { expanded: boolean }) {
       </tbody>
       <SupplyModal assetTitle={isOpen("supply")} close={close} />
       <WithdrawModal assetTitle={isOpen("withdraw")} close={close} />
-    </table>
+    </Table>
   );
 }
 
 const rows = [
-  "Asset",
-  "Total Supplied",
-  "APY/LTV",
-  "Available",
-  "",
-  "Supply&Withdraw",
-  "Supplied",
+  { value: "Asset" },
+  { value: "Total Supplied" },
+  { value: "APY / LTV" },
+  { value: "Available" },
+  { value: "" },
+  { value: "Supply & Withdraw", highlighted: true },
+  { value: "Supplied" },
 ];

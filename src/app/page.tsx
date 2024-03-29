@@ -6,13 +6,6 @@ export default function LandingPage() {
   return (
     <div className="relative h-[100vh] w-[100vw]">
       <Image
-        fill
-        src="/landing/background.svg"
-        className="absolute bottom-0 left-0 right-0 top-0 -z-10 object-cover"
-        alt=""
-      />
-
-      <Image
         src="/landing/lighthouse.svg"
         width={2824}
         height={892}

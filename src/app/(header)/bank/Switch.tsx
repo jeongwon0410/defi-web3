@@ -19,7 +19,7 @@ export default function Switch({ tab, setTab, setExpanded }: Props) {
   };
 
   return (
-    <div className="mx-auto mb-5 flex flex-wrap">
+    <div className="mx-auto mb-5 flex gap-10">
       <SwitchButton onClick={clickSupply} selected={tab === "supply"}>
         Supply
       </SwitchButton>
@@ -41,7 +41,7 @@ const SwitchButton = ({
 }) => {
   return (
     <button
-      className={`mr-10 font-montserrat text-[30px] font-bold leading-[45px] ${
+      className={`font-montserrat text-[1.625rem] font-bold ${
         selected ? "text-[#F6FFF9]" : "text-[#F6FFF9]/20"
       }`}
       onClick={onClick}

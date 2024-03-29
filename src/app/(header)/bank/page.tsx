@@ -24,35 +24,58 @@ export default function Main() {
         )}
       </div>
 
-      <AllMarketButton onClick={() => setExpanded((x) => !x)} />
+      <AllMarketButton
+        expanded={expanded}
+        toggle={() => setExpanded((x) => !x)}
+      />
 
-      <InfoLabel>나는 몇개 예치하고 1년에 약 00 이자를 받을 수 있다</InfoLabel>
+      <InfoLabel>
+        If I supply $## DAI, I can make a interest ##% a year
+      </InfoLabel>
     </div>
   );
 }
 
-const AllMarketButton = ({ onClick }: { onClick: () => void }) => {
+const AllMarketButton = ({
+  expanded,
+  toggle,
+}: {
+  expanded: boolean;
+  toggle: () => void;
+}) => {
   return (
     <button
-      className="mt-5 flex flex-col items-center justify-center"
-      onClick={onClick}
+      className="mt-5 flex flex-col items-center hover:opacity-50"
+      onClick={toggle}
     >
-      <div className="flex items-center justify-center ">
-        <Image src="/all_img.png" width={16} height={16} alt="" />
-        <div className=" text-[14px] font-normal leading-[20px] text-[#525C52]">
-          All market
+      <div className="flex items-center">
+        <Image src="/bank/add.svg" width={16} height={16} alt="" />
+        <div className=" text-[0.8rem] font-semibold text-[#525C52]">
+          {expanded ? "Shrink" : "All market"}
         </div>
       </div>
-      <div className=" mt-1 h-[1px] w-[99px] bg-[#525C52]" />
+      <div className="mt-1 h-[1px] w-[99px] bg-[#525C52]" />
     </button>
   );
 };
 
 const InfoLabel = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="flex  flex-col items-center justify-center py-10">
-      <Image src="/person.png" width={500} height={50} alt="" />
-      <div className="text-white">{children}</div>
+    <div className="mt-[3.25rem] flex flex-col items-center gap-[0.62rem]">
+      <div className="flex items-center gap-2">
+        <Image
+          src="/bank/line.svg"
+          width={200}
+          height={32}
+          alt=""
+          className="rotate-180"
+        />
+        <Image src="/bank/person.svg" width={32} height={32} alt="" />
+        <Image src="/bank/line.svg" width={200} height={32} alt="" />
+      </div>
+      <div className="text-[0.875rem] font-medium text-[#95A190]">
+        {children}
+      </div>
     </div>
   );
 };

@@ -21,7 +21,7 @@ export default function WithdrawModal({ assetTitle, close }: ModalProps) {
 
   return (
     <Modal isOpen={assetTitle !== null} onRequestClose={close} title="Withdraw">
-      <AssetGroup title={assetTitle ?? ""} imageURL={""} content={content} />
+      <AssetGroup title={assetTitle} content={content} />
 
       <AmountGroup
         ltv={BigNumber(0)}

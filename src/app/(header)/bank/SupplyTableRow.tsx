@@ -1,6 +1,6 @@
-import { IconTd, Td, Divider, Button } from "./Table";
+import { IconTd, Td, Divider, Button, Tr } from "./Table";
 import { normalize } from "@/util/bignumber";
-import { AssetTitle } from "@/constants/assets";
+import { AssetTitle, titleToIcon } from "@/constants/assets";
 import { useContract, usePrivateContract } from "@/apis/swr";
 import { RAY_DECIMALS } from "@/constants/common";
 
@@ -39,8 +39,8 @@ export default function SupplyTableRow({
   const formattedSupply = supply?.toFixed(18) ?? "-";
 
   return (
-    <tr className="h-[74px]">
-      <IconTd src={""}>{assetTitle}</IconTd>
+    <Tr>
+      <IconTd src={titleToIcon[assetTitle]}>{assetTitle}</IconTd>
 
       <Td>{totalSupplied?.toString() ?? "-"}</Td>
       <Td>{`${formattedApy}/${formattedLtv}`}</Td>
@@ -48,7 +48,7 @@ export default function SupplyTableRow({
 
       <Divider />
 
-      <td className="w-[350px] text-[14px] font-normal leading-[24px]">
+      <Td>
         <div className="flex justify-center gap-4">
           <Button className="bg-[#2F8128] text-[#E1E3EA]" onClick={onSupply}>
             Supply
@@ -57,9 +57,9 @@ export default function SupplyTableRow({
             Withdraw
           </Button>
         </div>
-      </td>
+      </Td>
 
       <Td>{formattedSupply}</Td>
-    </tr>
+    </Tr>
   );
 }

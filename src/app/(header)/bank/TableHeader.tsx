@@ -1,15 +1,19 @@
-export default function TableHeader({ rows }: { rows: string[] }) {
+export default function TableHeader({
+  rows,
+}: {
+  rows: { value: string; highlighted?: boolean }[];
+}) {
   return (
     <thead>
       <tr>
-        {rows.map((item: string, index: number) => (
+        {rows.map((item, idx) => (
           <th
-            key={index}
-            className={`text-[14px] font-semibold leading-[20px] ${
-              index === 5 ? "text-[#559465]" : "text-[#525C52]"
+            key={idx}
+            className={`text-[0.8125rem] font-semibold ${
+              item.highlighted ? "text-[#559465]" : "text-[#525C52]"
             }`}
           >
-            {item}
+            {item.value}
           </th>
         ))}
       </tr>

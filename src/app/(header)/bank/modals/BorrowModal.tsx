@@ -27,7 +27,7 @@ export default function BorrowModal({ assetTitle, close }: ModalProps) {
 
   return (
     <Modal isOpen={assetTitle !== null} onRequestClose={close} title="Borrow">
-      <AssetGroup title={assetTitle ?? ""} imageURL={""} content={content} />
+      <AssetGroup title={assetTitle} content={content} />
 
       <AmountGroup
         ltv={ltv ?? BigNumber(-1)}

@@ -25,7 +25,7 @@ export default function SupplyModal({ assetTitle, close }: ModalProps) {
 
   return (
     <Modal isOpen={assetTitle !== null} onRequestClose={close} title="Supply">
-      <AssetGroup title={assetTitle ?? ""} imageURL={""} content={content} />
+      <AssetGroup title={assetTitle} content={content} />
 
       <AmountGroup
         ltv={ltv ?? BigNumber(-1)}
