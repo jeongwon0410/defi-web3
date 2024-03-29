@@ -9,7 +9,7 @@ import ConnectButton from "./ConnectButton";
 export default function Header() {
   return (
     <header className="flex flex-col flex-wrap items-center p-5 md:flex-row">
-      <div className="mb-4 flex items-center font-medium md:mb-0">
+      <Link className="mb-4 flex items-center font-medium md:mb-0" href="/">
         <Image
           src="/light.png"
           className="mr-2"
@@ -20,7 +20,7 @@ export default function Header() {
         <div className="font-montserrat text-[20px] font-extrabold leading-[20px] text-[#D9FFCC]">
           LightBank
         </div>
-      </div>
+      </Link>
 
       <div className="flex flex-wrap items-center justify-center md:ml-4 md:mr-auto md:py-1  md:pl-4">
         <Label href="/bank">Bank</Label>
