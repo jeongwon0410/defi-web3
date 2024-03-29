@@ -1,66 +1,36 @@
-import { useEffect, useState } from "react";
-import BigNumber from "bignumber.js";
 import TableHeader from "./TableHeader";
-import BorrowTableContent from "./BorrowTableContent";
-import { useTmpContext } from "@/components/TmpContext";
+import BorrowTableRow from "./BorrowTableRow";
+import BorrowModal from "./modals/BorrowModal";
+import RepayModal from "./modals/RepayModal";
 import { allAssetTitles } from "@/constants/assets";
-import {
-  getBalance,
-  getBorrowApy,
-  getBorrowTotal,
-  getMaxLTV,
-} from "@/apis/contract";
-
-export type BorrowTableCol = {
-  imageURL: string;
-  title: string;
-  totalBorrow: BigNumber;
-  apy: BigNumber;
-
-  balance: BigNumber;
-  ltv: BigNumber;
-};
+import { TABLE_PREVIEW_CNT } from "@/constants/common";
+import { useModal } from "@/util/hook";
 
 export default function BorrowTable({ expanded }: { expanded: boolean }) {
-  const { address: account } = useTmpContext();
-  const [cols, setCols] = useState<BorrowTableCol[]>([]);
+  const { isOpen, openModal, close } = useModal<"borrow" | "repay">();
 
-  useEffect(() => {
-    if (account === null) return;
-    let flag = true;
-
-    fetchCols(account).then((cols) => {
-      if (flag) setCols(cols);
-    });
-
-    return () => {
-      flag = false;
-    };
-  }, [account, setCols]);
+  const assetTitleList = expanded
+    ? allAssetTitles
+    : allAssetTitles.slice(0, TABLE_PREVIEW_CNT);
 
   return (
-    <div className="w-full  ">
-      <table className="table w-full px-20 text-center">
-        <TableHeader rows={rows} />
-        <BorrowTableContent cols={cols} expanded={expanded} />
-      </table>
-    </div>
+    <table className="table w-full px-20 text-center">
+      <TableHeader rows={rows} />
+      <tbody>
+        {assetTitleList.map((assetTitle) => (
+          <BorrowTableRow
+            key={assetTitle}
+            assetTitle={assetTitle}
+            onBorrow={() => openModal("borrow", assetTitle)}
+            onRepay={() => openModal("repay", assetTitle)}
+          />
+        ))}
+      </tbody>
+      <BorrowModal assetTitle={isOpen("borrow")} close={close} />
+      <RepayModal assetTitle={isOpen("repay")} close={close} />
+    </table>
   );
 }
-
-const fetchCols = async (account: string): Promise<BorrowTableCol[]> => {
-  const promises = allAssetTitles.map(async (title) => ({
-    // TODO: title -> imageURL
-    imageURL: "/ETH.png",
-    title,
-    totalBorrow: await getBorrowTotal(title),
-    apy: await getBorrowApy(title),
-    balance: await getBalance(title, account),
-    ltv: await getMaxLTV(title),
-  }));
-
-  return await Promise.all(promises);
-};
 
 const rows = [
   "Asset",
@@ -70,20 +40,3 @@ const rows = [
   "Borrow&Repay",
   "My Status/LTV",
 ];
-
-// const borrow = {
-//   name: "Borrow",
-//   content: [
-//     { name: "Wallet Balance", ratio: balance },
-//     { name: "Borrowable Amount", ratio: borrowableAmount },
-//     { name: "APY", ratio: apy },
-//   ],
-// };
-
-// const repay = {
-//   name: "Repay",
-//   content: [
-//     { name: "My debt(Borrowed Amount)", ratio: borrowAmount },
-//     { name: "APY", ratio: apy },
-//   ],
-// };

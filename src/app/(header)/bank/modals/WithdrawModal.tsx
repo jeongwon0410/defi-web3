@@ -41,10 +41,9 @@ export default function WithdrawModal({ assetTitle, close }: ModalProps) {
 
 const useData = (assetTitle: AssetTitle | null) => {
   const { address: account } = useTmpContext();
-  if (account === null) throw new Error();
 
   const { data: supply } = useSWR(
-    assetTitle && [assetTitle, account],
+    account && assetTitle ? [assetTitle, account] : null,
     ([title, account]) => getMySupplyBalance(title, account),
   );
   const { data: apy } = useSWR(assetTitle, getSupplyAPY);

@@ -1,72 +1,38 @@
-import { useEffect, useState } from "react";
-import BigNumber from "bignumber.js";
 import TableHeader from "./TableHeader";
-import SupplyTableContent from "./SupplyTableContent";
+import SupplyTableRow from "./SupplyTableRow";
 
-import { useTmpContext } from "@/components/TmpContext";
+import SupplyModal from "./modals/SupplyModal";
 
+import WithdrawModal from "./modals/WithdrawModal";
 import { allAssetTitles } from "@/constants/assets";
-import {
-  getSupplyTotal,
-  getSupplyAPY,
-  getMaxLTV,
-  getBalance,
-  getMySupplyBalance,
-} from "@/apis/contract";
-
-export type SupplyTableCol = {
-  imageURL: string;
-  title: string;
-  totalSupplied: BigNumber;
-  apy: BigNumber;
-  ltv: BigNumber;
-  balance: BigNumber;
-  supply: BigNumber;
-};
+import { useModal } from "@/util/hook";
+import { TABLE_PREVIEW_CNT } from "@/constants/common";
 
 export default function SupplyTable({ expanded }: { expanded: boolean }) {
-  const { address: account } = useTmpContext();
-  const [cols, setCols] = useState<SupplyTableCol[]>([]);
+  const { isOpen, openModal, close } = useModal<"supply" | "withdraw">();
 
-  useEffect(() => {
-    if (account === null) return;
-    let flag = true;
-
-    fetchCols(account).then((cols) => {
-      if (flag) setCols(cols);
-    });
-
-    return () => {
-      flag = false;
-    };
-  }, [account, setCols]);
+  const assetTitleList = expanded
+    ? allAssetTitles
+    : allAssetTitles.slice(0, TABLE_PREVIEW_CNT);
 
   return (
-    <div className="w-full ">
-      <table className="table w-full px-20 text-center">
-        <TableHeader rows={rows} />
-        {account !== null && (
-          <SupplyTableContent cols={cols} expanded={expanded} />
-        )}
-      </table>
-    </div>
+    <table className="table w-full px-20 text-center">
+      <TableHeader rows={rows} />
+      <tbody>
+        {assetTitleList.map((assetTitle) => (
+          <SupplyTableRow
+            key={assetTitle}
+            assetTitle={assetTitle}
+            onSupply={() => openModal("supply", assetTitle)}
+            onWithdraw={() => openModal("withdraw", assetTitle)}
+          />
+        ))}
+      </tbody>
+      <SupplyModal assetTitle={isOpen("supply")} close={close} />
+      <WithdrawModal assetTitle={isOpen("withdraw")} close={close} />
+    </table>
   );
 }
-
-const fetchCols = async (account: string): Promise<SupplyTableCol[]> => {
-  const promises = allAssetTitles.map(async (title) => ({
-    // TODO: title -> imageURL
-    imageURL: "/ETH.png",
-    title,
-    totalSupplied: await getSupplyTotal(title),
-    apy: await getSupplyAPY(title),
-    ltv: await getMaxLTV(title),
-    balance: await getBalance(title, account),
-    supply: await getMySupplyBalance(title, account),
-  }));
-
-  return await Promise.all(promises);
-};
 
 const rows = [
   "Asset",
