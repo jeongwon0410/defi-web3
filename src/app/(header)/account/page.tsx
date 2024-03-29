@@ -4,7 +4,6 @@ import BigNumber from "bignumber.js";
 import { useState, useEffect } from "react";
 import Table, { TableProps } from "./Table";
 import { TableRow } from "./TableContent";
-import { useAccountContext } from "@/components/TmpContext";
 import {
   getMySupplyBalance,
   getSupplyAPY,
@@ -14,6 +13,7 @@ import {
   getLiquidation,
 } from "@/apis/contract";
 import { allAssetTitles } from "@/constants/assets";
+import { useMetaMask } from "@/util/useMetaMask";
 
 const supplyHeader = ["Asset", "Supplied", "APY", "MAXLTV"];
 const borrowHeader = ["Asset", "Borrowed", "APY", "MAXLTV", "LIQUIDATION"];
@@ -22,7 +22,8 @@ export default function AccountMain() {
   const [supplyContent, setSupplyContent] = useState<TableProps | null>(null);
   const [borrowContent, setBorrowContent] = useState<TableProps | null>(null);
 
-  const { account: account } = useAccountContext();
+  const { wallet } = useMetaMask();
+  const account = wallet.accounts[0];
 
   useEffect(() => {
     if (account === null) return;

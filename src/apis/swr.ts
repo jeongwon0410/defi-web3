@@ -11,8 +11,8 @@ import {
   getBorrowableAmount,
 } from "./contract";
 import { AssetTitle } from "@/constants/assets";
-import { useAccountContext } from "@/components/TmpContext";
 import { REFRESH_RATE_MS } from "@/constants/common";
+import { useMetaMask } from "@/util/useMetaMask";
 
 export const useContract = (
   type: ContractType,
@@ -27,7 +27,8 @@ export const usePrivateContract = (
   type: PrivateContractType,
   title: AssetTitle | null | undefined,
 ) => {
-  const { account: address } = useAccountContext();
+  const { wallet } = useMetaMask();
+  const address = wallet.accounts[0];
 
   return useSWR(
     title && address ? [type, title, address] : null,

@@ -13,10 +13,10 @@ export default function Main() {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className=" mt-20 flex flex-col justify-center px-5">
+    <div className="flex flex-col justify-center px-5 py-20">
       <Switch tab={tab} setTab={setTab} setExpanded={setExpanded} />
 
-      <div className="mt-10 flex">
+      <div className="mx-auto mt-10 flex">
         {tab === "supply" ? (
           <SupplyTable expanded={expanded} />
         ) : (

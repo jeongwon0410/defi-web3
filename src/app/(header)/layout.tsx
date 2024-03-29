@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
-import { AccountContextProvider } from "@/components/TmpContext";
 import Header from "@/components/layout/Header";
+import { MetaMaskContextProvider } from "@/util/useMetaMask";
 
 export default function HeaderLayout({ children }: { children: ReactNode }) {
   return (
-    <AccountContextProvider>
+    <MetaMaskContextProvider>
       <Header />
       {children}
-    </AccountContextProvider>
+    </MetaMaskContextProvider>
   );
 }

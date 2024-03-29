@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 export const Table = ({ children }: { children: ReactNode }) => {
   return (
-    <table className="mt-[-0.68rem] table w-full border-separate border-spacing-y-[0.68rem] px-20 text-center">
+    <table className="mt-[-0.68rem] table border-separate border-spacing-y-[0.68rem] px-20 text-center">
       {children}
     </table>
   );
@@ -41,7 +41,7 @@ export const IconTd = ({
 );
 
 export const Td = ({ children }: { children?: ReactNode }) => (
-  <td className="h-[4.125rem] border-y border-[#49824F] text-[0.8125rem] font-normal text-[#B0B0B0] first:rounded-l-[0.75rem] first:border-l last:rounded-r-[0.75rem] last:border-r">
+  <td className="h-[4.125rem] border-y border-[#49824F] px-4 text-[0.8125rem] font-normal text-[#B0B0B0] first:rounded-l-[0.75rem] first:border-l last:rounded-r-[0.75rem] last:border-r">
     {children}
   </td>
 );
