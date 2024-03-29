@@ -1,10 +1,9 @@
 import { ReactNode } from "react";
-import useSWR from "swr";
-import { getAllAddress } from "@/apis/local";
+import { useAllAddress } from "@/apis/local";
 
 export default function Table() {
   // TODO: key값 제공
-  const { data } = useSWR("", getAllAddress);
+  const { data } = useAllAddress();
 
   return (
     <div>
