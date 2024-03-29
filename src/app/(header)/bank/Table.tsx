@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 export const Table = ({ children }: { children: ReactNode }) => {
   return (
-    <table className="mt-[-0.68rem] table border-separate border-spacing-y-[0.68rem] px-20 text-center">
+    <table className="mt-[-0.68rem] border-separate border-spacing-y-[0.68rem] text-center">
       {children}
     </table>
   );
@@ -25,7 +25,7 @@ export const IconTd = ({
   children: ReactNode;
 }) => (
   <Td>
-    <div className="ml-6 flex items-center justify-start gap-2">
+    <div className="flex items-center justify-start gap-2">
       <Image
         src={src}
         height={25}

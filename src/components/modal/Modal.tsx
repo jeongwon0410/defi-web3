@@ -16,6 +16,7 @@ const customStyles = {
     backgroundColor: "#38B82D",
     padding: 0,
     borderRadius: "0.875rem",
+    border: "",
   },
   overlay: {
     backgroundColor: "rgba(11, 11, 11, 0.75)",

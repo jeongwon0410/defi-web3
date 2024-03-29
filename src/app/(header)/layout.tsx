@@ -6,7 +6,7 @@ export default function HeaderLayout({ children }: { children: ReactNode }) {
   return (
     <MetaMaskContextProvider>
       <Header />
-      {children}
+      <div className="py-20">{children}</div>
     </MetaMaskContextProvider>
   );
 }

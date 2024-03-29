@@ -2,37 +2,34 @@ import { ReactNode } from "react";
 import { useAllAddress } from "@/apis/local";
 
 export default function Table() {
-  // TODO: key값 제공
   const { data } = useAllAddress();
 
   return (
-    <div>
-      <table className="px-20 text-center">
-        <thead>
-          <tr>
-            <Th>Rank</Th>
-            <Th>Address</Th>
-            <Th>Deposit Points</Th>
-            <Th>Borrow Points</Th>
-            <Th>Referral Points</Th>
-            <Th>Total Points</Th>
-          </tr>
-        </thead>
+    <table className="px-20 text-center">
+      <thead>
+        <tr>
+          <Th>Rank</Th>
+          <Th>Address</Th>
+          <Th>Deposit Points</Th>
+          <Th>Borrow Points</Th>
+          <Th>Referral Points</Th>
+          <Th>Total Points</Th>
+        </tr>
+      </thead>
 
-        <tbody>
-          {data?.map((item, idx) => (
-            <tr key={idx} className="h-[60px] ">
-              <Td>{item.rank}</Td>
-              <Td>{item.address}</Td>
-              <Td>{item.deposit}</Td>
-              <Td>{item.borrow}</Td>
-              <Td>{item.referral}</Td>
-              <Td>{item.total}</Td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      <tbody>
+        {data?.map((item, idx) => (
+          <tr key={idx} className="h-[60px] ">
+            <Td>{item.rank}</Td>
+            <Td>{item.address}</Td>
+            <Td>{item.deposit}</Td>
+            <Td>{item.borrow}</Td>
+            <Td>{item.referral}</Td>
+            <Td>{item.total}</Td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 

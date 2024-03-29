@@ -13,7 +13,7 @@ export default function Main() {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="flex flex-col justify-center px-5 py-20">
+    <div className="flex flex-col justify-center">
       <Switch tab={tab} setTab={setTab} setExpanded={setExpanded} />
 
       <div className="mx-auto mt-10 flex">
