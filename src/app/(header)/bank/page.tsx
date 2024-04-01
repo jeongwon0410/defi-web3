@@ -41,10 +41,22 @@ const InfoLabel = ({ children }: { children: ReactNode }) => {
           width={200}
           height={32}
           alt=""
-          className="rotate-180"
+          className="h-auto w-auto rotate-180"
         />
-        <Image src="/bank/person.svg" width={32} height={32} alt="" />
-        <Image src="/bank/line.svg" width={200} height={32} alt="" />
+        <Image
+          src="/bank/person.svg"
+          width={32}
+          height={32}
+          alt=""
+          className="h-auto w-auto"
+        />
+        <Image
+          src="/bank/line.svg"
+          width={200}
+          height={32}
+          alt=""
+          className="h-auto w-auto"
+        />
       </div>
       <div className="text-[0.875rem] font-medium text-[#95A190]">
         {children}

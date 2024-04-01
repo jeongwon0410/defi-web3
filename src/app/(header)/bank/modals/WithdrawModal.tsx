@@ -7,16 +7,17 @@ import ModalButton from "@/components/modal/ModalButton";
 import { ModalProps } from "@/components/modal/ModalProps";
 import GasGroup from "@/components/modal/GasGroup";
 import { useContract, usePrivateContract } from "@/apis/swr";
+import { formatAPY, formatSupply } from "@/util/format";
 
 export default function WithdrawModal({ assetTitle, close }: ModalProps) {
-  const [amount, setAmount] = useState<BigNumber>(BigNumber(0));
+  const [amount, setAmount] = useState<string>("");
 
   const { data: supply } = usePrivateContract("SUPPLYBALANCE", assetTitle);
   const { data: apy } = useContract("SUPPLYAPY", assetTitle);
 
   const content = [
-    { name: "My Supply", value: supply?.toString() ?? "-" },
-    { name: "APY", value: apy?.toString() ?? "-" },
+    { name: "My Supply", value: formatSupply(supply) },
+    { name: "APY", value: formatAPY(apy) },
   ];
 
   return (

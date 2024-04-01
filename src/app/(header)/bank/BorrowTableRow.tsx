@@ -3,11 +3,15 @@
 import { Button, Divider, IconTd, Td, Tr } from "./Table";
 import BorrowModal from "./modals/BorrowModal";
 import RepayModal from "./modals/RepayModal";
-import { normalize } from "@/util/bignumber";
-import { RAY_DECIMALS } from "@/constants/common";
 import { AssetTitle, titleToIcon } from "@/constants/assets";
 import { useContract, usePrivateContract } from "@/apis/swr";
 import { useModal } from "@/util/hook";
+import {
+  formatAPY,
+  formatBalance,
+  formatLiquidity,
+  formatTotalBorrow,
+} from "@/util/format";
 
 export default function BorrowTableRow({
   assetTitle,
@@ -20,25 +24,14 @@ export default function BorrowTableRow({
   const { data: apy } = useContract("BORROWAPY", assetTitle);
   const { data: balance } = usePrivateContract("BALANCE", assetTitle);
   const { data: ltv } = useContract("MAXLTV", assetTitle);
-
-  const formattedTotal = totalBorrow
-    ? "$" +
-      totalBorrow
-        .toFixed(2)
-        .toString()
-        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-    : "-";
-
-  const formattedApy = apy
-    ? (parseFloat(normalize(apy, RAY_DECIMALS)) * 100).toFixed(2) + "%"
-    : "-";
+  const { data: liquidity } = useContract("LIQUIDITY", assetTitle);
 
   return (
     <Tr>
       <IconTd src={titleToIcon[assetTitle]}>{assetTitle}</IconTd>
 
-      <Td>{formattedTotal}</Td>
-      <Td>{formattedApy}</Td>
+      <Td width="16ch">{formatTotalBorrow(totalBorrow)}</Td>
+      <Td width="8ch">{formatAPY(apy)}</Td>
 
       <Divider />
 
@@ -59,7 +52,9 @@ export default function BorrowTableRow({
         </div>
       </Td>
 
-      <Td>{`${balance?.toString() ?? "-"}/${ltv?.toString() ?? "-"}`}</Td>
+      <Td width="16ch">{`${formatBalance(balance)}/${ltv?.toString() ?? "-"}`}</Td>
+
+      <Td width="12ch">{formatLiquidity(liquidity)}</Td>
 
       <BorrowModal assetTitle={isOpen("borrow")} close={close} />
       <RepayModal assetTitle={isOpen("repay")} close={close} />

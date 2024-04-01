@@ -42,9 +42,15 @@ export const IconTd = ({
   </Td>
 );
 
-export const Td = ({ children }: { children?: ReactNode }) => (
+export const Td = ({
+  width,
+  children,
+}: {
+  width?: string;
+  children?: ReactNode;
+}) => (
   <td className="h-[4.125rem] border-y border-[#49824F] px-4 text-[0.8125rem] font-normal text-[#B0B0B0] first:rounded-l-[0.75rem] first:border-l last:rounded-r-[0.75rem] last:border-r">
-    {children}
+    <div style={{ width }}>{children}</div>
   </td>
 );
 

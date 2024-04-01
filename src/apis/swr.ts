@@ -7,9 +7,10 @@ import {
   getMySupplyBalance,
   getBorrowTotal,
   getBorrowApy,
-  getBorrowAmount,
+  getDebt,
   getBorrowableAmount,
   getLiquidation,
+  getAvailableLiquidity,
 } from "./contract";
 import { AssetTitle } from "@/constants/assets";
 import { REFRESH_RATE_MS } from "@/constants/common";
@@ -42,7 +43,8 @@ export type ContractType =
   | "SUPPLYAPY"
   | "MAXLTV"
   | "BORROWTOTAL"
-  | "BORROWAPY";
+  | "BORROWAPY"
+  | "LIQUIDITY";
 
 export const contractFetcher = (arg: [ContractType, AssetTitle]) => {
   const title = arg[1];
@@ -57,6 +59,8 @@ export const contractFetcher = (arg: [ContractType, AssetTitle]) => {
       return getBorrowTotal(title);
     case "BORROWAPY":
       return getBorrowApy(title);
+    case "LIQUIDITY":
+      return getAvailableLiquidity(title);
   }
 };
 
@@ -79,7 +83,7 @@ export const privateContractFetcher = (
     case "SUPPLYBALANCE":
       return getMySupplyBalance(title, account);
     case "BORROWAMOUNT":
-      return getBorrowAmount(title, account);
+      return getDebt(title, account);
     case "BORROWABLEAMOUNT":
       return getBorrowableAmount(title, account);
     case "LIQUIDATION":

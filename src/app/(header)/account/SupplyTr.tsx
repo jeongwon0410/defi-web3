@@ -1,6 +1,7 @@
 import { AccountTr, AccountTd, AccountIconTd } from "./AccountTable";
 import { AssetTitle, titleToIcon } from "@/constants/assets";
 import { useContract, usePrivateContract } from "@/apis/swr";
+import { formatAPY, formatBalance, formatLTV } from "@/util/format";
 
 export default function SupplyTr({ assetTitle }: { assetTitle: AssetTitle }) {
   const { data: balance } = usePrivateContract("SUPPLYBALANCE", assetTitle);
@@ -10,9 +11,9 @@ export default function SupplyTr({ assetTitle }: { assetTitle: AssetTitle }) {
   return (
     <AccountTr>
       <AccountIconTd src={titleToIcon[assetTitle]} title={assetTitle} />
-      <AccountTd>{balance?.toString() ?? "-"}</AccountTd>
-      <AccountTd>{apy?.toString() ?? "-"}</AccountTd>
-      <AccountTd>{ltv?.toString() ?? "-"}</AccountTd>
+      <AccountTd className="w-[12ch]">{formatBalance(balance)}</AccountTd>
+      <AccountTd className="w-[12ch]">{formatAPY(apy)}</AccountTd>
+      <AccountTd className="w-[12ch]">{formatLTV(ltv)}</AccountTd>
     </AccountTr>
   );
 }

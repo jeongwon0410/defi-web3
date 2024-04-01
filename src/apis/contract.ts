@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import toast from "react-hot-toast";
 import {
   titleToContract,
   pool_data_provider_contract,
@@ -6,17 +7,24 @@ import {
   aave_oracle_contract,
 } from "../constants/contract";
 import { AssetTitle, poolAddr, titleToAddr } from "@/constants/assets";
-import { valueToZDBigNumber } from "@/util/bignumber";
-import { secondsToYear, rayPow } from "@/util/APY";
-import { RAY } from "@/constants/common";
+import {
+  secondsToYear,
+  rayPow,
+  RAY,
+  RAY_DECIMALS,
+  SECONDS_PER_YEAR,
+} from "@/util/APY";
+import { BigNumberZD, normalizeBN } from "@/util/bignumber";
 
 // SUPPLY
 
+// 토큰의 전체 공급
 export const getSupplyTotal = async (title: AssetTitle) => {
   const addr = titleToAddr[title];
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
+  // 참고: https://docs.openzeppelin.com/contracts/3.x/erc20
   const decimals = (await contract.methods.decimals().call()) as bigint;
   const data = await pool_data_provider_contract.methods
     .getReserveData(addr)
@@ -28,24 +36,32 @@ export const getSupplyTotal = async (title: AssetTitle) => {
   return BigNumber(supplyTotal.toString());
 };
 
+/**
+ * Compounding interest accrued by deposit or borrow on LendingPool. 투자로 얻는 실제 수익률을 복리로.
+ *
+ * 0~1 사이의 값을 리턴
+ *
+ * https://docs.aave.com/developers/v/2.0/guides/apy-and-apr
+ */
 export const getSupplyAPY = async (title: AssetTitle) => {
   const addr = titleToAddr[title];
-
-  const SECONDS_PER_YEAR = secondsToYear();
-
   const data = await pool_contract.methods.getReserveData(addr).call();
-  const currentLiquidityRate = BigNumber(data.currentLiquidityRate.toString());
+
+  const liquidityRate = data.currentLiquidityRate as bigint;
 
   const apy = rayPow(
-    valueToZDBigNumber(currentLiquidityRate.toString())
-      .dividedBy(SECONDS_PER_YEAR)
-      .plus(RAY),
+    BigNumberZD(liquidityRate.toString()).dividedBy(SECONDS_PER_YEAR).plus(RAY),
     SECONDS_PER_YEAR,
   ).minus(RAY);
 
-  return apy;
+  return normalizeBN(apy, RAY_DECIMALS).multipliedBy(100);
 };
 
+/**
+ * MAX LTV 부채담보부비율
+ *
+ * 0과 1 사이의 값을 리턴
+ */
 export const getMaxLTV = async (title: AssetTitle) => {
   const addr = titleToAddr[title];
 
@@ -53,21 +69,30 @@ export const getMaxLTV = async (title: AssetTitle) => {
     .getReserveConfigurationData(addr)
     .call();
 
-  return BigNumber(data.ltv.toString());
+  const ltv = BigNumber(data.ltv.toString());
+
+  return BigNumber(ltv.dividedBy(100).toString());
 };
 
+/**
+ * 토큰의 내 계좌 잔고
+ */
 export const getBalance = async (title: AssetTitle, account: string) => {
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const decimals = (await contract.methods.decimals().call()) as bigint;
-  const balance = (await contract.methods.balanceOf(account).call()) as bigint;
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const _balance = (await contract.methods.balanceOf(account).call()) as bigint;
 
-  return BigNumber(balance.toString()).dividedBy(
-    BigNumber(10).pow(BigNumber(decimals.toString())),
-  );
+  const decimals = BigNumber(_decimals.toString());
+  const balance = BigNumber(_balance.toString());
+
+  return balance.dividedBy(BigNumber(10).pow(decimals));
 };
 
+/**
+ * 내가 공급한 토큰의 양
+ */
 export const getMySupplyBalance = async (
   title: AssetTitle,
   account: string,
@@ -75,31 +100,36 @@ export const getMySupplyBalance = async (
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const decimals = (await contract.methods.decimals().call()) as bigint;
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(titleToAddr.DAI, account)
     .call();
 
   const currentATokenBalance = BigNumber(data.currentATokenBalance.toString());
+  const decimals = BigNumber(_decimals.toString());
 
-  return currentATokenBalance.dividedBy(
-    BigNumber(10).pow(BigNumber(decimals.toString())),
-  );
+  return currentATokenBalance.dividedBy(BigNumber(10).pow(decimals));
 };
 
 // BORROW
 
+/**
+ * 전체 빌린 금액
+ */
 export const getBorrowTotal = async (title: AssetTitle) => {
   const addr = titleToAddr[title];
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const decimals = (await contract.methods.decimals().call()) as bigint;
-  const data = (await pool_data_provider_contract.methods
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const _debt = (await pool_data_provider_contract.methods
     .getTotalDebt(addr)
     .call()) as bigint;
 
-  return BigNumber((data / 10n ** decimals).toString());
+  const decimals = BigNumber(_decimals.toString());
+  const debt = BigNumber(_debt.toString());
+
+  return debt.dividedBy(BigNumber(10).pow(decimals));
 };
 
 export const getBorrowApy = async (title: AssetTitle) => {
@@ -108,19 +138,42 @@ export const getBorrowApy = async (title: AssetTitle) => {
   const SECONDS_PER_YEAR = secondsToYear();
 
   const data = await pool_contract.methods.getReserveData(addr).call();
-  const currentVariableBorrowRate = data.currentVariableBorrowRate as bigint;
+  const _currentVariableBorrowRate = data.currentVariableBorrowRate as bigint;
+  const currentVariableBorrowRate = BigNumberZD(
+    _currentVariableBorrowRate.toString(),
+  );
 
-  return rayPow(
-    valueToZDBigNumber(currentVariableBorrowRate.toString())
-      .dividedBy(SECONDS_PER_YEAR)
-      .plus(RAY),
+  const apy = rayPow(
+    currentVariableBorrowRate.dividedBy(SECONDS_PER_YEAR).plus(RAY),
     SECONDS_PER_YEAR,
   ).minus(RAY);
+
+  return normalizeBN(apy, RAY_DECIMALS).multipliedBy(100);
+};
+
+/**
+ * 전체 공급
+ */
+export const getAvailableLiquidity = async (title: AssetTitle) => {
+  const addr = titleToAddr[title];
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const data = await pool_data_provider_contract.methods
+    .getReserveData(addr)
+    .call();
+  const _totalAToken = data.totalAToken as bigint;
+
+  const decimals = BigNumber(_decimals.toString());
+  const totalAToken = BigNumber(_totalAToken.toString());
+
+  return totalAToken.dividedBy(BigNumber(10).pow(decimals));
 };
 
 // My Account
 
-export const getBorrowAmount = async (title: AssetTitle, account: string) => {
+export const getDebt = async (title: AssetTitle, account: string) => {
   const addr = titleToAddr[title];
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
@@ -165,7 +218,9 @@ export const getLiquidation = async (title: AssetTitle, account: string) => {
 
 // Supply Modal
 
-// TODO: error handling .on(error), .on(receipt)
+/**
+ * 토큰 단위로 변경
+ */
 export const approve = async (
   title: AssetTitle,
   account: string,
@@ -174,29 +229,28 @@ export const approve = async (
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const decimals = (await contract.methods.decimals().call()) as bigint;
-  const result = amount.multipliedBy(
-    BigNumber(10).pow(BigNumber(decimals.toString())),
-  );
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const decimals = BigNumber(_decimals.toString());
+
+  const result = amount.multipliedBy(BigNumber(10).pow(decimals));
 
   await contract.methods
-    .approve(poolAddr, result)
+    .approve(poolAddr, result.toString())
     .send({ from: account })
     .on("transactionHash", (hash) => {
       console.log("TX Hash Approve", hash);
-      // setApproveDisable(true);
-      // setApproveFlag(true);
     })
     .on("error", (error) => {
-      console.log("Approve Error", error);
-      // setApproveFlag(false);
+      toast.error(error.message);
+      console.log(error.message);
     })
     .on("receipt", (receipt) => {
+      console.log(receipt);
       if (receipt.status === 1n) {
-        console.log("Transaction Success");
+        toast.success("Transaction Success");
         // setApproveFlag(false);
       } else {
-        console.log("Transaction Failed");
+        toast.error("Transaction Failed");
         // setApproveFlag(false);
       }
     });
@@ -211,25 +265,27 @@ export const supply = async (
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const decimals = (await contract.methods.decimals().call()) as bigint;
-  const result = amount.multipliedBy(BigNumber(10).pow(decimals.toString()));
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const decimals = BigNumber(_decimals.toString());
+
+  const result = amount.multipliedBy(BigNumber(10).pow(decimals));
 
   await pool_contract.methods
-    .supply(addr, result, account, "0")
+    .supply(addr, parseFloat(result.toString()), account, "0")
     .send({ from: account })
     .on("transactionHash", (hash) => {
-      console.log("TX Hash Supply", hash);
-      // setDisable(true);
-      // setFlag(true);
+      toast.success(`TX Hash Supply: ${hash}`);
     })
     .on("error", (error) => {
-      console.log("Supply Error", error);
+      toast.error(error.message);
+      console.log(error.message);
     })
     .on("receipt", (receipt) => {
+      console.log(receipt);
       if (receipt.status == 1n) {
-        console.log("Transaction Success");
+        toast.success("Transaction Success");
       } else {
-        console.log("Transaction Failed");
+        toast.error("Transaction Failed");
       }
     });
 };
@@ -320,6 +376,9 @@ export const borrow = async (
     });
 };
 
+/**
+ * 빌릴 수 있는 금액
+ */
 export const getBorrowableAmount = async (
   title: AssetTitle,
   account: string,
@@ -328,21 +387,16 @@ export const getBorrowableAmount = async (
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const currency = await pool_contract.methods
-    .getUserAccountData(account)
-    .call();
-
-  const price = (await aave_oracle_contract.methods
+  const data = await pool_contract.methods.getUserAccountData(account).call();
+  const _availableBorrowsBase = data.availableBorrowsBase as bigint;
+  const _price = (await aave_oracle_contract.methods
     .getAssetPrice(addr)
     .call()) as bigint;
 
-  const maxUserAmountToBorrow = BigNumber(
-    currency.availableBorrowsBase.toString(),
-  )
-    .dividedBy(price.toString())
-    .multipliedBy(0.99);
+  const availableBorrowsBase = BigNumber(_availableBorrowsBase.toString());
+  const price = BigNumber(_price.toString());
 
-  return maxUserAmountToBorrow;
+  return availableBorrowsBase.dividedBy(price.toString()).multipliedBy(0.99);
 };
 
 // Repay Modal
@@ -365,8 +419,6 @@ export const repay = async (
     .send({ from: account })
     .on("transactionHash", (hash) => {
       console.log("TX Hash Supply", hash);
-      // setDisable(true);
-      // setFlag(true);
     })
     .on("error", (error) => {
       console.log("Repay Error", error);

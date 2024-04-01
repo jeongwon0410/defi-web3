@@ -2,14 +2,15 @@ import Exclude from "/public/exclude.svg";
 import GroupBg from "./GroupBg";
 import { ReactNode } from "react";
 import BigNumber from "bignumber.js";
+import { formatLTV } from "@/util/format";
 
 type Props = {
-  ltv: BigNumber;
-  amount: BigNumber;
+  ltv?: BigNumber;
+  amount: string;
   dollar: BigNumber;
-  maxAmount: BigNumber;
+  maxAmount?: BigNumber;
 
-  setAmount: (value: BigNumber) => void;
+  setAmount: (value: string) => void;
 };
 
 export default function AmountGroup({
@@ -26,7 +27,7 @@ export default function AmountGroup({
           LTV
         </p>
         <p className="absolute bottom-[2rem] right-[1.13rem] overflow-hidden text-[0.875rem] font-semibold text-white">
-          {ltv.toString()}
+          {formatLTV(ltv)}
         </p>
       </GroupBg>
 
@@ -41,11 +42,15 @@ export default function AmountGroup({
         <div className="absolute right-[1.13rem] top-[2.81rem] flex flex-col items-end">
           <input
             type="number"
+            step="any"
+            min="0"
             className={`inline-block w-[90%] bg-gradient-to-r from-[rgba(86,117,84,1)] to-[rgba(110,197,104,1)] bg-clip-text text-right text-[1.25rem] font-bold leading-[1.5625rem] text-transparent caret-slate-50 outline-none`}
-            value={amount.toString()}
-            onChange={(e) =>
-              setAmount(BigNumber(e.target.value === "" ? 0 : e.target.value))
-            }
+            value={amount}
+            placeholder="0"
+            onChange={(e) => {
+              const value = e.target.value;
+              setAmount(value);
+            }}
           />
           <GradientText className="text-[0.6875rem] font-normal leading-[0.9375rem]">
             {dollar.toString()}
@@ -53,7 +58,9 @@ export default function AmountGroup({
         </div>
         <button
           className="absolute bottom-[0.87rem] right-[1.13rem] text-[0.6875rem] font-normal text-white underline"
-          onClick={() => setAmount(maxAmount)}
+          onClick={() => {
+            if (maxAmount) setAmount(maxAmount.toString());
+          }}
         >
           Max: Available balance
         </button>

@@ -28,4 +28,5 @@ const rows = [
   { value: "" },
   { value: "Borrow & Repay", highlighted: true },
   { value: "My status / LTV" },
+  { value: "Available Liquidity" },
 ];

@@ -10,7 +10,7 @@ export default function AccountTable({
 }) {
   return (
     <div className="rounded-[0.78rem] bg-[#151515] px-[2.45rem] py-[2.25rem] shadow-[0_0_36px_0_rgba(129,189,124,0.05)]">
-      <table className="w-full border-separate border-spacing-y-[0.45rem] text-center">
+      <table className="border-separate border-spacing-y-[0.45rem] text-center">
         <AccountTh row={header} />
         <tbody>{children}</tbody>
       </table>

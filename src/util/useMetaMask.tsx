@@ -1,8 +1,8 @@
 "use client";
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // Reference: https://docs.metamask.io/wallet/tutorials/react-dapp-global-state/
+
 import {
   useState,
   useEffect,

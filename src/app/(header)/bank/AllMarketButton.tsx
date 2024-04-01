@@ -12,7 +12,13 @@ export default function AllMarketButton({ expanded }: { expanded: boolean }) {
       onClick={toggle}
     >
       <div className="flex items-center">
-        <Image src="/bank/add.svg" width={16} height={16} alt="" />
+        <Image
+          src="/bank/add.svg"
+          width={16}
+          height={16}
+          alt=""
+          className="h-auto w-auto"
+        />
         <div className=" text-[0.8rem] font-semibold text-[#525C52]">
           {expanded ? "Shrink" : "All market"}
         </div>

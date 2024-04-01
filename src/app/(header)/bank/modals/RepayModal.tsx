@@ -9,7 +9,7 @@ import HealthFactorGroup from "@/components/modal/HealthFactorGroup";
 import { useContract, usePrivateContract } from "@/apis/swr";
 
 export default function RepayModal({ assetTitle, close }: ModalProps) {
-  const [amount, setAmount] = useState<BigNumber>(BigNumber(0));
+  const [amount, setAmount] = useState<string>("");
 
   const { data: borrowed } = usePrivateContract("BORROWAMOUNT", assetTitle);
   const { data: apy } = useContract("SUPPLYAPY", assetTitle);

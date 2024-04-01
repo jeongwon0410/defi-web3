@@ -7,9 +7,14 @@ import AmountGroup from "@/components/modal/AmountGroup";
 import { ModalProps } from "@/components/modal/ModalProps";
 import HealthFactorGroup from "@/components/modal/HealthFactorGroup";
 import { useContract, usePrivateContract } from "@/apis/swr";
+import {
+  formatAPY,
+  formatBalance,
+  formatBorrowableAmount,
+} from "@/util/format";
 
 export default function BorrowModal({ assetTitle, close }: ModalProps) {
-  const [amount, setAmount] = useState<BigNumber>(BigNumber(0));
+  const [amount, setAmount] = useState<string>("");
 
   const { data: balance } = usePrivateContract("BALANCE", assetTitle);
   const { data: borrowable } = usePrivateContract(
@@ -20,9 +25,9 @@ export default function BorrowModal({ assetTitle, close }: ModalProps) {
   const { data: ltv } = useContract("MAXLTV", assetTitle);
 
   const content = [
-    { name: "Wallet balance", value: balance?.toString() ?? "-" },
-    { name: "Borrowable Amount", value: borrowable?.toString() ?? "-" },
-    { name: "APY", value: apy?.toString() ?? "-" },
+    { name: "Wallet balance", value: formatBalance(balance) },
+    { name: "Borrowable Amount", value: formatBorrowableAmount(borrowable) },
+    { name: "APY", value: formatAPY(apy) },
   ];
 
   return (
@@ -30,7 +35,7 @@ export default function BorrowModal({ assetTitle, close }: ModalProps) {
       <AssetGroup title={assetTitle} content={content} />
 
       <AmountGroup
-        ltv={ltv ?? BigNumber(-1)}
+        ltv={ltv}
         amount={amount}
         setAmount={setAmount}
         dollar={BigNumber(0)}

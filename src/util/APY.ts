@@ -1,5 +1,11 @@
+// https://github.com/aave/aave-js/blob/master/src/helpers/ray-math.ts
+
 import BigNumber from "bignumber.js";
-import { valueToZDBigNumber } from "./bignumber";
+import { BigNumberZD } from "./bignumber";
+
+export const SECONDS_PER_YEAR = BigNumber(31536000);
+export const RAY_DECIMALS = 27;
+export const RAY = BigNumber(10).pow(27);
 
 export function secondsToYear() {
   const dateObj = new Date();
@@ -11,16 +17,16 @@ export function secondsToYear() {
 }
 
 export function rayMul(a: BigNumber.Value, b: BigNumber.Value) {
-  const RAY = valueToZDBigNumber(10).pow(27);
+  const RAY = BigNumberZD(10).pow(27);
   const HALF_RAY = RAY.dividedBy(2);
-  return HALF_RAY.plus(valueToZDBigNumber(a).multipliedBy(b)).div(RAY);
+  return HALF_RAY.plus(BigNumberZD(a).multipliedBy(b)).div(RAY);
 }
 
-export function rayPow(a: BigNumber.Value, p: BigNumber.Value) {
-  const RAY = valueToZDBigNumber(10).pow(27);
-  let x = valueToZDBigNumber(a);
-  let n = valueToZDBigNumber(p);
-  let z = !n.modulo(2).eq(0) ? x : valueToZDBigNumber(RAY);
+// https://github.com/aave/aave-js/blob/master/src/helpers/ray-math.ts
+export function rayPow(a: BigNumber.Value, p: BigNumber.Value): BigNumber {
+  let x = BigNumberZD(a);
+  let n = BigNumberZD(p);
+  let z = !n.modulo(2).eq(0) ? x : BigNumberZD(RAY);
 
   for (n = n.div(2); !n.eq(0); n = n.div(2)) {
     x = rayMul(x, x);
