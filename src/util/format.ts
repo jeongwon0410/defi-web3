@@ -14,7 +14,9 @@ export const formatLTV = withDash(
   (val) => parseFloat(val.toString()).toFixed(2) + "%",
 );
 
-export const formatBalance = withDash((val) => val.toString());
+export const formatBalance = withDash((val) =>
+  parseFloat(val.toString()).toFixed(2).toString(),
+);
 
 export const formatSupplied = withDash((val) =>
   parseFloat(val.toString()).toFixed(0).toString(),

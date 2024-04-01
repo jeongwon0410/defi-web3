@@ -262,11 +262,14 @@ export const supply = async (
   account: string,
   amount: BigNumber,
 ) => {
-  const method = await getSupplyMethod(title, account, amount);
+  const addr = titleToAddr[title];
+  const decimals = await getContactDecimals(title);
+  const result = amount.multipliedBy(decimals);
 
   // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
   return new Promise((res, rej) =>
-    method
+    pool_contract.methods
+      .supply(addr, BigInt(result.toString()), account, "0")
       .send({ from: account })
       .on("error", (error) => {
         rej(new Error(error.message));
@@ -279,31 +282,17 @@ export const supply = async (
   );
 };
 
-export const estimateGas = async (
-  title: AssetTitle,
-  account: string,
-  amount: BigNumber,
-) => {
-  const method = await getSupplyMethod(title, account, amount);
-  return BigNumber((await method.estimateGas({ from: account })).toString());
-};
-
-const getSupplyMethod = async (
-  title: AssetTitle,
-  account: string,
-  amount: BigNumber,
-) => {
+export const estimateGas = async (title: AssetTitle, account: string) => {
   const addr = titleToAddr[title];
-  const decimals = await getContactDecimals(title);
-  const result = amount.multipliedBy(decimals);
-  return pool_contract.methods.supply(
-    addr,
-    BigInt(result.toString()),
-    account,
-    "0",
+
+  return BigNumber(
+    (
+      await pool_contract.methods
+        .supply(addr, 0, account, "0")
+        .estimateGas({ from: account })
+    ).toString(),
   );
 };
-
 export async function getMaxAmount(title: AssetTitle, account: string) {
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
