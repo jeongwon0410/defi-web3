@@ -32,3 +32,11 @@ export const formatLiquidity = withDash((val) =>
 );
 
 export const formatBorrowableAmount = withDash((val) => val.toString());
+
+export const formatDebt = withDash((val) =>
+  parseFloat(val.toString()).toFixed(0).toString(),
+);
+
+export const formatHealthFactor = withDash((val) =>
+  parseFloat(val.toString()).toFixed(2).toString(),
+);

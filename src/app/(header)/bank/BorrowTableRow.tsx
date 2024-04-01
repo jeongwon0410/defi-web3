@@ -10,6 +10,7 @@ import {
   formatAPY,
   formatBalance,
   formatLiquidity,
+  formatLTV,
   formatTotalBorrow,
 } from "@/util/format";
 
@@ -52,7 +53,7 @@ export default function BorrowTableRow({
         </div>
       </Td>
 
-      <Td width="16ch">{`${formatBalance(balance)}/${ltv?.toString() ?? "-"}`}</Td>
+      <Td width="16ch">{`${formatBalance(balance)}/${formatLTV(ltv)}`}</Td>
 
       <Td width="12ch">{formatLiquidity(liquidity)}</Td>
 

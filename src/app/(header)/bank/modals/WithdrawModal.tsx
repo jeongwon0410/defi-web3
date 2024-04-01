@@ -72,5 +72,11 @@ const useWithdrawModal = (assetTitle: AssetTitle | null, close: () => void) => {
     }
   };
 
-  return { amount, setAmount, withdraw: _withdraw, loading };
+  return {
+    amount,
+    setAmount,
+    withdraw: _withdraw,
+    loading,
+    disabled: loading || BigNumber(amount).isNaN(),
+  };
 };

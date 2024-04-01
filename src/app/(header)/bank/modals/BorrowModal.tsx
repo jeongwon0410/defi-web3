@@ -1,5 +1,6 @@
 import BigNumber from "bignumber.js";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
 import ModalButton from "@/components/modal/ModalButton";
@@ -12,9 +13,16 @@ import {
   formatBalance,
   formatBorrowableAmount,
 } from "@/util/format";
+import { borrow as _borrow } from "@/apis/contract";
+import { getErrorMessage } from "@/util/error";
+import { AssetTitle } from "@/constants/assets";
+import { useMetaMask } from "@/util/useMetaMask";
 
 export default function BorrowModal({ assetTitle, close }: ModalProps) {
-  const [amount, setAmount] = useState<string>("");
+  const { amount, setAmount, status, borrow } = useBorrowModal(
+    assetTitle,
+    close,
+  );
 
   const { data: balance } = usePrivateContract("BALANCE", assetTitle);
   const { data: borrowable } = usePrivateContract(
@@ -39,12 +47,53 @@ export default function BorrowModal({ assetTitle, close }: ModalProps) {
         amount={amount}
         setAmount={setAmount}
         dollar={BigNumber(0)}
-        maxAmount={BigNumber(0)}
+        maxAmount={borrowable}
       />
 
-      <HealthFactorGroup value={BigNumber(-1)} />
+      <HealthFactorGroup />
 
-      <ModalButton onClick={() => {}}>Confirm Borrow</ModalButton>
+      {status === "loading" && <ModalButton disabled>Loading</ModalButton>}
+      {status === "disabled" && (
+        <ModalButton disabled>Confirm Borrow</ModalButton>
+      )}
+      {status === "enabled" && (
+        <ModalButton onClick={borrow}>Confirm Borrow</ModalButton>
+      )}
     </Modal>
   );
 }
+
+const useBorrowModal = (title: AssetTitle | null, close: () => void) => {
+  const [amount, setAmount] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const { wallet } = useMetaMask();
+
+  const borrow = async () => {
+    if (title === null) return;
+
+    const account = wallet.accounts[0];
+    if (account === undefined) return;
+
+    try {
+      setLoading(true);
+      await _borrow(title, account, BigNumber(amount));
+      toast.success("Borrowed!");
+      close();
+    } catch (e) {
+      toast.error(getErrorMessage(e));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    amount,
+    setAmount,
+    borrow,
+    status: loading
+      ? "loading"
+      : BigNumber(amount).isNaN()
+        ? "disabled"
+        : "enabled",
+  };
+};

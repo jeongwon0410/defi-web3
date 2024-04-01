@@ -158,16 +158,15 @@ export const getAvailableLiquidity = async (title: AssetTitle) => {
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const _decimals = (await contract.methods.decimals().call()) as bigint;
   const data = await pool_data_provider_contract.methods
     .getReserveData(addr)
     .call();
   const _totalAToken = data.totalAToken as bigint;
 
-  const decimals = BigNumber(_decimals.toString());
+  const decimals = await getContactDecimals(title);
   const totalAToken = BigNumber(_totalAToken.toString());
 
-  return totalAToken.dividedBy(BigNumber(10).pow(decimals));
+  return totalAToken.dividedBy(decimals);
 };
 
 // My Account
@@ -177,15 +176,14 @@ export const getDebt = async (title: AssetTitle, account: string) => {
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const _decimals = (await contract.methods.decimals().call()) as bigint;
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(addr, account)
     .call();
 
   const currentVariableDebt = BigNumber(data.currentVariableDebt.toString());
-  const decimals = BigNumber(_decimals.toString());
+  const decimals = await getContactDecimals(title);
 
-  return currentVariableDebt.dividedBy(10).pow(decimals);
+  return currentVariableDebt.dividedBy(decimals);
 };
 
 export const getLiquidation = async (title: AssetTitle, account: string) => {
@@ -264,19 +262,11 @@ export const supply = async (
   account: string,
   amount: BigNumber,
 ) => {
-  const addr = titleToAddr[title];
-  const contract = titleToContract[title];
-  if (contract === null) throw new Error();
-
-  const _decimals = (await contract.methods.decimals().call()) as bigint;
-  const decimals = BigNumber(_decimals.toString());
-
-  const result = amount.multipliedBy(BigNumber(10).pow(decimals));
+  const method = await getSupplyMethod(title, account, amount);
 
   // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
   return new Promise((res, rej) =>
-    pool_contract.methods
-      .supply(addr, BigInt(result.toString()), account, "0")
+    method
       .send({ from: account })
       .on("error", (error) => {
         rej(new Error(error.message));
@@ -289,17 +279,41 @@ export const supply = async (
   );
 };
 
+export const estimateGas = async (
+  title: AssetTitle,
+  account: string,
+  amount: BigNumber,
+) => {
+  const method = await getSupplyMethod(title, account, amount);
+  return BigNumber((await method.estimateGas({ from: account })).toString());
+};
+
+const getSupplyMethod = async (
+  title: AssetTitle,
+  account: string,
+  amount: BigNumber,
+) => {
+  const addr = titleToAddr[title];
+  const decimals = await getContactDecimals(title);
+  const result = amount.multipliedBy(decimals);
+  return pool_contract.methods.supply(
+    addr,
+    BigInt(result.toString()),
+    account,
+    "0",
+  );
+};
+
 export async function getMaxAmount(title: AssetTitle, account: string) {
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const _decimals = (await contract.methods.decimals().call()) as bigint;
   const _balance = (await contract.methods.balanceOf(account).call()) as bigint;
-
-  const decimals = BigNumber(_decimals.toString());
   const balance = BigNumber(_balance.toString());
 
-  return balance.dividedBy(BigNumber(10).pow(decimals));
+  const decimals = await getContactDecimals(title);
+
+  return balance.dividedBy(decimals);
 }
 
 // Withdraw modal
@@ -333,6 +347,33 @@ export const withdraw = async (
   });
 };
 
+// Borrow 모달
+
+export const borrow = async (
+  title: AssetTitle,
+  account: string,
+  amount: BigNumber,
+) => {
+  const addr = titleToAddr[title];
+
+  const decimals = await getContactDecimals(title);
+  const result = amount.multipliedBy(decimals);
+
+  return new Promise((res, rej) =>
+    pool_contract.methods
+      .borrow(addr, BigInt(result.toString()), 2, "0", account) // TODO, 1 or 2, https://docs.aave.com/developers/core-contracts/pool
+      .send({ from: account })
+      .on("error", (error) => {
+        rej(new Error(error.message));
+      })
+      .on("receipt", (receipt) => {
+        receipt.status === 1n
+          ? res(undefined)
+          : rej(new Error("receipt failed"));
+      }),
+  );
+};
+
 /**
  * 빌릴 수 있는 금액
  */
@@ -356,6 +397,14 @@ export const getBorrowableAmount = async (
   return availableBorrowsBase.dividedBy(price.toString()).multipliedBy(0.99);
 };
 
+export const getHealthFactor = async (title: AssetTitle, account: string) => {
+  const data = await pool_contract.methods.getUserAccountData(account).call();
+  // TOOD: 왜 18인지는 모름
+  return BigNumber(data.healthFactor.toString()).dividedBy(
+    BigNumber(10).pow(18),
+  );
+};
+
 // Repay Modal
 export const repay = async (
   title: AssetTitle,
@@ -363,30 +412,23 @@ export const repay = async (
   amount: BigNumber,
 ) => {
   const addr = titleToAddr[title];
-  const contract = titleToContract[title];
-  if (contract === null) throw new Error();
 
-  const _decimals = (await contract.methods.decimals().call()) as BigNumber;
-  const decimals = BigNumber(_decimals);
+  const decimals = await getContactDecimals(title);
+  const result = amount.multipliedBy(decimals);
 
-  const result = amount.multipliedBy(BigNumber(10).pow(decimals));
-
-  await pool_contract.methods
-    .repay(addr, result, "2", account)
-    .send({ from: account })
-    .on("transactionHash", (hash) => {
-      console.log("TX Hash Supply", hash);
-    })
-    .on("error", (error) => {
-      console.log("Repay Error", error);
-    })
-    .on("receipt", (receipt) => {
-      if (receipt.status === 1n) {
-        console.log("Transaction Success");
-      } else {
-        console.log("Transaction Failed");
-      }
-    });
+  return new Promise((res, rej) =>
+    pool_contract.methods
+      .repay(addr, BigInt(result.toString()), 2, account) // TODO, 1 or 2, https://docs.aave.com/developers/core-contracts/pool
+      .send({ from: account })
+      .on("error", (error) => {
+        rej(new Error(error.message));
+      })
+      .on("receipt", (receipt) => {
+        receipt.status === 1n
+          ? res(undefined)
+          : rej(new Error("receipt failed"));
+      }),
+  );
 };
 
 // Util

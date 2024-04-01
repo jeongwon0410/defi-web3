@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import {
   getSupplyTotal,
   getSupplyAPY,
@@ -12,6 +12,7 @@ import {
   getLiquidation,
   getAvailableLiquidity,
   getApprovedAmount,
+  getHealthFactor,
 } from "./contract";
 import { AssetTitle } from "@/constants/assets";
 import { REFRESH_RATE_MS } from "@/constants/common";
@@ -36,6 +37,7 @@ export const usePrivateContract = (
   return useSWR(
     title && address ? [type, title, address] : null,
     privateContractFetcher,
+    { refreshInterval: REFRESH_RATE_MS },
   );
 };
 
@@ -71,7 +73,8 @@ export type PrivateContractType =
   | "BORROWAMOUNT"
   | "BORROWABLEAMOUNT"
   | "LIQUIDATION"
-  | "APPROVEDAMOUNT";
+  | "APPROVEDAMOUNT"
+  | "HEALTHFACTOR";
 
 export const privateContractFetcher = (
   arg: [PrivateContractType, AssetTitle, string],
@@ -92,5 +95,12 @@ export const privateContractFetcher = (
       return getLiquidation(title, account);
     case "APPROVEDAMOUNT":
       return getApprovedAmount(title, account);
+    case "HEALTHFACTOR":
+      return getHealthFactor(title, account);
   }
+};
+
+export const useMutateContract = () => {
+  const { mutate } = useSWRConfig();
+  return (type: ContractType | PrivateContractType) => mutate(type);
 };

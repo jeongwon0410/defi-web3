@@ -1,3 +1,5 @@
+"use client";
+
 import { AccountIconTd, AccountTd, AccountTr } from "./AccountTable";
 import { AssetTitle, titleToIcon } from "@/constants/assets";
 import { useContract, usePrivateContract } from "@/apis/swr";

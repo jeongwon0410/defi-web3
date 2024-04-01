@@ -20,7 +20,6 @@ export default function AmountGroup({
   maxAmount,
   setAmount,
 }: Props) {
-  console.log(maxAmount?.toNumber());
   return (
     <div className="flex h-[7.375rem] justify-between gap-[0.38rem]">
       <GroupBg className="relative w-[9.875rem]">

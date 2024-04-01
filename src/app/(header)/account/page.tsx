@@ -1,5 +1,3 @@
-"use client";
-
 import BigNumber from "bignumber.js";
 import BalanceHeader from "./BalanceHeader";
 import AccountTable from "./AccountTable";

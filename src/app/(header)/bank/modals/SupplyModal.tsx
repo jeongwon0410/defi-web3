@@ -7,7 +7,7 @@ import ModalButton from "@/components/modal/ModalButton";
 import AmountGroup from "@/components/modal/AmountGroup";
 import { ModalProps } from "@/components/modal/ModalProps";
 import GasGroup from "@/components/modal/GasGroup";
-import { useContract, usePrivateContract } from "@/apis/swr";
+import { useContract, useMutateContract, usePrivateContract } from "@/apis/swr";
 import {
   formatAPY,
   formatBalance,
@@ -47,7 +47,7 @@ export default function SupplyModal({ assetTitle, close }: ModalProps) {
       <AssetGroup title={assetTitle} content={content} />
 
       <AmountGroup
-        ltv={ltv ?? BigNumber(-1)}
+        ltv={ltv}
         amount={amount}
         setAmount={setAmount}
         dollar={BigNumber(0)}
@@ -71,8 +71,8 @@ export default function SupplyModal({ assetTitle, close }: ModalProps) {
 const useSupplyModal = (title: AssetTitle | null, close: () => void) => {
   const [amount, setAmount] = useState<string>("");
   const [loading, setLoading] = useState(false);
-
   const { wallet } = useMetaMask();
+  const mutateContract = useMutateContract();
 
   const { data: approvedAmount, mutate } = usePrivateContract(
     "APPROVEDAMOUNT",
@@ -100,11 +100,11 @@ const useSupplyModal = (title: AssetTitle | null, close: () => void) => {
 
   const supply = async () => {
     if (title === null) return;
-
     try {
       setLoading(true);
       await _supply(title, account, BigNumber(amount));
       toast.success("Supplied!");
+      mutateContract("SUPPLYBALANCE");
       close();
     } catch (e) {
       toast.error(getErrorMessage(e));
