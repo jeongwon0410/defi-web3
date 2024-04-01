@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import { Contract } from "web3-eth-contract";
 import Pool from "../abi/Pool";
-import AaveOracle from "../abi/AaveOracle.json";
+import AaveOracle from "../abi/AaveOracle";
 import PoolDataProvider from "../abi/PoolDataProvider";
 import {
   aaveOracleAddr,

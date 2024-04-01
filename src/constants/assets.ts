@@ -1,12 +1,12 @@
 import { ContractAbi } from "web3";
-import USDC_ERC20 from "../abi/USDC_ERC20.json";
+import USDC_ERC20 from "../abi/USDC_ERC20";
 import DAI_ERC20 from "../abi/DAI_ERC20";
-import LINK_ERC20 from "../abi/LINK_ERC20.json";
-import USDT_ERC20 from "../abi/USDT_ERC20.json";
-import WBTC_ERC20 from "../abi/WBTC_ERC20.json";
-import WETH_ERC20 from "../abi/WETH_ERC20.json";
-import EURS_ERC20 from "../abi/EURS_ERC20.json";
-import AAVE_ERC20 from "../abi/AAVE_ERC20.json";
+import LINK_ERC20 from "../abi/LINK_ERC20";
+import USDT_ERC20 from "../abi/USDT_ERC20";
+import WBTC_ERC20 from "../abi/WBTC_ERC20";
+import WETH_ERC20 from "../abi/WETH_ERC20";
+import EURS_ERC20 from "../abi/EURS_ERC20";
+import AAVE_ERC20 from "../abi/AAVE_ERC20";
 
 // Common(?)
 
