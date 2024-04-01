@@ -1,33 +1,29 @@
-"use client";
-
-import { useState, ReactNode } from "react";
+import { ReactNode } from "react";
 import Image from "next/image";
+import AllMarketButton from "./AllMarketButton";
 import BorrowTable from "@/app/(header)/bank/BorrowTable";
 import SupplyTable from "@/app/(header)/bank/SupplyTable";
 import Switch from "@/app/(header)/bank/Switch";
 
-export type Tab = "supply" | "borrow";
-
-export default function Main() {
-  const [tab, setTab] = useState<Tab>("supply");
-  const [expanded, setExpanded] = useState(false);
+export default function Main({
+  searchParams,
+}: {
+  searchParams: { tab?: string; expanded?: string };
+}) {
+  const tab = searchParams?.tab === "borrow" ? "borrow" : "supply";
+  const expanded = searchParams.expanded === "true";
 
   return (
     <div className="flex flex-col justify-center">
-      <Switch tab={tab} setTab={setTab} setExpanded={setExpanded} />
+      <Switch tab={tab} />
 
-      <div className="mx-auto mt-10 flex">
-        {tab === "supply" ? (
-          <SupplyTable expanded={expanded} />
-        ) : (
-          <BorrowTable expanded={expanded} />
-        )}
-      </div>
+      {tab === "supply" ? (
+        <SupplyTable expanded={expanded} />
+      ) : (
+        <BorrowTable expanded={expanded} />
+      )}
 
-      <AllMarketButton
-        expanded={expanded}
-        toggle={() => setExpanded((x) => !x)}
-      />
+      <AllMarketButton expanded={expanded} />
 
       <InfoLabel>
         If I supply $## DAI, I can make a interest ##% a year
@@ -35,29 +31,6 @@ export default function Main() {
     </div>
   );
 }
-
-const AllMarketButton = ({
-  expanded,
-  toggle,
-}: {
-  expanded: boolean;
-  toggle: () => void;
-}) => {
-  return (
-    <button
-      className="mt-5 flex flex-col items-center hover:opacity-50"
-      onClick={toggle}
-    >
-      <div className="flex items-center">
-        <Image src="/bank/add.svg" width={16} height={16} alt="" />
-        <div className=" text-[0.8rem] font-semibold text-[#525C52]">
-          {expanded ? "Shrink" : "All market"}
-        </div>
-      </div>
-      <div className="mt-1 h-[1px] w-[99px] bg-[#525C52]" />
-    </button>
-  );
-};
 
 const InfoLabel = ({ children }: { children: ReactNode }) => {
   return (

@@ -2,59 +2,46 @@
 
 import Image from "next/image";
 import { ReactNode } from "react";
+import Link from "next/link";
 import Table from "@/app/(header)/reward/Table";
 
 export default function RewardMain() {
   return (
-    <div className="mt-20 flex flex-col items-center justify-center ">
-      <div className="text-[30px] font-bold leading-[45px] text-[white]">
+    <div className="mx-auto flex w-[80vw] max-w-[960px] flex-col items-center">
+      <div className="font-montserrat text-[30px] font-bold text-[white]">
         Reward
       </div>
 
-      <div className="mt-5 flex w-full items-center justify-center gap-10">
+      <div className="mt-[4.5rem] grid grid-cols-4 gap-x-4 gap-y-6">
         <Block
-          height={132}
-          width={640}
           title="Total Points"
           content="00.00"
           tooltip="Points refresh every 24 hours"
+          className="col-span-3"
         />
-        <Block height={132} width={300} title="Global Rank" content="#00.00" />
-      </div>
-
-      <div className="mt-5 flex w-full justify-center gap-6">
+        <Block title="Global Rank" content="#00.00" />
         <Block
-          height={132}
-          width={200}
           title="Supply Points"
           content="00.00"
           tooltip="Supply earns 1 point per dollar deposit per day"
         />
         <Block
-          height={132}
-          width={200}
           title="Borrowing Points"
           content="00.00"
           tooltip="Borrowing earns 4 points per dollar borrowed per day"
         />
-
         <Block
-          height={132}
-          width={200}
           title="Referral Points"
           content="00.00"
           tooltip="Earn 10% of the points any user you refer earns"
         />
-
-        <div className="ml-5 flex flex-col gap-5">
+        <div className="flex flex-1 flex-col justify-between">
           <LinkBlock>How do points works?</LinkBlock>
           <LinkBlock>Copy referral link</LinkBlock>
         </div>
       </div>
 
-      <div className="mt-10 w-9/12">
-        <Table />
-      </div>
+      <Table />
     </div>
   );
 }
@@ -62,40 +49,38 @@ export default function RewardMain() {
 const Block = ({
   title,
   content,
-  width,
-  height,
   tooltip,
+  className,
 }: {
   title: string;
   content: string;
-  width: number;
-  height: number;
   tooltip?: string;
+  className?: string;
 }) => (
   <div
-    className="flex flex-col justify-center rounded-[20px] bg-gradient-to-r from-[#83AD82]/[28%] via-[#83AD82]/[9%] to-[#FFFFFF]/[1%]  p-6"
-    style={{ height, width }}
+    className={`flex flex-col rounded-[20px] bg-[linear-gradient(98deg,rgba(131,173,130,0.28)_3.4%,rgba(255,255,255,0.00)_51.09%,rgba(131,173,130,0.09)_93.74%)] px-[1.75rem] pb-[2.75rem] pt-[2.25rem] ${className}`}
   >
-    <div className="flex items-center gap-1">
-      <div className="font-montserrat text-[15px] leading-[20px] text-[#CDD9C9]">
+    <div className="flex items-center gap-[0.37rem]">
+      <p className="inline-block whitespace-nowrap bg-gradient-to-r from-[rgba(205,217,201,1)] to-[rgba(180,255,155,1)] bg-clip-text font-montserrat text-[0.9375rem] text-transparent">
         {title}
-      </div>
+      </p>
       {tooltip && (
-        <div className="tooltip  tooltip-right" data-tip={tooltip}>
-          <Image src="/ol-details-so.png" height={14} width={14} alt="" />
-        </div>
+        <Image src="/reward/questionMark.svg" height={14} width={14} alt="" />
       )}
     </div>
-    <div className="mt-2 font-montserrat text-[30px] leading-[20px] text-white ">
+    <p className="mt-2 font-montserrat text-[1.875rem] leading-[100%] text-white ">
       {content}
-    </div>
+    </p>
   </div>
 );
 
 const LinkBlock = ({ children }: { children: ReactNode }) => (
-  <div className="flex h-[58px] w-[300px] flex-col items-center justify-center rounded-full bg-[#4A4A4A] p-6">
-    <div className="font-montserrat text-[17px] leading-[20px] text-white">
+  <Link
+    className="flex h-[58px] flex-col items-center justify-center rounded-full bg-[#4A4A4A] p-6"
+    href=""
+  >
+    <div className="font-montserrat text-[1rem] font-medium text-white">
       {children}
     </div>
-  </div>
+  </Link>
 );

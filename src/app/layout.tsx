@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Image
           fill
           src="/landing/background.svg"
-          className="absolute bottom-0 left-0 right-0 top-0 -z-20 object-cover"
+          className="absolute bottom-0 left-0 right-0 top-0 -z-50 object-cover"
           alt=""
         />
       </body>

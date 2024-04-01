@@ -1,18 +1,21 @@
+"use client";
+
 import { Button, Divider, IconTd, Td, Tr } from "./Table";
+import BorrowModal from "./modals/BorrowModal";
+import RepayModal from "./modals/RepayModal";
 import { normalize } from "@/util/bignumber";
 import { RAY_DECIMALS } from "@/constants/common";
 import { AssetTitle, titleToIcon } from "@/constants/assets";
 import { useContract, usePrivateContract } from "@/apis/swr";
+import { useModal } from "@/util/hook";
 
 export default function BorrowTableRow({
   assetTitle,
-  onBorrow,
-  onRepay,
 }: {
   assetTitle: AssetTitle;
-  onBorrow: () => void;
-  onRepay: () => void;
 }) {
+  const { isOpen, openModal, close } = useModal();
+
   const { data: totalBorrow } = useContract("BORROWTOTAL", assetTitle);
   const { data: apy } = useContract("BORROWAPY", assetTitle);
   const { data: balance } = usePrivateContract("BALANCE", assetTitle);
@@ -41,16 +44,25 @@ export default function BorrowTableRow({
 
       <Td>
         <div className="flex justify-center gap-4">
-          <Button className="bg-[#2F8128] text-[#E1E3EA]" onClick={onBorrow}>
+          <Button
+            className="bg-[#2F8128] text-[#E1E3EA]"
+            onClick={() => openModal("borrow", assetTitle)}
+          >
             Borrow
           </Button>
-          <Button className="bg-[#262626] text-[#818A80]" onClick={onRepay}>
+          <Button
+            className="bg-[#262626] text-[#818A80]"
+            onClick={() => openModal("repay", assetTitle)}
+          >
             Repay
           </Button>
         </div>
       </Td>
 
       <Td>{`${balance?.toString() ?? "-"}/${ltv?.toString() ?? "-"}`}</Td>
+
+      <BorrowModal assetTitle={isOpen("borrow")} close={close} />
+      <RepayModal assetTitle={isOpen("repay")} close={close} />
     </Tr>
   );
 }

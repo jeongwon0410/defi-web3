@@ -3,9 +3,11 @@ import { ReactNode } from "react";
 
 export const Table = ({ children }: { children: ReactNode }) => {
   return (
-    <table className="mt-[-0.68rem] border-separate border-spacing-y-[0.68rem] text-center">
-      {children}
-    </table>
+    <div className="mx-auto mt-10 flex">
+      <table className="mt-[-0.68rem] border-separate border-spacing-y-[0.68rem] text-center">
+        {children}
+      </table>
+    </div>
   );
 };
 

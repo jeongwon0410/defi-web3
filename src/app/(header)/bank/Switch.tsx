@@ -1,29 +1,17 @@
+"use client";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ReactNode } from "react";
-import { Tab } from "@/app/(header)/bank/page";
 
-interface Props {
-  tab: Tab;
-  setTab: React.Dispatch<React.SetStateAction<Tab>>;
-  setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function Switch({ tab, setTab, setExpanded }: Props) {
-  const clickSupply = () => {
-    setTab("supply");
-    setExpanded(false);
-  };
-
-  const clickBorrow = () => {
-    setTab("borrow");
-    setExpanded(false);
-  };
+export default function Switch({ tab }: { tab: "borrow" | "supply" }) {
+  const f = useSwitch();
 
   return (
     <div className="mx-auto mb-5 flex gap-10">
-      <SwitchButton onClick={clickSupply} selected={tab === "supply"}>
+      <SwitchButton onClick={() => f("supply")} selected={tab === "supply"}>
         Supply
       </SwitchButton>
-      <SwitchButton onClick={clickBorrow} selected={tab === "borrow"}>
+      <SwitchButton onClick={() => f("borrow")} selected={tab === "borrow"}>
         Borrow
       </SwitchButton>
     </div>
@@ -49,4 +37,16 @@ const SwitchButton = ({
       {children}
     </button>
   );
+};
+
+const useSwitch = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  return (tab: "supply" | "borrow") => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("tab", tab);
+    router.replace(pathname + "?" + params.toString());
+  };
 };

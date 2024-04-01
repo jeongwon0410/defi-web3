@@ -58,7 +58,7 @@ export const AccountIconTd = ({
   title: string;
 }) => (
   <AccountTd>
-    <div className="flex items-center justify-center gap-2 font-semibold">
+    <div className="flex items-center gap-2 pl-4 font-semibold">
       <Image src={src} className="object-cover" height={25} width={25} alt="" />
       {title}
     </div>

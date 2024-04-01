@@ -5,7 +5,7 @@ export default function Table() {
   const { data } = useAllAddress();
 
   return (
-    <table className="px-20 text-center">
+    <table className="mt-[3.75rem] w-full px-20 text-center">
       <thead>
         <tr>
           <Th>Rank</Th>
