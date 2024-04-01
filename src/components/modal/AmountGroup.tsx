@@ -5,12 +5,12 @@ import BigNumber from "bignumber.js";
 import { formatLTV } from "@/util/format";
 
 type Props = {
-  ltv?: BigNumber;
   amount: string;
-  dollar: BigNumber;
-  maxAmount?: BigNumber;
-
   setAmount: (value: string) => void;
+  dollar: BigNumber;
+
+  ltv?: BigNumber;
+  maxAmount?: BigNumber;
 };
 
 export default function AmountGroup({
@@ -20,6 +20,7 @@ export default function AmountGroup({
   maxAmount,
   setAmount,
 }: Props) {
+  console.log(maxAmount?.toNumber());
   return (
     <div className="flex h-[7.375rem] justify-between gap-[0.38rem]">
       <GroupBg className="relative w-[9.875rem]">
@@ -43,12 +44,16 @@ export default function AmountGroup({
           <input
             type="number"
             step="any"
-            min="0"
             className={`inline-block w-[90%] bg-gradient-to-r from-[rgba(86,117,84,1)] to-[rgba(110,197,104,1)] bg-clip-text text-right text-[1.25rem] font-bold leading-[1.5625rem] text-transparent caret-slate-50 outline-none`}
             value={amount}
             placeholder="0"
             onChange={(e) => {
               const value = e.target.value;
+              if (
+                Number(value) < 0 ||
+                (maxAmount && maxAmount.comparedTo(value) < 0)
+              )
+                return;
               setAmount(value);
             }}
           />
@@ -57,12 +62,12 @@ export default function AmountGroup({
           </GradientText>
         </div>
         <button
-          className="absolute bottom-[0.87rem] right-[1.13rem] text-[0.6875rem] font-normal text-white underline"
+          className="absolute bottom-[0.87rem] right-[1.13rem] text-[0.6875rem] font-normal text-neutral-300 underline"
           onClick={() => {
             if (maxAmount) setAmount(maxAmount.toString());
           }}
         >
-          Max: Available balance
+          Max
         </button>
       </GroupBg>
     </div>

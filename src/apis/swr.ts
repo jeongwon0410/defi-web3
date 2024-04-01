@@ -11,6 +11,7 @@ import {
   getBorrowableAmount,
   getLiquidation,
   getAvailableLiquidity,
+  getApprovedAmount,
 } from "./contract";
 import { AssetTitle } from "@/constants/assets";
 import { REFRESH_RATE_MS } from "@/constants/common";
@@ -69,7 +70,8 @@ export type PrivateContractType =
   | "SUPPLYBALANCE"
   | "BORROWAMOUNT"
   | "BORROWABLEAMOUNT"
-  | "LIQUIDATION";
+  | "LIQUIDATION"
+  | "APPROVEDAMOUNT";
 
 export const privateContractFetcher = (
   arg: [PrivateContractType, AssetTitle, string],
@@ -88,5 +90,7 @@ export const privateContractFetcher = (
       return getBorrowableAmount(title, account);
     case "LIQUIDATION":
       return getLiquidation(title, account);
+    case "APPROVEDAMOUNT":
+      return getApprovedAmount(title, account);
   }
 };

@@ -58,7 +58,7 @@ const ModalHeader = ({
         width={24}
         height={24}
         alt=""
-        className="h-auto w-auto"
+        className="h-[24px] w-[24px]"
       />
     </button>
   </div>

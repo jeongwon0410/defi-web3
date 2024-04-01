@@ -6,7 +6,7 @@ export default function ModalButton({
   children,
 }: {
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
 }) {
   return (

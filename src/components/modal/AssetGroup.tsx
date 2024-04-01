@@ -15,13 +15,16 @@ export default function AssetGroup({ content, title }: Props) {
     <GroupBg className="p-8">
       <div className="mb-5 flex flex-col">
         <div className="flex">
-          <Image
-            src={title ? titleToIcon[title] : ""}
-            className="mr-5"
-            width={68}
-            height={68}
-            alt=""
-          />
+          {title !== null && (
+            <Image
+              src={titleToIcon[title]}
+              className="mr-5"
+              width={68}
+              height={68}
+              alt=""
+            />
+          )}
+
           <div className="flex items-center justify-center  text-[16px] font-bold  leading-[22px] text-[#BCE8B9]">
             {title}
           </div>

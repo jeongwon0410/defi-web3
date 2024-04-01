@@ -1,5 +1,4 @@
 import BigNumber from "bignumber.js";
-import toast from "react-hot-toast";
 import {
   titleToContract,
   pool_data_provider_contract,
@@ -102,7 +101,7 @@ export const getMySupplyBalance = async (
 
   const _decimals = (await contract.methods.decimals().call()) as bigint;
   const data = await pool_data_provider_contract.methods
-    .getUserReserveData(titleToAddr.DAI, account)
+    .getUserReserveData(titleToAddr[title], account)
     .call();
 
   const currentATokenBalance = BigNumber(data.currentATokenBalance.toString());
@@ -218,6 +217,19 @@ export const getLiquidation = async (title: AssetTitle, account: string) => {
 
 // Supply Modal
 
+export const getApprovedAmount = async (title: AssetTitle, account: string) => {
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const data = (await contract.methods
+    .allowance(account, poolAddr)
+    .call()) as bigint;
+
+  const decimals = await getContactDecimals(title);
+
+  return BigNumber(data.toString()).dividedBy(decimals);
+};
+
 /**
  * 토큰 단위로 변경
  */
@@ -229,31 +241,22 @@ export const approve = async (
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const _decimals = (await contract.methods.decimals().call()) as bigint;
-  const decimals = BigNumber(_decimals.toString());
+  const decimals = await getContactDecimals(title);
+  const result = amount.multipliedBy(decimals);
 
-  const result = amount.multipliedBy(BigNumber(10).pow(decimals));
-
-  await contract.methods
-    .approve(poolAddr, result.toString())
-    .send({ from: account })
-    .on("transactionHash", (hash) => {
-      console.log("TX Hash Approve", hash);
-    })
-    .on("error", (error) => {
-      toast.error(error.message);
-      console.log(error.message);
-    })
-    .on("receipt", (receipt) => {
-      console.log(receipt);
-      if (receipt.status === 1n) {
-        toast.success("Transaction Success");
-        // setApproveFlag(false);
-      } else {
-        toast.error("Transaction Failed");
-        // setApproveFlag(false);
-      }
-    });
+  return new Promise((res, rej) => {
+    contract.methods
+      .approve(poolAddr, BigInt(result.toString()))
+      .send({ from: account })
+      .on("error", (error) => {
+        rej(new Error(error.message));
+      })
+      .on("receipt", async (receipt) => {
+        receipt.status === 1n
+          ? res(undefined)
+          : rej(new Error("receipt failed"));
+      });
+  });
 };
 
 export const supply = async (
@@ -270,24 +273,20 @@ export const supply = async (
 
   const result = amount.multipliedBy(BigNumber(10).pow(decimals));
 
-  await pool_contract.methods
-    .supply(addr, parseFloat(result.toString()), account, "0")
-    .send({ from: account })
-    .on("transactionHash", (hash) => {
-      toast.success(`TX Hash Supply: ${hash}`);
-    })
-    .on("error", (error) => {
-      toast.error(error.message);
-      console.log(error.message);
-    })
-    .on("receipt", (receipt) => {
-      console.log(receipt);
-      if (receipt.status == 1n) {
-        toast.success("Transaction Success");
-      } else {
-        toast.error("Transaction Failed");
-      }
-    });
+  // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
+  return new Promise((res, rej) =>
+    pool_contract.methods
+      .supply(addr, BigInt(result.toString()), account, "0")
+      .send({ from: account })
+      .on("error", (error) => {
+        rej(new Error(error.message));
+      })
+      .on("receipt", (receipt) => {
+        receipt.status === 1n
+          ? res(undefined)
+          : rej(new Error("receipt failed"));
+      }),
+  );
 };
 
 export async function getMaxAmount(title: AssetTitle, account: string) {
@@ -319,61 +318,19 @@ export const withdraw = async (
 
   const result = amount.multipliedBy(BigNumber(10).pow(decimals));
 
-  await pool_contract.methods
-    .withdraw(addr, result, account)
-    .send({ from: account })
-    .on("transactionHash", (hash) => {
-      console.log("TX Hash Supply", hash);
-      // setDisable(true);
-      // setFlag(true);
-    })
-    .on("error", (error) => {
-      console.log("Withdraw Error", error);
-    })
-    .on("receipt", (receipt) => {
-      if (receipt.status == 1n) {
-        console.log("Transaction Success");
-      } else {
-        console.log("Transaction Failed");
-      }
-    });
-};
-
-// Borrow Modal
-
-export const borrow = async (
-  title: AssetTitle,
-  account: string,
-  amount: BigNumber,
-) => {
-  const addr = titleToAddr[title];
-  const contract = titleToContract[title];
-  if (contract === null) throw new Error();
-
-  const _decimals = (await contract.methods.decimals().call()) as bigint;
-  const decimals = BigNumber(_decimals.toString());
-
-  const result = amount.multipliedBy(BigNumber(10).pow(decimals));
-
-  await pool_contract.methods
-    .borrow(addr, parseInt(result.toString()), 2, "0", account)
-    .send({ from: account })
-    .on("transactionHash", (hash) => {
-      console.log("TX Hash Borrow", hash);
-      // setDisable(true);
-      // setFlag(true);
-    })
-    .on("error", (error) => {
-      console.log("Borrow Error", error);
-    })
-    .on("receipt", (receipt) => {
-      console.log("Mined", receipt);
-      if (receipt.status === 1n) {
-        console.log("Transaction Success");
-      } else {
-        console.log("Transaction Failed");
-      }
-    });
+  return new Promise((res, rej) => {
+    pool_contract.methods
+      .withdraw(addr, BigInt(result.toString()), account)
+      .send({ from: account })
+      .on("error", (error) => {
+        rej(error);
+      })
+      .on("receipt", (receipt) => {
+        receipt.status === 1n
+          ? res(undefined)
+          : rej(new Error("receipt error"));
+      });
+  });
 };
 
 /**
@@ -430,4 +387,15 @@ export const repay = async (
         console.log("Transaction Failed");
       }
     });
+};
+
+// Util
+const getContactDecimals = async (title: AssetTitle) => {
+  const contract = titleToContract[title];
+  if (contract === null) throw new Error();
+
+  const _decimals = (await contract.methods.decimals().call()) as bigint;
+  const decimals = BigNumber(_decimals.toString());
+
+  return BigNumber(10).pow(decimals);
 };

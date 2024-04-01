@@ -16,7 +16,9 @@ export const formatLTV = withDash(
 
 export const formatBalance = withDash((val) => val.toString());
 
-export const formatSupply = withDash((val) => val.toString());
+export const formatSupplied = withDash((val) =>
+  parseFloat(val.toString()).toFixed(0).toString(),
+);
 
 export const formatTotalBorrow = withDash((val) =>
   val

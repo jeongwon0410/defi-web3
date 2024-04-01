@@ -10,7 +10,7 @@ import {
   formatAPY,
   formatBalance,
   formatLTV,
-  formatSupply,
+  formatSupplied,
   formatTotalSupply,
 } from "@/util/format";
 
@@ -54,7 +54,7 @@ export default function SupplyTableRow({
         </div>
       </Td>
 
-      <Td width="12ch">{formatSupply(supply)}</Td>
+      <Td width="12ch">{formatSupplied(supply)}</Td>
 
       <SupplyModal assetTitle={isOpen("supply")} close={close} />
       <WithdrawModal assetTitle={isOpen("withdraw")} close={close} />
