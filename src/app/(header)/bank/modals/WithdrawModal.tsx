@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAccount } from "wagmi";
 import AmountGroup from "@/components/modal/AmountGroup";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
@@ -8,7 +9,7 @@ import { ModalProps } from "@/components/modal/ModalProps";
 import GasGroup from "@/components/modal/GasGroup";
 import { useContract, usePrivateContract } from "@/apis/swr";
 import { formatAPY, formatSupplied } from "@/util/format";
-import { useMetaMask } from "@/util/useMetaMask";
+
 import { withdraw } from "@/apis/contract";
 import { AssetTitle } from "@/constants/assets";
 import { getErrorMessage } from "@/util/error";
@@ -54,15 +55,14 @@ export default function WithdrawModal({ assetTitle, close }: ModalProps) {
 const useWithdrawModal = (assetTitle: AssetTitle | null, close: () => void) => {
   const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState<string>("");
-  const { wallet } = useMetaMask();
+  const { address } = useAccount();
 
   const _withdraw = async () => {
-    if (wallet.accounts.length === 0 || assetTitle === null) return;
-    const account = wallet.accounts[0];
+    if (address === undefined || assetTitle === null) return;
 
     try {
       setLoading(true);
-      await withdraw(assetTitle, account, BigNumber(amount));
+      await withdraw(assetTitle, address, BigNumber(amount));
       toast.success("Withdrawed!");
       close();
     } catch (e) {

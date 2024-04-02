@@ -1,17 +1,13 @@
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAccount } from "wagmi";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
 import AmountGroup from "@/components/modal/AmountGroup";
 import { ModalProps } from "@/components/modal/ModalProps";
 import GasGroup from "@/components/modal/GasGroup";
-import {
-  useContract,
-  useEstimatedGas,
-  useMutateContract,
-  usePrivateContract,
-} from "@/apis/swr";
+import { useContract, useEstimatedGas, usePrivateContract } from "@/apis/swr";
 import {
   formatAPY,
   formatBalance,
@@ -19,7 +15,7 @@ import {
   formatSupplied,
 } from "@/util/format";
 import { approve as _approve, supply as _supply } from "@/apis/contract";
-import { useMetaMask } from "@/util/useMetaMask";
+
 import { AssetTitle } from "@/constants/assets";
 import { getErrorMessage } from "@/util/error";
 import { LoadingButton, ModalButton } from "@/components/modal/ModalButton";
@@ -78,8 +74,7 @@ export default function SupplyModal({ assetTitle, close }: ModalProps) {
 const useSupplyModal = (title: AssetTitle | null, close: () => void) => {
   const [amount, setAmount] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const { wallet } = useMetaMask();
-  const mutateContract = useMutateContract();
+  const { address } = useAccount();
 
   const { data: approvedAmount, mutate } = usePrivateContract(
     "APPROVEDAMOUNT",
@@ -88,14 +83,12 @@ const useSupplyModal = (title: AssetTitle | null, close: () => void) => {
 
   const type = getType(loading, BigNumber(amount), approvedAmount);
 
-  const account = wallet.accounts?.[0];
-
   const approve = async () => {
-    if (title === null) return;
+    if (title === null || address === undefined) return;
 
     try {
       setLoading(true);
-      await _approve(title, account, BigNumber(amount));
+      await _approve(title, address, BigNumber(amount));
       mutate();
       toast.success("Approved!");
     } catch (e) {
@@ -106,12 +99,12 @@ const useSupplyModal = (title: AssetTitle | null, close: () => void) => {
   };
 
   const supply = async () => {
-    if (title === null) return;
+    if (title === null || address === undefined) return;
+
     try {
       setLoading(true);
-      await _supply(title, account, BigNumber(amount));
+      await _supply(title, address, BigNumber(amount));
       toast.success("Supplied!");
-      mutateContract("SUPPLYBALANCE");
       close();
     } catch (e) {
       toast.error(getErrorMessage(e));

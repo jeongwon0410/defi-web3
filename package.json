@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",
+    "@tanstack/react-query": "^5.28.9",
     "@types/react-modal": "^3.16.3",
     "axios": "^1.6.8",
     "bignumber.js": "^9.1.2",
@@ -20,6 +21,8 @@
     "react-hot-toast": "^2.4.1",
     "react-modal": "^3.16.1",
     "swr": "^2.2.5",
+    "viem": "^2.9.6",
+    "wagmi": "^2.5.17",
     "web3": "^4.5.0"
   },
   "devDependencies": {

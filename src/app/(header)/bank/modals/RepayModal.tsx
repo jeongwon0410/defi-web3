@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAccount } from "wagmi";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
 import AmountGroup from "@/components/modal/AmountGroup";
@@ -10,7 +11,6 @@ import { useContract, usePrivateContract } from "@/apis/swr";
 import { formatAPY, formatDebt } from "@/util/format";
 import { AssetTitle } from "@/constants/assets";
 import { getErrorMessage } from "@/util/error";
-import { useMetaMask } from "@/util/useMetaMask";
 import { repay as _repay } from "@/apis/contract";
 import { LoadingButton, ModalButton } from "@/components/modal/ModalButton";
 
@@ -54,17 +54,16 @@ export default function RepayModal({ assetTitle, close }: ModalProps) {
 const useRepayModal = (title: AssetTitle | null, close: () => void) => {
   const [amount, setAmount] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const { wallet } = useMetaMask();
+  const { address } = useAccount();
 
   const repay = async () => {
     if (title === null) return;
 
-    const account = wallet.accounts[0];
-    if (account === undefined) return;
+    if (address === undefined) return;
 
     try {
       setLoading(true);
-      await _repay(title, account, BigNumber(amount));
+      await _repay(title, address, BigNumber(amount));
       toast.success("Repayed!");
       close();
     } catch (e) {

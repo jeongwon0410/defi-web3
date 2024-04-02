@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
-import { MetaMaskContextProvider } from "@/util/useMetaMask";
+import Provider from "@/Provider";
 
 export default function HeaderLayout({ children }: { children: ReactNode }) {
   return (
-    <MetaMaskContextProvider>
+    <Provider>
       <Header />
       <div className="relative min-w-[1024px] py-20">
         {children}
@@ -17,9 +17,7 @@ export default function HeaderLayout({ children }: { children: ReactNode }) {
           alt=""
         />
       </div>
-      <div>
-        <Toaster />
-      </div>
-    </MetaMaskContextProvider>
+      <Toaster />
+    </Provider>
   );
 }

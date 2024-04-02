@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAccount } from "wagmi";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
 import AmountGroup from "@/components/modal/AmountGroup";
@@ -15,7 +16,7 @@ import {
 import { borrow as _borrow } from "@/apis/contract";
 import { getErrorMessage } from "@/util/error";
 import { AssetTitle } from "@/constants/assets";
-import { useMetaMask } from "@/util/useMetaMask";
+
 import { LoadingButton, ModalButton } from "@/components/modal/ModalButton";
 
 export default function BorrowModal({ assetTitle, close }: ModalProps) {
@@ -66,17 +67,15 @@ export default function BorrowModal({ assetTitle, close }: ModalProps) {
 const useBorrowModal = (title: AssetTitle | null, close: () => void) => {
   const [amount, setAmount] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const { wallet } = useMetaMask();
+  const { address } = useAccount();
 
   const borrow = async () => {
     if (title === null) return;
-
-    const account = wallet.accounts[0];
-    if (account === undefined) return;
+    if (address === undefined) return;
 
     try {
       setLoading(true);
-      await _borrow(title, account, BigNumber(amount));
+      await _borrow(title, address, BigNumber(amount));
       toast.success("Borrowed!");
       close();
     } catch (e) {

@@ -3,6 +3,7 @@
 import useSWR, { useSWRConfig } from "swr";
 
 import BigNumber from "bignumber.js";
+import { useAccount } from "wagmi";
 import {
   getSupplyTotal,
   getSupplyAPY,
@@ -21,7 +22,6 @@ import {
 } from "./contract";
 import { AssetTitle } from "@/constants/assets";
 import { REFRESH_RATE_MS } from "@/constants/common";
-import { useMetaMask } from "@/util/useMetaMask";
 
 export const useContract = (
   type: ContractType,
@@ -36,8 +36,7 @@ export const usePrivateContract = (
   type: PrivateContractType,
   title: AssetTitle | null | undefined,
 ) => {
-  const { wallet } = useMetaMask();
-  const address = wallet.accounts[0];
+  const { address } = useAccount();
 
   return useSWR(
     title && address ? [type, title, address] : null,
@@ -111,8 +110,7 @@ export const useMutateContract = () => {
 };
 
 export const useEstimatedGas = (title: AssetTitle | null, amount: string) => {
-  const { wallet } = useMetaMask();
-  const address = wallet.accounts[0];
+  const { address } = useAccount();
 
   const { data: gas } = useSWR(
     title && address ? ["ESTIMATEGAS", title, address, amount] : null,

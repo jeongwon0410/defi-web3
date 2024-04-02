@@ -4,13 +4,13 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { ReactNode } from "react";
 import Link from "next/link";
-import ConnectButton from "./ConnectButton";
+import WalletButton from "./ConnectButton";
 
 export default function Header() {
   return (
     <header className="mx-[5vw] mt-6 flex items-center justify-between">
       <Left />
-      <ConnectButton />
+      <WalletButton />
     </header>
   );
 }
