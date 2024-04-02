@@ -3,7 +3,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
-import ModalButton from "@/components/modal/ModalButton";
 import AmountGroup from "@/components/modal/AmountGroup";
 import { ModalProps } from "@/components/modal/ModalProps";
 import GasGroup from "@/components/modal/GasGroup";
@@ -18,6 +17,7 @@ import { approve as _approve, supply as _supply } from "@/apis/contract";
 import { useMetaMask } from "@/util/useMetaMask";
 import { AssetTitle } from "@/constants/assets";
 import { getErrorMessage } from "@/util/error";
+import { LoadingButton, ModalButton } from "@/components/modal/ModalButton";
 
 type Status = "disabled" | "notApproved" | "approved" | "loading";
 
@@ -56,7 +56,7 @@ export default function SupplyModal({ assetTitle, close }: ModalProps) {
 
       <GasGroup value={BigNumber(0)} />
 
-      {type === "loading" && <ModalButton disabled>Loading...</ModalButton>}
+      {type === "loading" && <LoadingButton />}
       {type === "disabled" && <ModalButton disabled>Approve</ModalButton>}
       {type === "notApproved" && (
         <ModalButton onClick={approve}>Approve</ModalButton>

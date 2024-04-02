@@ -3,7 +3,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
-import ModalButton from "@/components/modal/ModalButton";
 import AmountGroup from "@/components/modal/AmountGroup";
 import { ModalProps } from "@/components/modal/ModalProps";
 import HealthFactorGroup from "@/components/modal/HealthFactorGroup";
@@ -13,6 +12,7 @@ import { AssetTitle } from "@/constants/assets";
 import { getErrorMessage } from "@/util/error";
 import { useMetaMask } from "@/util/useMetaMask";
 import { repay as _repay } from "@/apis/contract";
+import { LoadingButton, ModalButton } from "@/components/modal/ModalButton";
 
 export default function RepayModal({ assetTitle, close }: ModalProps) {
   const { amount, setAmount, repay, status } = useRepayModal(assetTitle, close);
@@ -40,7 +40,7 @@ export default function RepayModal({ assetTitle, close }: ModalProps) {
 
       <HealthFactorGroup />
 
-      {status === "loading" && <ModalButton disabled>Loading...</ModalButton>}
+      {status === "loading" && <LoadingButton />}
       {status === "disabled" && (
         <ModalButton disabled>Confirm Repay</ModalButton>
       )}

@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import AmountGroup from "@/components/modal/AmountGroup";
 import AssetGroup from "@/components/modal/AssetGroup";
 import Modal from "@/components/modal/Modal";
-import ModalButton from "@/components/modal/ModalButton";
 import { ModalProps } from "@/components/modal/ModalProps";
 import GasGroup from "@/components/modal/GasGroup";
 import { useContract, usePrivateContract } from "@/apis/swr";
@@ -13,6 +12,7 @@ import { useMetaMask } from "@/util/useMetaMask";
 import { withdraw } from "@/apis/contract";
 import { AssetTitle } from "@/constants/assets";
 import { getErrorMessage } from "@/util/error";
+import { LoadingButton, ModalButton } from "@/components/modal/ModalButton";
 
 export default function WithdrawModal({ assetTitle, close }: ModalProps) {
   const { loading, amount, setAmount, withdraw } = useWithdrawModal(
@@ -43,7 +43,7 @@ export default function WithdrawModal({ assetTitle, close }: ModalProps) {
 
       <GasGroup value={BigNumber(0)} />
 
-      {loading && <ModalButton disabled>Loading...</ModalButton>}
+      {loading && <LoadingButton />}
       {loading === false && (
         <ModalButton onClick={withdraw}>Withdraw</ModalButton>
       )}
