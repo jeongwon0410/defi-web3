@@ -1,4 +1,8 @@
+"use client";
+
 import useSWR, { useSWRConfig } from "swr";
+
+import BigNumber from "bignumber.js";
 import {
   getSupplyTotal,
   getSupplyAPY,
@@ -75,8 +79,7 @@ export type PrivateContractType =
   | "BORROWABLEAMOUNT"
   | "LIQUIDATION"
   | "APPROVEDAMOUNT"
-  | "HEALTHFACTOR"
-  | "ESTIMATEGAS";
+  | "HEALTHFACTOR";
 
 export const privateContractFetcher = (
   arg: [PrivateContractType, AssetTitle, string],
@@ -99,12 +102,37 @@ export const privateContractFetcher = (
       return getApprovedAmount(title, account);
     case "HEALTHFACTOR":
       return getHealthFactor(title, account);
-    case "ESTIMATEGAS":
-      return estimateGas(title, account);
   }
 };
 
 export const useMutateContract = () => {
   const { mutate } = useSWRConfig();
   return (type: ContractType | PrivateContractType) => mutate(type);
+};
+
+export const useEstimatedGas = (title: AssetTitle | null, amount: string) => {
+  const { wallet } = useMetaMask();
+  const address = wallet.accounts[0];
+
+  const { data: gas } = useSWR(
+    title && address ? ["ESTIMATEGAS", title, address, amount] : null,
+    ([, title, address, amount]) =>
+      estimateGas(title as AssetTitle, address, amount),
+  );
+
+  const { data: ethToDollar } = useEthToDollar();
+
+  if (ethToDollar === undefined || gas === undefined) return undefined;
+
+  const dollar = gas.multipliedBy(ethToDollar).dividedBy(BigNumber(10).pow(9));
+
+  return dollar;
+};
+
+const useEthToDollar = () => {
+  return useSWR(["ETHTODOLLAR"], () =>
+    fetch("https://api.etherscan.io/api?module=stats&action=ethprice")
+      .then((r) => r.json())
+      .then((r) => BigNumber(r.result.ethusd)),
+  );
 };

@@ -11,7 +11,7 @@ export default function SupplyTr({ assetTitle }: { assetTitle: AssetTitle }) {
   const { data: ltv } = useContract("MAXLTV", assetTitle);
 
   return (
-    <AccountTr>
+    <AccountTr className={balance?.isEqualTo(0) === true ? "opacity-30" : ""}>
       <AccountIconTd src={titleToIcon[assetTitle]} title={assetTitle} />
       <AccountTd className="w-[12ch]">{formatBalance(balance)}</AccountTd>
       <AccountTd className="w-[12ch]">{formatAPY(apy)}</AccountTd>

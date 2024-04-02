@@ -6,7 +6,12 @@ import Modal from "@/components/modal/Modal";
 import AmountGroup from "@/components/modal/AmountGroup";
 import { ModalProps } from "@/components/modal/ModalProps";
 import GasGroup from "@/components/modal/GasGroup";
-import { useContract, useMutateContract, usePrivateContract } from "@/apis/swr";
+import {
+  useContract,
+  useEstimatedGas,
+  useMutateContract,
+  usePrivateContract,
+} from "@/apis/swr";
 import {
   formatAPY,
   formatBalance,
@@ -35,6 +40,8 @@ export default function SupplyModal({ assetTitle, close }: ModalProps) {
   const { data: apy } = useContract("SUPPLYAPY", assetTitle);
   const { data: ltv } = useContract("MAXLTV", assetTitle);
 
+  const gas = useEstimatedGas(assetTitle, amount);
+
   const content = [
     { name: "Wallet balance", value: formatBalance(balance) },
     { name: "Amount supplied", value: formatSupplied(supplyBalance) },
@@ -54,7 +61,7 @@ export default function SupplyModal({ assetTitle, close }: ModalProps) {
         maxAmount={balance}
       />
 
-      <GasGroup value={BigNumber(0)} />
+      <GasGroup value={gas} />
 
       {type === "loading" && <LoadingButton />}
       {type === "disabled" && <ModalButton disabled>Approve</ModalButton>}

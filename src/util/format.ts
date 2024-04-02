@@ -30,15 +30,41 @@ export const formatTotalBorrow = withDash((val) =>
 );
 
 export const formatLiquidity = withDash((val) =>
-  parseFloat(val.toString()).toFixed(2).toString(),
+  formatNumber(parseFloat(val.toString())),
 );
 
 export const formatBorrowableAmount = withDash((val) => val.toString());
 
 export const formatDebt = withDash((val) =>
-  parseFloat(val.toString()).toFixed(0).toString(),
+  parseFloat(val.toString()).toFixed(0),
 );
 
 export const formatHealthFactor = withDash((val) =>
-  parseFloat(val.toString()).toFixed(2).toString(),
+  parseFloat(val.toString()).toFixed(2),
 );
+
+export const formatLiquidation = withDash((val) =>
+  parseFloat(val.toString()).toFixed(0),
+);
+
+export const formatGas = withDash((val) =>
+  parseFloat(val.toString()).toFixed(2),
+);
+
+export const formatNumber = (num: number, precision = 2) => {
+  const map = [
+    { suffix: "T", threshold: 1e12 },
+    { suffix: "B", threshold: 1e9 },
+    { suffix: "M", threshold: 1e6 },
+    { suffix: "K", threshold: 1e3 },
+    { suffix: "", threshold: 1 },
+  ];
+
+  const found = map.find((x) => Math.abs(num) >= x.threshold);
+  if (found) {
+    const formatted = (num / found.threshold).toFixed(precision) + found.suffix;
+    return formatted;
+  }
+
+  return num.toString();
+};

@@ -10,7 +10,7 @@ const borrowHeader = ["Asset", "Borrowed", "APY", "MAXLTV", "LIQUIDATION"];
 
 export default function AccountMain() {
   return (
-    <div className="flex flex-col gap-[2.56rem] lg:flex-row">
+    <div className="flex gap-[2.56rem]">
       <div className="flex flex-col overflow-hidden rounded-lg">
         <BalanceHeader title="SUPPLY" balance={BigNumber(0)} />
         <AccountTable header={supplyHeader}>

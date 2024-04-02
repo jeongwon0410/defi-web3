@@ -14,3 +14,5 @@ export default async function cointousd(coinName: string) {
   );
   return response.data as Response;
 }
+
+// api.etherscan.io/api?module=stats&action=ethprice&apikey=YourApiKeyToken

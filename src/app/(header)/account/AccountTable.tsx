@@ -30,8 +30,16 @@ const AccountTh = ({ row }: { row: string[] }) => (
   </thead>
 );
 
-export const AccountTr = ({ children }: { children: ReactNode }) => {
-  return <tr className="h-[4.16rem] bg-[#1B1C1B]">{children}</tr>;
+export const AccountTr = ({
+  className,
+  children,
+}: {
+  className: string;
+  children: ReactNode;
+}) => {
+  return (
+    <tr className={`h-[4.16rem] bg-[#1B1C1B] ${className}`}>{children}</tr>
+  );
 };
 
 export const AccountTd = ({

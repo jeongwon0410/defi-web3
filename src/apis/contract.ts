@@ -191,10 +191,6 @@ export const getLiquidation = async (title: AssetTitle, account: string) => {
   const contract = titleToContract[title];
   if (contract === null) throw new Error();
 
-  const decimals = BigNumber(
-    ((await contract.methods.decimals().call()) as bigint).toString(),
-  );
-
   const data = await pool_data_provider_contract.methods
     .getUserReserveData(addr, account)
     .call();
@@ -202,9 +198,7 @@ export const getLiquidation = async (title: AssetTitle, account: string) => {
   // TODO: borrow, supply 0일 때 예외 처리
   const borrow = BigNumber(data.currentVariableDebt.toString());
   const supply = BigNumber(data.currentATokenBalance.toString());
-
-  const tmp = BigNumber(10).pow(decimals);
-  const result = borrow.dividedBy(tmp).dividedBy(supply).dividedBy(tmp);
+  const result = borrow.dividedBy(supply);
 
   const ltv = await pool_data_provider_contract.methods
     .getReserveConfigurationData(addr)
@@ -282,16 +276,17 @@ export const supply = async (
   );
 };
 
-export const estimateGas = async (title: AssetTitle, account: string) => {
+export const estimateGas = async (
+  title: AssetTitle,
+  account: string,
+  amount: string,
+) => {
   const addr = titleToAddr[title];
+  const gas = await pool_contract.methods
+    .supply(addr, BigInt(amount), account, "0")
+    .estimateGas({ from: account });
 
-  return BigNumber(
-    (
-      await pool_contract.methods
-        .supply(addr, 0, account, "0")
-        .estimateGas({ from: account })
-    ).toString(),
-  );
+  return BigNumber(gas.toString());
 };
 export async function getMaxAmount(title: AssetTitle, account: string) {
   const contract = titleToContract[title];
