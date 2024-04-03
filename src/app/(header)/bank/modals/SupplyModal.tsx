@@ -1,0 +1,134 @@
+import BigNumber from "bignumber.js";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useAccount } from "wagmi";
+import AssetGroup from "@/components/modal/AssetGroup";
+import Modal from "@/components/modal/Modal";
+import AmountGroup from "@/components/modal/AmountGroup";
+import { ModalProps } from "@/components/modal/ModalProps";
+import GasGroup from "@/components/modal/GasGroup";
+import { useContract, useEstimatedGas, usePrivateContract } from "@/apis/swr";
+import {
+  formatAPY,
+  formatBalance,
+  formatLTV,
+  formatSupplied,
+} from "@/util/format";
+import { approve as _approve, supply as _supply } from "@/apis/contract";
+
+import { AssetTitle } from "@/constants/assets";
+import { getErrorMessage } from "@/util/error";
+import { LoadingButton, ModalButton } from "@/components/modal/ModalButton";
+
+type Status = "disabled" | "notApproved" | "approved" | "loading";
+
+export default function SupplyModal({ assetTitle, close }: ModalProps) {
+  const { type, amount, setAmount, approve, supply } = useSupplyModal(
+    assetTitle,
+    close,
+  );
+
+  const { data: balance } = usePrivateContract("BALANCE", assetTitle);
+  const { data: supplyBalance } = usePrivateContract(
+    "SUPPLYBALANCE",
+    assetTitle,
+  );
+  const { data: apy } = useContract("SUPPLYAPY", assetTitle);
+  const { data: ltv } = useContract("MAXLTV", assetTitle);
+
+  const gas = useEstimatedGas(assetTitle, amount);
+
+  const content = [
+    { name: "Wallet balance", value: formatBalance(balance) },
+    { name: "Amount supplied", value: formatSupplied(supplyBalance) },
+    { name: "APY", value: formatAPY(apy) },
+    { name: "Max LTV", value: formatLTV(ltv) },
+  ];
+
+  return (
+    <Modal isOpen={assetTitle !== null} onRequestClose={close} title="Supply">
+      <AssetGroup title={assetTitle} content={content} />
+
+      <AmountGroup
+        ltv={ltv}
+        amount={amount}
+        setAmount={setAmount}
+        dollar={BigNumber(0)}
+        maxAmount={balance}
+      />
+
+      <GasGroup value={gas} />
+
+      {type === "loading" && <LoadingButton />}
+      {type === "disabled" && <ModalButton disabled>Approve</ModalButton>}
+      {type === "notApproved" && (
+        <ModalButton onClick={approve}>Approve</ModalButton>
+      )}
+      {type === "approved" && (
+        <ModalButton onClick={supply}>Confirm Supply</ModalButton>
+      )}
+    </Modal>
+  );
+}
+
+const useSupplyModal = (title: AssetTitle | null, close: () => void) => {
+  const [amount, setAmount] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const { address } = useAccount();
+
+  const { data: approvedAmount, mutate } = usePrivateContract(
+    "APPROVEDAMOUNT",
+    title,
+  );
+
+  const type = getType(loading, BigNumber(amount), approvedAmount);
+
+  const approve = async () => {
+    if (title === null || address === undefined) return;
+
+    try {
+      setLoading(true);
+      await _approve(title, address, BigNumber(amount));
+      mutate();
+      toast.success("Approved!");
+    } catch (e) {
+      toast.error(getErrorMessage(e));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const supply = async () => {
+    if (title === null || address === undefined) return;
+
+    try {
+      setLoading(true);
+      await _supply(title, address, BigNumber(amount));
+      toast.success("Supplied!");
+      close();
+    } catch (e) {
+      toast.error(getErrorMessage(e));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    approve,
+    supply,
+    amount,
+    setAmount,
+    type,
+  };
+};
+
+const getType = (
+  loading: boolean,
+  amount: BigNumber,
+  approvedAmount?: BigNumber,
+): Status => {
+  if (loading) return "loading";
+  if (approvedAmount === undefined) return "disabled";
+  if (amount.isNaN() || amount.isEqualTo(0)) return "disabled";
+  return amount.comparedTo(approvedAmount) <= 0 ? "approved" : "notApproved";
+};

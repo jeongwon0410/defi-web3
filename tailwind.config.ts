@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ["Montserrat", "sans-serif"],
-        pretendard: ["Pretendard"],
+        montserrat: ["var(--font-montserrat)"],
+        pretendard: ["Pretendard Variable"],
       },
     },
   },
