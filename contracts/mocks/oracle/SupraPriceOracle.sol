@@ -7,8 +7,9 @@ contract SupraPriceOracle is Ownable {
 
     ISupraSValueFeed internal sValueFeed;
 
-    constructor(ISupraSValueFeed _sValueFeed) public {
-        sValueFeed = _sValueFeed; 
+    //For kroma Testnet
+    constructor() public {
+        sValueFeed = ISupraSValueFeed(0x94d5Cb2dFDd0F2bBf8d07fE673f5334d09F0c901); 
     }
 
     function getSupraSvalueFeed() external view returns(ISupraSValueFeed) {
