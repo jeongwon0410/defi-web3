@@ -185,15 +185,6 @@ contract LendingPoolAddressesProvider is Ownable, ILendingPoolAddressesProvider,
         emit LendingPoolManagerUpdated(_lendingPoolManager);
     }
 
-    function getPriceOracle() public view returns (address) {
-        return getAddress(PRICE_ORACLE);
-    }
-
-    function setPriceOracle(address _priceOracle) public onlyOwner {
-        _setAddress(PRICE_ORACLE, _priceOracle);
-        emit PriceOracleUpdated(_priceOracle);
-    }
-
     function getLendingRateOracle() public view returns (address) {
         return getAddress(LENDING_RATE_ORACLE);
     }

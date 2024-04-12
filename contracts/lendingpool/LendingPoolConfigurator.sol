@@ -22,11 +22,13 @@ contract LendingPoolConfigurator is VersionedInitializable {
     * @param _reserve the address of the reserve
     * @param _aToken the address of the overlying aToken contract
     * @param _interestRateStrategyAddress the address of the interest rate strategy for the reserve
+    * @param _oracleID Oracle ID for the Supra Oracles for price feed
     **/
     event ReserveInitialized(
         address indexed _reserve,
         address indexed _aToken,
-        address _interestRateStrategyAddress
+        address _interestRateStrategyAddress,
+        uint256 _oracleID
     );
 
     /**
@@ -169,11 +171,14 @@ contract LendingPoolConfigurator is VersionedInitializable {
     * @param _reserve the address of the reserve to be initialized
     * @param _underlyingAssetDecimals the decimals of the reserve underlying asset
     * @param _interestRateStrategyAddress the address of the interest rate strategy contract for this reserve
+    * @param _oracleID Oracle ID for the Supra Oracles
     **/
     function initReserve(
         address _reserve,
         uint8 _underlyingAssetDecimals,
-        address _interestRateStrategyAddress
+        address _interestRateStrategyAddress,
+        uint256 _oracleID
+
     ) external onlyLendingPoolManager {
         ERC20Detailed asset = ERC20Detailed(_reserve);
 
@@ -185,7 +190,9 @@ contract LendingPoolConfigurator is VersionedInitializable {
             aTokenName,
             aTokenSymbol,
             _underlyingAssetDecimals,
-            _interestRateStrategyAddress
+            _interestRateStrategyAddress,
+            _oracleID
+
         );
 
     }
@@ -197,13 +204,15 @@ contract LendingPoolConfigurator is VersionedInitializable {
     * @param _aTokenSymbol the symbol of the aToken contract
     * @param _underlyingAssetDecimals the decimals of the reserve underlying asset
     * @param _interestRateStrategyAddress the address of the interest rate strategy contract for this reserve
+    * @param _oracleID Oracle ID for the Supra Oracles
     **/
     function initReserveWithData(
         address _reserve,
         string memory _aTokenName,
         string memory _aTokenSymbol,
         uint8 _underlyingAssetDecimals,
-        address _interestRateStrategyAddress
+        address _interestRateStrategyAddress,
+        uint256 _oracleID
     ) public onlyLendingPoolManager {
         LendingPoolCore core = LendingPoolCore(poolAddressesProvider.getLendingPoolCore());
 
@@ -218,13 +227,15 @@ contract LendingPoolConfigurator is VersionedInitializable {
             _reserve,
             address(aTokenInstance),
             _underlyingAssetDecimals,
-            _interestRateStrategyAddress
+            _interestRateStrategyAddress,
+            _oracleID
         );
 
         emit ReserveInitialized(
             _reserve,
             address(aTokenInstance),
-            _interestRateStrategyAddress
+            _interestRateStrategyAddress,
+            _oracleID
         );
     }
 

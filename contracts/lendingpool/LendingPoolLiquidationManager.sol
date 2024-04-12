@@ -12,7 +12,7 @@ import "../libraries/CoreLibrary.sol";
 import "../libraries/WadRayMath.sol";
 import "./LendingPoolCore.sol";
 import "./LendingPoolDataProvider.sol";
-import "../interfaces/IPriceOracleGetter.sol";
+import "../mocks/oracle/SupraPriceOracle.sol";
 
 /**
 * @title LendingPoolLiquidationManager contract
@@ -27,6 +27,7 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
     LendingPoolAddressesProvider public addressesProvider;
     LendingPoolCore core;
     LendingPoolDataProvider dataProvider;
+    SupraPriceOracle public priceOracle;
     LendingPoolParametersProvider parametersProvider;
     IFeeProvider feeProvider;
     address ethereumAddress;
@@ -318,13 +319,15 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
     ) internal view returns (uint256 collateralAmount, uint256 principalAmountNeeded) {
         collateralAmount = 0;
         principalAmountNeeded = 0;
-        IPriceOracleGetter oracle = IPriceOracleGetter(addressesProvider.getPriceOracle());
 
         // Usage of a memory struct of vars to avoid "Stack too deep" errors due to local variables
         AvailableCollateralToLiquidateLocalVars memory vars;
 
-        vars.collateralPrice = oracle.getAssetPrice(_collateral);
-        vars.principalCurrencyPrice = oracle.getAssetPrice(_principal);
+        uint256 ColalateralOracleID = core.getOracleID(_collateral);
+        vars.collateralPrice = priceOracle.getPrice(ColalateralOracleID).price;
+
+        uint256 _principalOracleID = core.getOracleID(_principal);
+        vars.principalCurrencyPrice = priceOracle.getPrice(_principalOracleID).price;
         vars.liquidationBonus = core.getReserveLiquidationBonus(_collateral);
 
         //this is the maximum possible amount of the selected collateral that can be liquidated, given the

@@ -1048,14 +1048,16 @@ contract LendingPoolCore is VersionedInitializable {
     * @param _aTokenAddress the address of the overlying aToken contract
     * @param _decimals the decimals of the reserve currency
     * @param _interestRateStrategyAddress the address of the interest rate strategy contract
+    * @param _oracleID Oracle ID for the Supra Oracles
     **/
     function initReserve(
         address _reserve,
         address _aTokenAddress,
         uint256 _decimals,
-        address _interestRateStrategyAddress
+        address _interestRateStrategyAddress,
+        uint256 _oracleID
     ) external onlyLendingPoolConfigurator {
-        reserves[_reserve].init(_aTokenAddress, _decimals, _interestRateStrategyAddress);
+        reserves[_reserve].init(_aTokenAddress, _decimals, _interestRateStrategyAddress, _oracleID);
         addReserveToListInternal(_reserve);
 
     }
@@ -1087,6 +1089,7 @@ contract LendingPoolCore is VersionedInitializable {
         reserves[lastReserve].liquidationThreshold = 0;
         reserves[lastReserve].liquidationBonus = 0;
         reserves[lastReserve].interestRateStrategyAddress = address(0);
+        reserves[lastReserve].oracleID = 0;
 
         reservesList.pop();
     }
@@ -1770,6 +1773,11 @@ contract LendingPoolCore is VersionedInitializable {
                 reserveAlreadyAdded = true;
             }
         if (!reserveAlreadyAdded) reservesList.push(_reserve);
+    }
+
+    // Getter function to fetch only the Oracle ID for a given reserve address
+    function getOracleID(address _reserve) public view returns (uint256) {
+        return reserves[_reserve].oracleID;
     }
 
 }

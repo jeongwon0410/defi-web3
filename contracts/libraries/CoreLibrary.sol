@@ -58,6 +58,8 @@ library CoreLibrary {
         uint256 liquidationBonus;
         //the decimals of the reserve asset
         uint256 decimals;
+        //Supra Oracle ID
+        uint256 oracleID;
         /**
         * @dev address of the aToken representing the asset
         **/
@@ -159,12 +161,14 @@ library CoreLibrary {
     * @param _aTokenAddress the address of the overlying atoken contract
     * @param _decimals the number of decimals of the underlying asset
     * @param _interestRateStrategyAddress the address of the interest rate strategy contract
+    * @param _oracleID Oracle ID for the Supra Oracles
     **/
     function init(
         ReserveData storage _self,
         address _aTokenAddress,
         uint256 _decimals,
-        address _interestRateStrategyAddress
+        address _interestRateStrategyAddress,
+        uint256 _oracleID
     ) external {
         require(_self.aTokenAddress == address(0), "Reserve has already been initialized");
 
@@ -179,6 +183,7 @@ library CoreLibrary {
 
         _self.aTokenAddress = _aTokenAddress;
         _self.decimals = _decimals;
+        _self.oracleID = _oracleID;
 
         _self.interestRateStrategyAddress = _interestRateStrategyAddress;
         _self.isActive = true;
@@ -435,5 +440,6 @@ library CoreLibrary {
     {
         return _reserve.totalBorrowsStable.add(_reserve.totalBorrowsVariable);
     }
+
 
 }

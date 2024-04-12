@@ -35,9 +35,6 @@ contract ILendingPoolAddressesProvider {
     function getLendingPoolManager() public view returns (address);
     function setLendingPoolManager(address _lendingPoolManager) public;
 
-    function getPriceOracle() public view returns (address);
-    function setPriceOracle(address _priceOracle) public;
-
     function getLendingRateOracle() public view returns (address);
     function setLendingRateOracle(address _lendingRateOracle) public;
 

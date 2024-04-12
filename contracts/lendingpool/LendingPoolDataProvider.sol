@@ -6,11 +6,11 @@ import "../libraries/openzeppelin-upgradeability/VersionedInitializable.sol";
 import "../libraries/CoreLibrary.sol";
 import "../configuration/LendingPoolAddressesProvider.sol";
 import "../libraries/WadRayMath.sol";
-import "../interfaces/IPriceOracleGetter.sol";
 import "../interfaces/IFeeProvider.sol";
 import "../tokenization/AToken.sol";
 
 import "./LendingPoolCore.sol";
+import "../mocks/oracle/SupraPriceOracle.sol";
 
 /**
 * @title LendingPoolDataProvider contract
@@ -24,6 +24,7 @@ contract LendingPoolDataProvider is VersionedInitializable {
 
     LendingPoolCore public core;
     LendingPoolAddressesProvider public addressesProvider;
+    SupraPriceOracle public priceOracle;
 
     /**
     * @dev specifies the health factor threshold at which the user position is liquidated.
@@ -81,7 +82,6 @@ contract LendingPoolDataProvider is VersionedInitializable {
             bool healthFactorBelowThreshold
         )
     {
-        IPriceOracleGetter oracle = IPriceOracleGetter(addressesProvider.getPriceOracle());
 
         // Usage of a memory struct of vars to avoid "Stack too deep" errors due to local variables
         UserGlobalDataLocalVars memory vars;
@@ -90,7 +90,6 @@ contract LendingPoolDataProvider is VersionedInitializable {
 
         for (uint256 i = 0; i < reserves.length; i++) {
             vars.currentReserve = reserves[i];
-
             (
                 vars.compoundedLiquidityBalance,
                 vars.compoundedBorrowBalance,
@@ -110,8 +109,10 @@ contract LendingPoolDataProvider is VersionedInitializable {
                 vars.usageAsCollateralEnabled
             ) = core.getReserveConfiguration(vars.currentReserve);
 
+            uint256 oracleID = core.getOracleID(vars.currentReserve);
             vars.tokenUnit = 10 ** vars.reserveDecimals;
-            vars.reserveUnitPrice = oracle.getAssetPrice(vars.currentReserve);
+
+            vars.reserveUnitPrice = priceOracle.getPrice(oracleID).price;
 
             //liquidity and collateral balance
             if (vars.compoundedLiquidityBalance > 0) {
@@ -214,9 +215,8 @@ contract LendingPoolDataProvider is VersionedInitializable {
             return true; //no borrows - no reasons to block the transfer
         }
 
-        IPriceOracleGetter oracle = IPriceOracleGetter(addressesProvider.getPriceOracle());
-
-        vars.amountToDecreaseETH = oracle.getAssetPrice(_reserve).mul(_amount).div(
+        uint256 _oracleID = core.getOracleID(_reserve);
+        vars.amountToDecreaseETH = priceOracle.getPrice(_oracleID).price.mul(_amount).div(
             10 ** vars.decimals
         );
 
@@ -265,10 +265,9 @@ contract LendingPoolDataProvider is VersionedInitializable {
     ) external view returns (uint256) {
         uint256 reserveDecimals = core.getReserveDecimals(_reserve);
 
-        IPriceOracleGetter oracle = IPriceOracleGetter(addressesProvider.getPriceOracle());
+        uint256 _oracleID = core.getOracleID(_reserve);
 
-        uint256 requestedBorrowAmountETH = oracle
-            .getAssetPrice(_reserve)
+        uint256 requestedBorrowAmountETH = priceOracle.getPrice(_oracleID).price
             .mul(_amount.add(_fee))
             .div(10 ** reserveDecimals); //price is in ether
 
