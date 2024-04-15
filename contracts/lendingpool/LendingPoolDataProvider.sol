@@ -24,7 +24,9 @@ contract LendingPoolDataProvider is VersionedInitializable {
 
     LendingPoolCore public core;
     LendingPoolAddressesProvider public addressesProvider;
-    SupraPriceOracle public priceOracle;
+
+    // Deployed for testnet
+    SupraPriceOracle priceOracle = SupraPriceOracle(0x5FbDB2315678afecb367f032d93F642f64180aa3);
 
     /**
     * @dev specifies the health factor threshold at which the user position is liquidated.

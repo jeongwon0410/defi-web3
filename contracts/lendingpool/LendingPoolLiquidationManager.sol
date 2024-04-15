@@ -27,10 +27,12 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
     LendingPoolAddressesProvider public addressesProvider;
     LendingPoolCore core;
     LendingPoolDataProvider dataProvider;
-    SupraPriceOracle public priceOracle;
     LendingPoolParametersProvider parametersProvider;
     IFeeProvider feeProvider;
     address ethereumAddress;
+
+    // Deployed for testnet
+    SupraPriceOracle priceOracle = SupraPriceOracle(0x5FbDB2315678afecb367f032d93F642f64180aa3);
 
     uint256 constant LIQUIDATION_CLOSE_FACTOR_PERCENT = 50;
 
