@@ -1,14 +1,13 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const lendingpool = await ethers.deployContract("LendingPool"
+  const lendingPoolParametersProvider = await ethers.deployContract("LendingPoolParametersProvider"
   );
 
-
-  await lendingpool.waitForDeployment();
+  await lendingPoolParametersProvider.waitForDeployment();
 
   console.log(
-    `Lending Pool deployed to ${lendingpool.target}`
+    `Lending Pool deployed to ${lendingPoolParametersProvider.target}`
   );
 }
 
