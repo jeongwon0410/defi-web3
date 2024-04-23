@@ -63,7 +63,6 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
     * @param _liquidatedCollateralAmount the amount of collateral being liquidated
     * @param _accruedBorrowInterest the amount of interest accrued by the borrower since the last action
     * @param _liquidator the address of the liquidator
-    * @param _receiveAToken true if the liquidator wants to receive aTokens, false otherwise
     * @param _timestamp the timestamp of the action
     **/
     event LiquidationCall(
@@ -74,7 +73,6 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
         uint256 _liquidatedCollateralAmount,
         uint256 _accruedBorrowInterest,
         address _liquidator,
-        bool _receiveAToken,
         uint256 _timestamp
     );
 
@@ -122,18 +120,20 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
     * @param _purchaseAmount the amount of principal that the liquidator wants to repay
     * @param _receiveAToken true if the liquidators wants to receive the aTokens, false if
     * he wants to receive the underlying asset directly
+    * @param _bytesProof proof for verifying Oracle rate
     **/
     function liquidationCall(
         address _collateral,
         address _reserve,
         address _user,
         uint256 _purchaseAmount,
-        bool _receiveAToken
+        bool _receiveAToken,
+        bytes calldata _bytesProof
     ) external payable returns (uint256, string memory) {
         // Usage of a memory struct of vars to avoid "Stack too deep" errors due to local variables
         LiquidationCallLocalVars memory vars;
 
-        (, , , , , , , vars.healthFactorBelowThreshold) = dataProvider.calculateUserGlobalData(
+        (, , , , , , , vars.healthFactorBelowThreshold) = dataProvider.calculateUserGlobalData(_bytesProof,
             _user
         );
 
@@ -191,7 +191,8 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
             _collateral,
             _reserve,
             vars.actualAmountToLiquidate,
-            vars.userCollateralBalance
+            vars.userCollateralBalance,
+            _bytesProof
         );
 
         vars.originationFee = core.getUserOriginationFee(_reserve, _user);
@@ -205,7 +206,8 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
                 _collateral,
                 _reserve,
                 vars.originationFee,
-                vars.userCollateralBalance.sub(maxCollateralToLiquidate)
+                vars.userCollateralBalance.sub(maxCollateralToLiquidate),
+                _bytesProof
             );
         }
 
@@ -236,21 +238,22 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
             maxCollateralToLiquidate,
             vars.feeLiquidated,
             vars.liquidatedCollateralForFee,
-            vars.borrowBalanceIncrease,
-            _receiveAToken
+            vars.borrowBalanceIncrease
         );
 
         AToken collateralAtoken = AToken(core.getReserveATokenAddress(_collateral));
 
         //if liquidator reclaims the aToken, he receives the equivalent atoken amount
-        if (_receiveAToken) {
-            collateralAtoken.transferOnLiquidation(_user, msg.sender, maxCollateralToLiquidate);
-        } else {
-            //otherwise receives the underlying asset
-            //burn the equivalent amount of atoken
-            collateralAtoken.burnOnLiquidation(_user, maxCollateralToLiquidate);
-            core.transferToUser(_collateral, msg.sender, maxCollateralToLiquidate);
-        }
+        // if (_receiveAToken) {
+        //     collateralAtoken.transferOnLiquidation(_user, msg.sender, maxCollateralToLiquidate);
+        // } else {
+        //     //otherwise receives the underlying asset
+        //     //burn the equivalent amount of atoken
+        //     collateralAtoken.burnOnLiquidation(_user, maxCollateralToLiquidate);
+        //     core.transferToUser(_collateral, msg.sender, maxCollateralToLiquidate);
+        // }
+
+        aTokenTransfer(_user,  _receiveAToken,  _collateral,  collateralAtoken, maxCollateralToLiquidate, vars.liquidatedCollateralForFee );
 
         //transfers the principal currency to the pool
         core.transferToReserve.value(msg.value)(_reserve, msg.sender, vars.actualAmountToLiquidate);
@@ -286,13 +289,48 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
             maxCollateralToLiquidate,
             vars.borrowBalanceIncrease,
             msg.sender,
-            _receiveAToken,
+            // _receiveAToken,
             //solium-disable-next-line
             block.timestamp
         );
 
         return (uint256(LiquidationErrors.NO_ERROR), "No errors");
     }
+
+    function aTokenTransfer( address _user, bool _receiveAToken, address _collateral, AToken collateralAtoken,uint256 maxCollateralToLiquidate,uint256 _liquidatedCollateralForFee) private {
+        //if liquidator reclaims the aToken, he receives the equivalent atoken amount
+        if (_receiveAToken) {
+            collateralAtoken.transferOnLiquidation(_user, msg.sender, maxCollateralToLiquidate);
+            core.updateStateOnLiquidationifAToken(_collateral, 0, _liquidatedCollateralForFee);
+        } else {
+            //otherwise receives the underlying asset
+            //burn the equivalent amount of atoken
+            collateralAtoken.burnOnLiquidation(_user, maxCollateralToLiquidate);
+            core.transferToUser(_collateral, msg.sender, maxCollateralToLiquidate);
+        }
+    }
+
+    // function _updateStateOnLiquidation (address _reserve,
+    //         address _collateral,
+    //         address _user,
+    //         uint256 actualAmountToLiquidate,
+    //         uint256 maxCollateralToLiquidate,
+    //         uint256 feeLiquidated,
+    //         uint256 liquidatedCollateralForFee,
+    //         uint256 borrowBalanceIncrease,
+    //         bool _receiveAToken) private {
+    //     core.updateStateOnLiquidation(
+    //         _reserve,
+    //         _collateral,
+    //         _user,
+    //         actualAmountToLiquidate,
+    //         maxCollateralToLiquidate,
+    //         feeLiquidated,
+    //         liquidatedCollateralForFee,
+    //         borrowBalanceIncrease,
+    //         _receiveAToken
+    //     );
+    // }
 
     struct AvailableCollateralToLiquidateLocalVars {
         uint256 userCompoundedBorrowBalance;
@@ -310,6 +348,7 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
     * @param _principal the principal currency to be liquidated
     * @param _purchaseAmount the amount of principal being liquidated
     * @param _userCollateralBalance the collatera balance for the specific _collateral asset of the user being liquidated
+    * @param _bytesProof proof for verifying Oracle rate
     * @return the maximum amount that is possible to liquidated given all the liquidation constraints (user balance, close factor) and
     * the purchase amount
     **/
@@ -317,8 +356,9 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
         address _collateral,
         address _principal,
         uint256 _purchaseAmount,
-        uint256 _userCollateralBalance
-    ) internal view returns (uint256 collateralAmount, uint256 principalAmountNeeded) {
+        uint256 _userCollateralBalance,
+        bytes memory _bytesProof
+    ) internal returns (uint256 collateralAmount, uint256 principalAmountNeeded) {
         collateralAmount = 0;
         principalAmountNeeded = 0;
 
@@ -326,10 +366,10 @@ contract LendingPoolLiquidationManager is ReentrancyGuard, VersionedInitializabl
         AvailableCollateralToLiquidateLocalVars memory vars;
 
         uint256 ColalateralOracleID = core.getOracleID(_collateral);
-        vars.collateralPrice = priceOracle.getPrice(ColalateralOracleID).price;
+        vars.collateralPrice = priceOracle.GetPairPrice(_bytesProof, ColalateralOracleID);
 
         uint256 _principalOracleID = core.getOracleID(_principal);
-        vars.principalCurrencyPrice = priceOracle.getPrice(_principalOracleID).price;
+        vars.principalCurrencyPrice = priceOracle.GetPairPrice(_bytesProof, _principalOracleID);
         vars.liquidationBonus = core.getReserveLiquidationBonus(_collateral);
 
         //this is the maximum possible amount of the selected collateral that can be liquidated, given the

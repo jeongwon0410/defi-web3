@@ -67,12 +67,12 @@ contract LendingPoolDataProvider is VersionedInitializable {
     * this includes the total liquidity/collateral/borrow balances in ETH,
     * the average Loan To Value, the average Liquidation Ratio, and the Health factor.
     * @param _user the address of the user
+    * @param _bytesProof proof for verifying Oracle rate
     * @return the total liquidity, total collateral, total borrow balances of the user in ETH.
     * also the average Ltv, liquidation threshold, and the health factor
     **/
-    function calculateUserGlobalData(address _user)
+    function calculateUserGlobalData(bytes memory _bytesProof, address _user)
         public
-        view
         returns (
             uint256 totalLiquidityBalanceETH,
             uint256 totalCollateralBalanceETH,
@@ -114,7 +114,7 @@ contract LendingPoolDataProvider is VersionedInitializable {
             uint256 oracleID = core.getOracleID(vars.currentReserve);
             vars.tokenUnit = 10 ** vars.reserveDecimals;
 
-            vars.reserveUnitPrice = priceOracle.getPrice(oracleID).price;
+            vars.reserveUnitPrice = priceOracle.GetPairPrice(_bytesProof, oracleID);
 
             //liquidity and collateral balance
             if (vars.compoundedLiquidityBalance > 0) {
@@ -177,12 +177,12 @@ contract LendingPoolDataProvider is VersionedInitializable {
     * @param _reserve the address of the reserve
     * @param _user the address of the user
     * @param _amount the amount to decrease
+    * @param _bytesProof proof for verifying Oracle rate
     * @return true if the decrease of the balance is allowed
     **/
 
-    function balanceDecreaseAllowed(address _reserve, address _user, uint256 _amount)
+    function balanceDecreaseAllowed(bytes calldata _bytesProof, address _reserve, address _user, uint256 _amount)
         external
-        view
         returns (bool)
     {
         // Usage of a memory struct of vars to avoid "Stack too deep" errors due to local variables
@@ -211,14 +211,14 @@ contract LendingPoolDataProvider is VersionedInitializable {
             vars.currentLiquidationThreshold,
             ,
 
-        ) = calculateUserGlobalData(_user);
+        ) = calculateUserGlobalData(_bytesProof, _user);
 
         if (vars.borrowBalanceETH == 0) {
             return true; //no borrows - no reasons to block the transfer
         }
 
         uint256 _oracleID = core.getOracleID(_reserve);
-        vars.amountToDecreaseETH = priceOracle.getPrice(_oracleID).price.mul(_amount).div(
+        vars.amountToDecreaseETH = priceOracle.GetPairPrice(_bytesProof, _oracleID).mul(_amount).div(
             10 ** vars.decimals
         );
 
@@ -255,6 +255,7 @@ contract LendingPoolDataProvider is VersionedInitializable {
    * @param _fee the fee for the amount that the user needs to cover
    * @param _userCurrentBorrowBalanceTH the current borrow balance of the user (before the borrow)
    * @param _userCurrentLtv the average ltv of the user given his current collateral
+   * @param _bytesProof proof for verifying Oracle rate
    * @return the total amount of collateral in ETH to cover the current borrow balance + the new amount + fee
    **/
     function calculateCollateralNeededInETH(
@@ -263,25 +264,36 @@ contract LendingPoolDataProvider is VersionedInitializable {
         uint256 _fee,
         uint256 _userCurrentBorrowBalanceTH,
         uint256 _userCurrentFeesETH,
-        uint256 _userCurrentLtv
-    ) external view returns (uint256) {
+        uint256 _userCurrentLtv,
+        bytes calldata _bytesProof
+    ) external returns (uint256) {
         uint256 reserveDecimals = core.getReserveDecimals(_reserve);
 
         uint256 _oracleID = core.getOracleID(_reserve);
 
-        uint256 requestedBorrowAmountETH = priceOracle.getPrice(_oracleID).price
+        uint256 requestedBorrowAmountETH = priceOracle.GetPairPrice(_bytesProof, _oracleID)
             .mul(_amount.add(_fee))
             .div(10 ** reserveDecimals); //price is in ether
 
         //add the current already borrowed amount to the amount requested to calculate the total collateral needed.
+        // uint256 collateralNeededInETH = _userCurrentBorrowBalanceTH
+        //     .add(_userCurrentFeesETH)
+        //     .add(requestedBorrowAmountETH)
+        //     .mul(100)
+        //     .div(_userCurrentLtv); //LTV is calculated in percentage
+        uint256 collateralNeededInETH = calculateCollateral(_userCurrentBorrowBalanceTH, _userCurrentFeesETH);
+
+        return collateralNeededInETH.add(requestedBorrowAmountETH).div(_userCurrentLtv);
+
+    }
+
+    function calculateCollateral(uint256 _userCurrentBorrowBalanceTH,
+        uint256 _userCurrentFeesETH) private returns (uint256) {
         uint256 collateralNeededInETH = _userCurrentBorrowBalanceTH
             .add(_userCurrentFeesETH)
-            .add(requestedBorrowAmountETH)
-            .mul(100)
-            .div(_userCurrentLtv); //LTV is calculated in percentage
+            .mul(100);
 
         return collateralNeededInETH;
-
     }
 
     /**
@@ -403,9 +415,8 @@ contract LendingPoolDataProvider is VersionedInitializable {
         lastUpdateTimestamp = core.getReserveLastUpdate(_reserve);
     }
 
-    function getUserAccountData(address _user)
+    function getUserAccountData(bytes calldata _bytesProof, address _user)
         external
-        view
         returns (
             uint256 totalLiquidityETH,
             uint256 totalCollateralETH,
@@ -426,7 +437,7 @@ contract LendingPoolDataProvider is VersionedInitializable {
             currentLiquidationThreshold,
             healthFactor,
 
-        ) = calculateUserGlobalData(_user);
+        ) = calculateUserGlobalData(_bytesProof, _user);
 
         availableBorrowsETH = calculateAvailableBorrowsETHInternal(
             totalCollateralETH,

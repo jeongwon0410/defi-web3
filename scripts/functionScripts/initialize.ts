@@ -36,6 +36,7 @@ async function main() {
      await LendingPoolAddressesProvidercontract.setLendingPoolLiquidationManager(LendingPoolLiquidationManagerAddress);
      await LendingPoolAddressesProvidercontract.setLendingPoolManager("0x5e9DdBb4a261955bDE2d5373da5726b0dBa60283");
      await LendingPoolAddressesProvidercontract.setTokenDistributor("0x5e9DdBb4a261955bDE2d5373da5726b0dBa60283");
+     
   } catch (error) {
     console.error(error);
     process.exit(1);

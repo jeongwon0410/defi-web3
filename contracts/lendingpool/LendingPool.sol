@@ -384,12 +384,14 @@ contract LendingPool is ReentrancyGuard, VersionedInitializable {
     * @param _reserve the address of the reserve
     * @param _amount the amount to be borrowed
     * @param _interestRateMode the interest rate mode at which the user wants to borrow. Can be 0 (STABLE) or 1 (VARIABLE)
+    * @param _bytesProof proof for verifying Oracle rate
     **/
     function borrow(
         address _reserve,
         uint256 _amount,
         uint256 _interestRateMode,
-        uint16 _referralCode
+        uint16 _referralCode,
+        bytes calldata _bytesProof
     )
         external
         nonReentrant
@@ -429,7 +431,7 @@ contract LendingPool is ReentrancyGuard, VersionedInitializable {
             vars.currentLiquidationThreshold,
             ,
             vars.healthFactorBelowThreshold
-        ) = dataProvider.calculateUserGlobalData(msg.sender);
+        ) = dataProvider.calculateUserGlobalData(_bytesProof, msg.sender);
 
         require(vars.userCollateralBalanceETH > 0, "The collateral balance is 0");
 
@@ -449,7 +451,8 @@ contract LendingPool is ReentrancyGuard, VersionedInitializable {
             vars.borrowFee,
             vars.userBorrowBalanceETH,
             vars.userTotalFeesETH,
-            vars.currentLtv
+            vars.currentLtv,
+            _bytesProof
         );
 
         require(
@@ -766,10 +769,11 @@ contract LendingPool is ReentrancyGuard, VersionedInitializable {
 
     /**
     * @dev allows depositors to enable or disable a specific deposit as collateral.
+    * @param _bytesProof proof for verifying Oracle rate
     * @param _reserve the address of the reserve
     * @param _useAsCollateral true if the user wants to user the deposit as collateral, false otherwise.
     **/
-    function setUserUseReserveAsCollateral(address _reserve, bool _useAsCollateral)
+    function setUserUseReserveAsCollateral(bytes calldata _bytesProof, address _reserve, bool _useAsCollateral)
         external
         nonReentrant
         onlyActiveReserve(_reserve)
@@ -780,7 +784,7 @@ contract LendingPool is ReentrancyGuard, VersionedInitializable {
         require(underlyingBalance > 0, "User does not have any liquidity deposited");
 
         require(
-            dataProvider.balanceDecreaseAllowed(_reserve, msg.sender, underlyingBalance),
+            dataProvider.balanceDecreaseAllowed(_bytesProof, _reserve, msg.sender, underlyingBalance),
             "User deposit is already being used as collateral"
         );
 
@@ -944,9 +948,8 @@ contract LendingPool is ReentrancyGuard, VersionedInitializable {
         return dataProvider.getReserveData(_reserve);
     }
 
-    function getUserAccountData(address _user)
+    function getUserAccountData(bytes calldata _bytesProof,address _user)
         external
-        view
         returns (
             uint256 totalLiquidityETH,
             uint256 totalCollateralETH,
@@ -958,7 +961,7 @@ contract LendingPool is ReentrancyGuard, VersionedInitializable {
             uint256 healthFactor
         )
     {
-        return dataProvider.getUserAccountData(_user);
+        return dataProvider.getUserAccountData(_bytesProof, _user);
     }
 
     function getUserReserveData(address _reserve, address _user)

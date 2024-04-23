@@ -139,8 +139,8 @@ contract AToken is ERC20, ERC20Detailed {
         _;
     }
 
-    modifier whenTransferAllowed(address _from, uint256 _amount) {
-        require(isTransferAllowed(_from, _amount), "Transfer cannot be allowed.");
+    modifier whenTransferAllowed(bytes memory _bytesProof, address _from, uint256 _amount) {
+        require(isTransferAllowed(_bytesProof, _from, _amount), "Transfer cannot be allowed.");
         _;
     }
 
@@ -163,7 +163,7 @@ contract AToken is ERC20, ERC20Detailed {
      * @notice ERC20 implementation internal function backing transfer() and transferFrom()
      * @dev validates the transfer before allowing it. NOTE: This is not standard ERC20 behavior
      **/
-    function _transfer(address _from, address _to, uint256 _amount) internal whenTransferAllowed(_from, _amount) {
+    function _transfer(bytes memory _bytesProof,address _from, address _to, uint256 _amount) internal whenTransferAllowed(_bytesProof, _from, _amount) {
 
         executeTransferInternal(_from, _to, _amount);
     }
@@ -214,7 +214,7 @@ contract AToken is ERC20, ERC20Detailed {
     * @dev redeems aToken for the underlying asset
     * @param _amount the amount being redeemed
     **/
-    function redeem(uint256 _amount) external {
+    function redeem(bytes calldata _bytesProof, uint256 _amount) external {
 
         require(_amount > 0, "Amount to redeem needs to be > 0");
 
@@ -234,7 +234,7 @@ contract AToken is ERC20, ERC20Detailed {
         require(amountToRedeem <= currentBalance, "User cannot redeem more than the available balance");
 
         //check that the user is allowed to redeem the amount
-        require(isTransferAllowed(msg.sender, amountToRedeem), "Transfer cannot be allowed.");
+        require(isTransferAllowed(_bytesProof, msg.sender, amountToRedeem), "Transfer cannot be allowed.");
 
         //if the user is redirecting his interest towards someone else,
         //we update the redirected balance of the redirection address by adding the accrued interest,
@@ -407,10 +407,11 @@ contract AToken is ERC20, ERC20Detailed {
      * @dev Used to validate transfers before actually executing them.
      * @param _user address of the user to check
      * @param _amount the amount to check
+     * @param _bytesProof proof for verifying Oracle rate
      * @return true if the _user can transfer _amount, false otherwise
      **/
-    function isTransferAllowed(address _user, uint256 _amount) public view returns (bool) {
-        return dataProvider.balanceDecreaseAllowed(underlyingAssetAddress, _user, _amount);
+    function isTransferAllowed(bytes memory _bytesProof, address _user, uint256 _amount) public returns (bool) {
+        return dataProvider.balanceDecreaseAllowed(_bytesProof,underlyingAssetAddress, _user, _amount);
     }
 
     /**

@@ -297,7 +297,6 @@ contract LendingPoolCore is VersionedInitializable {
     * @param _feeLiquidated the amount of origination fee being liquidated
     * @param _liquidatedCollateralForFee the amount of collateral equivalent to the origination fee + bonus
     * @param _balanceIncrease the accrued interest on the borrowed amount
-    * @param _liquidatorReceivesAToken true if the liquidator will receive aTokens, false otherwise
     **/
     function updateStateOnLiquidation(
         address _principalReserve,
@@ -307,8 +306,7 @@ contract LendingPoolCore is VersionedInitializable {
         uint256 _collateralToLiquidate,
         uint256 _feeLiquidated,
         uint256 _liquidatedCollateralForFee,
-        uint256 _balanceIncrease,
-        bool _liquidatorReceivesAToken
+        uint256 _balanceIncrease
     ) external onlyLendingPool {
         updatePrincipalReserveStateOnLiquidationInternal(
             _principalReserve,
@@ -331,14 +329,18 @@ contract LendingPoolCore is VersionedInitializable {
 
         updateReserveInterestRatesAndTimestampInternal(_principalReserve, _amountToLiquidate, 0);
 
-        if (!_liquidatorReceivesAToken) {
-            updateReserveInterestRatesAndTimestampInternal(
-                _collateralReserve,
-                0,
-                _collateralToLiquidate.add(_liquidatedCollateralForFee)
-            );
-        }
+    }
 
+    function updateStateOnLiquidationifAToken(
+        address _collateralReserve,
+        uint256 _collateralToLiquidate,
+        uint256 _liquidatedCollateralForFee
+    ) external onlyLendingPool {
+        updateReserveInterestRatesAndTimestampInternal(
+                    _collateralReserve,
+                    0,
+                    _collateralToLiquidate.add(_liquidatedCollateralForFee)
+                );
     }
 
     /**
