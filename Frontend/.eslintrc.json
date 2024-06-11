@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["import", "@typescript-eslint"],
+  "rules": { "import/order": ["error"], "react-hooks/exhaustive-deps": "off" },
+  "root": true
+}
